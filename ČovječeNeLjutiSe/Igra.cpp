@@ -53,6 +53,21 @@ Figura ** Igra::izaberiFiguru(Igraè * trenutniIgraè, int dobivenBrojSKocke)
 	else
 		return trenutniIgraè->figureNaPolju;
 }
+
+bool Igra::pomakniFiguru(Igraè * trenutniIgraè, Figura * figura, int brojPomaka)
+{
+	if (trenutniIgraè->pomakni(figura, brojPomaka)) {
+		Figura* figuraNaTomPolju = ploèa->provjeraPolja(figura->trenutnoPolje);
+		if (figuraNaTomPolju != nullptr) {
+			figuraNaTomPolju->trenutnoPolje = -1;
+			if (figura->poljeUKuæi < 0)
+				ploèa->zauzmiPolje(figura, figura->trenutnoPolje);
+		}
+		return true;
+	}
+	return false;
+}
+
 char Igra::vratiBojuIgraèa(int i)
 {
 	switch (i) {

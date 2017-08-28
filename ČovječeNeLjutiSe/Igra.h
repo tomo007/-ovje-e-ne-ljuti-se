@@ -14,5 +14,6 @@ public:
 	int bacajKocku();
 	Igraè* promjenaIgraèa(Igraè* trenutniIgraè);
 	Figura** izaberiFiguru(Igraè* trenutniIgraè, int dobivenBrojSKocke);
+	bool pomakniFiguru(Igraè* trenutniIgraè,Figura* figura, int brojPomaka);
 };
 
