@@ -8,6 +8,7 @@ private:
 	std::map<int, Figura*> kuæa;
 	int vratiPoèetnoPolje(char boja);
 	int vratiZadnjePolje(char boja);
+	bool provjeraZaPreskakanjeFigura(int zadanoPolje);
 public:
 	Figura* figure[4];
 	Figura* figureNaPolju[4];

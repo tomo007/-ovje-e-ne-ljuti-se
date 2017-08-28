@@ -34,6 +34,16 @@ int Igraè::vratiZadnjePolje(char boja)
 	}
 }
 
+bool Igraè::provjeraZaPreskakanjeFigura(int zadanoPolje)
+{
+	for (int i = 0; i < 4; ++i) {
+		if (figureNaPolju[i] != nullptr)
+			if (figureNaPolju[i]->trenutnoPolje >= zadanoPolje)
+				return false;
+	}
+	return true;
+}
+
 Igraè::Igraè(char boja)
 {
 	for (int i = 0; i < 4; ++i) {
@@ -55,13 +65,12 @@ bool Igraè::pomakni(Figura * figura, int brojPomaka)
 	int novoPolje = figura->trenutnoPolje + brojPomaka;
 	int zadnjePolje = figura->vratiZavršnuToèku();
 	if (novoPolje <= zadnjePolje) {
-		for (int i = 0; i < 4; ++i) {
-			if (figureNaPolju[i] != nullptr)
-				if (figureNaPolju[i]->trenutnoPolje >= novoPolje)
-					return false;
+		if (provjeraZaPreskakanjeFigura(novoPolje)) {
+			figura->trenutnoPolje = novoPolje % 39;
+			return true;
 		}
-		figura->trenutnoPolje = novoPolje%39;
-		return true;
+		else 
+			return false;		
 	}
 	else {
 		return pomakniUKuæu(figura, novoPolje - zadnjePolje);
