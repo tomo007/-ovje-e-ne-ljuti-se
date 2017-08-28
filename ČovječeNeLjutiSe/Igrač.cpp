@@ -37,9 +37,9 @@ int Igraè::vratiZadnjePolje(char boja)
 Igraè::Igraè(char boja)
 {
 	for (int i = 0; i < 4; ++i) {
-		Igraè::kuæa[i] = nullptr;
-		Igraè::figureNaPolju[i] = nullptr;
-		Igraè::figure[i] = new Figura(boja, vratiPoèetnoPolje(boja), vratiZadnjePolje(boja));
+		kuæa[i] = nullptr;
+		figureNaPolju[i] = nullptr;
+		figure[i] = new Figura(boja, vratiPoèetnoPolje(boja), vratiZadnjePolje(boja));
 	}
 
 
@@ -50,6 +50,34 @@ Igraè::~Igraè()
 {
 }
 
-void Igraè::move(Figura * figura, int brojPomaka)
+bool Igraè::pomakni(Figura * figura, int brojPomaka)
+{	
+	int novoPolje = figura->trenutnoPolje + brojPomaka;
+	int zadnjePolje = figura->vratiZavršnuToèku();
+	if (novoPolje <= zadnjePolje) {
+		figura->trenutnoPolje = novoPolje%39;
+		return true;
+	}
+	else {
+		return pomakniUKuæu(figura, novoPolje - zadnjePolje);
+	}
+}
+
+bool Igraè::pomakniUKuæu(Figura * figura, int brojPomaka)
+{	if(brojPomaka<=4)
+		for (int i = 0; i < 4; ++i) {
+			if (figureNaPolju[i] != nullptr)
+				break;
+			if (figureNaPolju[i]->poljeUKuæi >= 0)
+				if (figureNaPolju[i] != figura)
+					return false;
+		}	
+		kuæa.at(brojPomaka-1) = figura;
+		figura->poljeUKuæi = brojPomaka - 1;
+		return true;
+}
+
+char Igraè::vratiBoju()
 {
+	return figure[0]->vratiBoju();
 }

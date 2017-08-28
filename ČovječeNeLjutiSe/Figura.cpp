@@ -2,16 +2,32 @@
 #include "Figura.h"
 
 
-Figura::Figura(char boja, byte poèetak, byte cilj)
+Figura::Figura(char b, byte p, byte c)
 {
-	Figura::boja = boja;
-	Figura::trenutnoPolje = -1;
-	Figura::poèetak = poèetak;
-	Figura::cilj = cilj;
+	boja = b;
+	trenutnoPolje = -1;
+	poljeUKuæi = -1;
+	poèetak = p;
+	cilj = c;
 
 }
 
 
 Figura::~Figura()
 {
+}
+
+char Figura::vratiBoju()
+{
+	return Figura::boja;
+}
+
+byte Figura::vratiPoèetnuToèku()
+{
+	return poèetak;
+}
+
+byte Figura::vratiZavršnuToèku()
+{
+	return cilj;
 }

@@ -4,9 +4,14 @@ class Figura
 private:
 	byte naziv;
 	char boja;
-	byte poèetak,cilj,trenutnoPolje;
+	byte poèetak,cilj;
+public: int trenutnoPolje;
+		int poljeUKuæi;
 public:
-	Figura(char boja,byte poèetak,byte cilj);
+	Figura(char b, byte p, byte c);
 	~Figura();
+	char vratiBoju();
+	byte vratiPoèetnuToèku();
+	byte vratiZavršnuToèku();
 };
 

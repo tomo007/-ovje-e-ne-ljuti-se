@@ -5,14 +5,16 @@
 class Igraè
 {
 private:
-	Figura* figure[4];
-	Figura* figureNaPolju[4];
 	std::map<int, Figura*> kuæa;
 	int vratiPoèetnoPolje(char boja);
 	int vratiZadnjePolje(char boja);
 public:
+	Figura* figure[4];
+	Figura* figureNaPolju[4];
 	Igraè(char boja);
 	~Igraè();
-	void move(Figura* figura,int brojPomaka);
+	bool pomakni(Figura* figura,int brojPomaka);
+	bool pomakniUKuæu(Figura* figura, int brojPomaka);
+	char vratiBoju();
 };
 
