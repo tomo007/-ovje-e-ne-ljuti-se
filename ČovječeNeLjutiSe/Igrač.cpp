@@ -55,6 +55,11 @@ bool Igraè::pomakni(Figura * figura, int brojPomaka)
 	int novoPolje = figura->trenutnoPolje + brojPomaka;
 	int zadnjePolje = figura->vratiZavršnuToèku();
 	if (novoPolje <= zadnjePolje) {
+		for (int i = 0; i < 4; ++i) {
+			if (figureNaPolju[i] != nullptr)
+				if (figureNaPolju[i]->trenutnoPolje >= novoPolje)
+					return false;
+		}
 		figura->trenutnoPolje = novoPolje%39;
 		return true;
 	}
@@ -64,17 +69,19 @@ bool Igraè::pomakni(Figura * figura, int brojPomaka)
 }
 
 bool Igraè::pomakniUKuæu(Figura * figura, int brojPomaka)
-{	if(brojPomaka<=4)
+{
+	if (brojPomaka <= 4) {
 		for (int i = 0; i < 4; ++i) {
 			if (figureNaPolju[i] != nullptr)
-				break;
-			if (figureNaPolju[i]->poljeUKuæi >= 0)
-				if (figureNaPolju[i] != figura)
-					return false;
-		}	
-		kuæa.at(brojPomaka-1) = figura;
+				if (figureNaPolju[i]->poljeUKuæi >= 0)
+					if (figureNaPolju[i] != figura)
+						return false;
+		}
+		kuæa.at(brojPomaka - 1) = figura;
 		figura->poljeUKuæi = brojPomaka - 1;
 		return true;
+	}
+	return false;
 }
 
 char Igraè::vratiBoju()
