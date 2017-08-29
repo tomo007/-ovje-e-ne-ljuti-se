@@ -215,14 +215,14 @@
     <ClCompile Include="ČovječeNeLjutiSeView.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="ČovječeNeLjutiSe.rc" />
+    <Image Include="res\ČovječeNeLjutiSe.ico" />
+    <Image Include="res\ČovječeNeLjutiSeDoc.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\CovjeceNeLjutiSe.rc2" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\ČovječeNeLjutiSe.ico" />
-    <Image Include="res\ČovječeNeLjutiSeDoc.ico" />
+    <ResourceCompile Include="ČovječeNeLjutiSe.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
