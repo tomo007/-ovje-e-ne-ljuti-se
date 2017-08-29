@@ -86,6 +86,8 @@ bool Igraè::pomakniUKuæu(Figura * figura, int brojPomaka)
 					if (figureNaPolju[i] != figura)
 						return false;
 		}
+		if ((figura->poljeUKuæi + brojPomaka - 1) > 4)
+			return false;
 		kuæa.at(brojPomaka - 1) = figura;
 		figura->poljeUKuæi = brojPomaka - 1;
 		return true;
