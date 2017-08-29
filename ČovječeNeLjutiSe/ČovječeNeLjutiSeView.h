@@ -16,7 +16,9 @@ public:
 	CÈovjeèeNeLjutiSeDoc* GetDocument() const;
 
 // Operations
-public:
+	
+private: double duljinaKuèice;
+private: double visinaKuèice;
 private: void iscrtajPolje(CDC* pDC,double dx, double dy, RECT r);
 private: void iscrtajKuèicu(CDC* pDC, double dx, double dy, RECT r);
 private: void iscrtajCijeliRedHorizontalno(CDC* pDC, double dx, double dy, RECT r);

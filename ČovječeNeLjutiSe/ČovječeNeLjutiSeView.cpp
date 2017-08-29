@@ -28,7 +28,7 @@ END_MESSAGE_MAP()
 
 CÈovjeèeNeLjutiSeView::CÈovjeèeNeLjutiSeView()
 {
-	// TODO: add construction code here
+	
 
 }
 
@@ -48,8 +48,7 @@ BOOL CÈovjeèeNeLjutiSeView::PreCreateWindow(CREATESTRUCT& cs)
 
 void CÈovjeèeNeLjutiSeView::iscrtajPolje(CDC* pDC, double dx, double dy, RECT r)
 {
-	double duljinaKuèice = r.right / 11;
-	double visinaKuèice = r.bottom / 11;
+	
 	CPen * oldPen;
 	CBrush * oldBrush;
 	CPen crvenaOlovka(PS_SOLID, 7, RGB(255, 0, 0));
@@ -57,6 +56,21 @@ void CÈovjeèeNeLjutiSeView::iscrtajPolje(CDC* pDC, double dx, double dy, RECT r)
 	CPen zelenaOlovka(PS_SOLID, 7, RGB(0, 255, 0));
 	CPen zutaOlovka(PS_SOLID, 7, RGB(255, 255, 0));
 	CPen crnaOlovka(PS_SOLID, 5, RGB(0, 0, 0));
+	//stupci
+	double cetvrtiStupac = duljinaKuèice * 4;
+	double petiStupac = duljinaKuèice * 5;
+	double sestiStupac = duljinaKuèice * 6;
+	double sedmiStupac = duljinaKuèice * 7;
+	double devetiStupac = duljinaKuèice * 9;
+	double desetiStupac = duljinaKuèice * 10;
+	//redci
+	double cetvrtiRed = visinaKuèice * 4;
+	double petiRed = visinaKuèice * 5;
+	double sestiRed = visinaKuèice * 6;
+	double sedmiRed = visinaKuèice * 7;
+	double devetiRed = visinaKuèice * 9;
+	double desetiRed = visinaKuèice * 10;
+
 	
 	
 	oldPen = pDC->SelectObject(&crvenaOlovka);
@@ -64,56 +78,54 @@ void CÈovjeèeNeLjutiSeView::iscrtajPolje(CDC* pDC, double dx, double dy, RECT r)
 	pDC->SelectObject(oldPen);	
 
 	oldPen = pDC->SelectObject(&plavaOlovka);
-	iscrtajKuèicu(pDC, duljinaKuèice*9, 0, r);
+	iscrtajKuèicu(pDC, devetiStupac, 0, r);
 	pDC->SelectObject(oldPen);
 	
 
 	oldPen = pDC->SelectObject(&zutaOlovka);
-	iscrtajKuèicu(pDC, 0, visinaKuèice*9, r);
+	iscrtajKuèicu(pDC, 0, devetiRed, r);
 	pDC->SelectObject(oldPen);
 
 	oldPen = pDC->SelectObject(&zelenaOlovka);
-	iscrtajKuèicu(pDC, duljinaKuèice*9, visinaKuèice*9, r);
+	iscrtajKuèicu(pDC, devetiStupac, devetiRed, r);
 	pDC->SelectObject(oldPen);
 
 	oldPen = pDC->SelectObject(&crnaOlovka);
-	iscrtajCijeliRedHorizontalno(pDC,0,4*visinaKuèice,r);
-	iscrtajCijeliRedHorizontalno(pDC, 0, 6 * visinaKuèice, r);
-	iscrtajCijeliRedVertikalno(pDC, 4 * duljinaKuèice, 0, r);
-	iscrtajCijeliRedVertikalno(pDC, 6 * duljinaKuèice, 0, r);
-	pDC->Ellipse(0, visinaKuèice*5,duljinaKuèice,visinaKuèice*6);
-	pDC->Ellipse(duljinaKuèice * 5, visinaKuèice * 10,  duljinaKuèice * 6, r.bottom);
-	pDC->Ellipse(duljinaKuèice*10, visinaKuèice * 5, r.right, visinaKuèice*6);
-	pDC->Ellipse(duljinaKuèice * 5, 0, duljinaKuèice * 6, visinaKuèice);
+	iscrtajCijeliRedHorizontalno(pDC,0,cetvrtiRed,r);
+	iscrtajCijeliRedHorizontalno(pDC, 0, sestiRed, r);
+	iscrtajCijeliRedVertikalno(pDC, cetvrtiStupac, 0, r);
+	iscrtajCijeliRedVertikalno(pDC, sestiStupac, 0, r);
+	pDC->Ellipse(0, sestiRed,duljinaKuèice,sestiRed);
+	pDC->Ellipse(petiStupac, desetiRed,  sestiStupac, r.bottom);
+	pDC->Ellipse(desetiStupac, petiRed, r.right, sestiRed);
+	pDC->Ellipse(petiStupac, 0, sestiStupac, visinaKuèice);
 	pDC->SelectObject(oldPen);
 
 	oldPen = pDC->SelectObject(&crvenaOlovka);
-	pDC->Ellipse(0, visinaKuèice * 4, duljinaKuèice, visinaKuèice * 5);
-	iscrtajCiljHorizontalno(pDC, duljinaKuèice, visinaKuèice * 5, r);
+	pDC->Ellipse(0, cetvrtiRed, duljinaKuèice, petiRed);
+	iscrtajCiljHorizontalno(pDC, duljinaKuèice, petiRed, r);
 	pDC->SelectObject(oldPen);
 
 
 	oldPen = pDC->SelectObject(&zelenaOlovka);
-	pDC->Ellipse(duljinaKuèice * 10, visinaKuèice * 6, r.right, visinaKuèice * 7);
-	iscrtajCiljHorizontalno(pDC, duljinaKuèice*6, visinaKuèice * 5, r);
+	pDC->Ellipse(desetiStupac, sestiRed, r.right, sedmiRed);
+	iscrtajCiljHorizontalno(pDC, sestiStupac, petiRed, r);
 	pDC->SelectObject(oldPen);
 
 	oldPen = pDC->SelectObject(&plavaOlovka);
-	pDC->Ellipse(duljinaKuèice * 6, 0, duljinaKuèice * 7, visinaKuèice);
-	iscrtajCiljVertikalno(pDC, duljinaKuèice * 5, visinaKuèice, r);
+	pDC->Ellipse(sestiStupac, 0, sedmiStupac, visinaKuèice);
+	iscrtajCiljVertikalno(pDC, petiStupac, visinaKuèice, r);
 	pDC->SelectObject(oldPen);
 
 	oldPen = pDC->SelectObject(&zutaOlovka);
-	pDC->Ellipse(duljinaKuèice * 4, visinaKuèice * 10, duljinaKuèice * 5, r.bottom);
-	iscrtajCiljVertikalno(pDC, duljinaKuèice * 5, visinaKuèice*6, r);
+	pDC->Ellipse(cetvrtiStupac, desetiRed, petiStupac, r.bottom);
+	iscrtajCiljVertikalno(pDC, petiStupac, sestiRed, r);
 	pDC->SelectObject(oldPen);
 
 }
 
 void CÈovjeèeNeLjutiSeView::iscrtajKuèicu(CDC * pDC, double dx, double dy, RECT r)
 {	
-	double duljinaKuèice = r.right / 11;
-	double visinaKuèice = r.bottom / 11;
 	int i = 1;
 	while (i < 3) {
 		pDC->Ellipse(dx, dy, dx + duljinaKuèice, dy + visinaKuèice);
@@ -125,8 +137,6 @@ void CÈovjeèeNeLjutiSeView::iscrtajKuèicu(CDC * pDC, double dx, double dy, RECT 
 
 void CÈovjeèeNeLjutiSeView::iscrtajCijeliRedHorizontalno(CDC * pDC, double dx, double dy, RECT r)
 {
-	double duljinaKuèice = r.right / 11;
-	double visinaKuèice = r.bottom / 11;
 	while (dx +duljinaKuèice< r.right) {
 		pDC->Ellipse(dx, dy, dx + duljinaKuèice, dy + visinaKuèice);
 		dx += duljinaKuèice;
@@ -135,8 +145,6 @@ void CÈovjeèeNeLjutiSeView::iscrtajCijeliRedHorizontalno(CDC * pDC, double dx, d
 
 void CÈovjeèeNeLjutiSeView::iscrtajCijeliRedVertikalno(CDC * pDC, double dx, double dy, RECT r)
 {
-	double duljinaKuèice = r.right / 11;
-	double visinaKuèice = r.bottom / 11;
 	while (dy < r.bottom) {
 		pDC->Ellipse(dx, dy, dx + duljinaKuèice, dy + visinaKuèice);
 		dy += visinaKuèice;
@@ -145,8 +153,6 @@ void CÈovjeèeNeLjutiSeView::iscrtajCijeliRedVertikalno(CDC * pDC, double dx, dou
 
 void CÈovjeèeNeLjutiSeView::iscrtajCiljHorizontalno(CDC * pDC, double dx, double dy, RECT r)
 {
-	double duljinaKuèice = r.right / 11;
-	double visinaKuèice = r.bottom / 11;
 	int i = 0;
 	while (i<4) {
 		pDC->Ellipse(dx, dy, dx + duljinaKuèice, dy + visinaKuèice);
@@ -158,8 +164,6 @@ void CÈovjeèeNeLjutiSeView::iscrtajCiljHorizontalno(CDC * pDC, double dx, double
 
 void CÈovjeèeNeLjutiSeView::iscrtajCiljVertikalno(CDC * pDC, double dx, double dy, RECT r)
 {
-	double duljinaKuèice = r.right / 11;
-	double visinaKuèice = r.bottom / 11;
 	int i = 0;
 	while (i<4) {
 		pDC->Ellipse(dx, dy, dx + duljinaKuèice, dy + visinaKuèice);
@@ -176,6 +180,9 @@ void CÈovjeèeNeLjutiSeView::OnDraw(CDC* pDC)
 		return;
 	RECT r;
 	GetClientRect(&r);
+	int brojRedova = 11;
+	duljinaKuèice = r.right / brojRedova;
+	visinaKuèice = r.bottom / brojRedova;
 	iscrtajPolje(pDC, 0, 0, r);
 	// TODO: add draw code for native data here
 }
