@@ -17,6 +17,12 @@ public:
 
 // Operations
 public:
+private: void iscrtajPolje(CDC* pDC,double dx, double dy, RECT r);
+private: void iscrtajKuèicu(CDC* pDC, double dx, double dy, RECT r);
+private: void iscrtajCijeliRedHorizontalno(CDC* pDC, double dx, double dy, RECT r);
+private: void iscrtajCijeliRedVertikalno(CDC* pDC, double dx, double dy, RECT r);
+private: void iscrtajCiljHorizontalno(CDC* pDC, double dx, double dy, RECT r);
+private: void iscrtajCiljVertikalno(CDC* pDC, double dx, double dy, RECT r);
 
 // Overrides
 public:
