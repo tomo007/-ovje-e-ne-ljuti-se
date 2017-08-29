@@ -12,8 +12,8 @@ private:
 	int vratiZadnjePolje(Boja boja);
 	bool provjeraZaPreskakanjeFigura(int zadanoPolje);
 public:
-	std::vector<Figura*> figure;
-	std::vector<Figura*> figureNaPolju;
+	std::vector<Figura> figure;
+	std::vector<Figura> figureNaPolju;
 	Igraè(Boja boja);
 	~Igraè();
 	bool pomakni(Figura* figura,int brojPomaka);
