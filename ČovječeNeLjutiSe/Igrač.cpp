@@ -2,32 +2,32 @@
 #include "Igraè.h"
 
 
-int Igraè::vratiPoèetnoPolje(char boja)
+int Igraè::vratiPoèetnoPolje(Boja boja)
 {
 	switch (boja) {
-	case 'c':
+	case Boja::CRVENA:
 		return 0;
-	case 'p':
+	case Boja::PLAVA:
 		return 10;
-	case 'z':
+	case Boja::ZELENA:
 		return 20;
-	case 'ž':
+	case Boja::ZUTA:
 		return 30;
 	default:
 		break;
 	}
 }
 
-int Igraè::vratiZadnjePolje(char boja)
+int Igraè::vratiZadnjePolje(Boja boja)
 {
 	switch (boja) {
-	case 'c':
+	case Boja::CRVENA:
 		return 39;
-	case 'p':
+	case Boja::PLAVA:
 		return 9;
-	case 'z':
+	case Boja::ZELENA:
 		return 19;
-	case 'ž':
+	case Boja::ZUTA:
 		return 29;
 	default:
 		break;
@@ -44,7 +44,7 @@ bool Igraè::provjeraZaPreskakanjeFigura(int zadanoPolje)
 	return true;
 }
 
-Igraè::Igraè(char boja)
+Igraè::Igraè(Boja boja)
 {
 	for (int i = 0; i < 4; ++i) {
 		kuæa[i] = nullptr;
@@ -93,7 +93,7 @@ bool Igraè::pomakniUKuæu(Figura * figura, int brojPomaka)
 	return false;
 }
 
-char Igraè::vratiBoju()
+Boja Igraè::vratiBoju()
 {
 	return figure[0]->vratiBoju();
 }

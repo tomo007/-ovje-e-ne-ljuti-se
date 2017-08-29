@@ -51,6 +51,9 @@
     <ClInclude Include="Igra.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Boja.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ČovječeNeLjutiSe.cpp">

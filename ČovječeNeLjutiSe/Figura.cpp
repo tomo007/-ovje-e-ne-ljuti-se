@@ -2,7 +2,7 @@
 #include "Figura.h"
 
 
-Figura::Figura(char b, byte p, byte c)
+Figura::Figura(Boja b, byte p, byte c)
 {
 	boja = b;
 	trenutnoPolje = -1;
@@ -17,9 +17,9 @@ Figura::~Figura()
 {
 }
 
-char Figura::vratiBoju()
+Boja Figura::vratiBoju()
 {
-	return Figura::boja;
+	return boja;
 }
 
 byte Figura::vratiPoèetnuToèku()

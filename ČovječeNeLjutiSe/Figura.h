@@ -1,16 +1,18 @@
 #pragma once
+#include "Boja.h"
 class Figura
 {
 private:
+
 	byte naziv;
-	char boja;
+	Boja boja;
 	byte poèetak,cilj;
 public: int trenutnoPolje;
 		int poljeUKuæi;
 public:
-	Figura(char b, byte p, byte c);
+	Figura(Boja b, byte p, byte c);
 	~Figura();
-	char vratiBoju();
+	Boja vratiBoju();
 	byte vratiPoèetnuToèku();
 	byte vratiZavršnuToèku();
 };

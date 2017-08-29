@@ -9,7 +9,7 @@ class Igra
 private:
 	Ploèa* ploèa;
 	std::vector<Igraè*> igraèi;
-	char vratiBojuIgraèa(int i);
+	Boja vratiBojuIgraèa(int i);
 public:
 	Igra(byte brojIgraèa);
 	~Igra();

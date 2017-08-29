@@ -185,6 +185,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Boja.h" />
     <ClInclude Include="Figura.h" />
     <ClInclude Include="Igra.h" />
     <ClInclude Include="Igrač.h" />

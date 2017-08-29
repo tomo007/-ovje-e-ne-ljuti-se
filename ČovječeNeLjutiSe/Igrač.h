@@ -7,16 +7,16 @@ class Igraè
 {
 private:
 	std::map<int, Figura*> kuæa;
-	int vratiPoèetnoPolje(char boja);
-	int vratiZadnjePolje(char boja);
+	int vratiPoèetnoPolje(Boja boja);
+	int vratiZadnjePolje(Boja boja);
 	bool provjeraZaPreskakanjeFigura(int zadanoPolje);
 public:
 	std::vector<Figura*> figure;
 	std::vector<Figura*> figureNaPolju;
-	Igraè(char boja);
+	Igraè(Boja boja);
 	~Igraè();
 	bool pomakni(Figura* figura,int brojPomaka);
 	bool pomakniUKuæu(Figura* figura, int brojPomaka);
-	char vratiBoju();
+	Boja vratiBoju();
 };
 

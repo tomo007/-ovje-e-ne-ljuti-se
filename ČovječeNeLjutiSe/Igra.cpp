@@ -24,23 +24,23 @@ int Igra::bacajKocku()
 }
 Igraè * Igra::promjenaIgraèa(Igraè * trenutniIgraè)
 {
-	char bojaTrenutnogIgraèa = trenutniIgraè->vratiBoju();
+	Boja bojaTrenutnogIgraèa = trenutniIgraè->vratiBoju();
 	switch (bojaTrenutnogIgraèa) 
 	{
-	case 'c':
+	case Boja::CRVENA:
 		return igraèi[1];
-	case 'p':
+	case Boja::PLAVA:
 		if (igraèi[2] == nullptr)
-			return igraèi[0];
+			return igraèi.front();
 		else
 			return igraèi[2];
-	case 'z':
+	case Boja::ZELENA:
 		if (igraèi[3] == nullptr)
-			return igraèi[0];
+			return igraèi.front();
 		else
 			return igraèi[3];
-	case 'ž':
-		return igraèi[0];
+	case Boja::ZUTA:
+		return igraèi.front();
 	default:
 		break;
 	}
@@ -68,17 +68,17 @@ bool Igra::pomakniFiguru(Igraè * trenutniIgraè, Figura * figura, int brojPomaka)
 	return false;
 }
 
-char Igra::vratiBojuIgraèa(int i)
+Boja Igra::vratiBojuIgraèa(int i)
 {
 	switch (i) {
 	case 0:
-		return 'c';
+		return Boja::CRVENA;
 	case 1:
-		return 'p';
+		return Boja::PLAVA;
 	case 2:
-		return 'z';
+		return Boja::ZELENA;
 	case 3:
-		return 'ž';
+		return Boja::ZUTA;
 	default:
 		break;
 	}
