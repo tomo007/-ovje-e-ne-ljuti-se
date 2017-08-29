@@ -5,10 +5,11 @@
 Figura::Figura(Boja b, byte p, byte c)
 {
 	boja = b;
-	trenutnoPolje = -1;
 	poljeUKuæi = -1;
 	poèetak = p;
 	cilj = c;
+	for (int i = poèetak; i != cilj; ++i)
+		trenutnoPolje.push_back(i % 40);
 
 }
 

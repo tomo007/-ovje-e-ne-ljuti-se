@@ -57,11 +57,11 @@ std::vector<Figura *> Igra::izaberiFiguru(Igraè * trenutniIgraè, int dobivenBroj
 bool Igra::pomakniFiguru(Igraè * trenutniIgraè, Figura * figura, int brojPomaka)
 {
 	if (trenutniIgraè->pomakni(figura, brojPomaka)) {
-		Figura* figuraNaTomPolju = ploèa->provjeraPolja(figura->trenutnoPolje);
+		Figura* figuraNaTomPolju = ploèa->provjeraPolja(figura->trenutnoPolje.front());
 		if (figuraNaTomPolju != nullptr) {
-			figuraNaTomPolju->trenutnoPolje = -1;
+			figuraNaTomPolju = new Figura(figuraNaTomPolju->vratiBoju(), figuraNaTomPolju->vratiPoèetnuToèku(), figuraNaTomPolju->vratiZavršnuToèku());
 			if (figura->poljeUKuæi < 0)
-				ploèa->zauzmiPolje(figura, figura->trenutnoPolje);
+				ploèa->zauzmiPolje(figura, figura->trenutnoPolje.front());
 		}
 		return true;
 	}
