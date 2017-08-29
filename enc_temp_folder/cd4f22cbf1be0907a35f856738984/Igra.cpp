@@ -59,8 +59,7 @@ bool Igra::pomakniFiguru(Igraè* trenutniIgraè, Figura * figura, int brojPomaka)
 			if (figura->poljeUKuæi < 0)
 				ploèa.zauzmiPolje(figura, figura->trenutnoPolje.front());
 		}
-		if (trenutniIgraè->zadnjeSlobodnoMjestoUKuæi == 0)
-			return true;
+		return true;
 	}
 	return false;
 }

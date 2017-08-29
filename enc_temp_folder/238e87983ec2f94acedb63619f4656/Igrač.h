@@ -6,6 +6,7 @@
 class Igraè
 {
 private:
+	byte figureUKuæi;
 	std::map<int, Figura*> kuæa;
 	int vratiPoèetnoPolje(Boja boja);
 	int vratiZadnjePolje(Boja boja);
@@ -13,7 +14,6 @@ private:
 public:
 	std::vector<Figura> figure;
 	std::vector<Figura> figureNaPolju;
-	byte zadnjeSlobodnoMjestoUKuæi;
 	Igraè(Boja boja);
 	~Igraè();
 	bool pomakni(Figura* figura,int brojPomaka);

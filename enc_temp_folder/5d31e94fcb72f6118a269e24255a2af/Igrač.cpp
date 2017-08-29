@@ -50,7 +50,7 @@ Igraè::Igraè(Boja boja)
 		figure[i] =Figura(boja, vratiPoèetnoPolje(boja), vratiZadnjePolje(boja));
 		kuæa[i] = nullptr;
 	}
-	zadnjeSlobodnoMjestoUKuæi = 4;
+	figureUKuæi = 0;
 
 
 }
@@ -77,17 +77,18 @@ bool Igraè::pomakni(Figura * figura, int brojPomaka)
 bool Igraè::pomakniUKuæu(Figura * figura, int brojPomaka)
 {
 	int brojFiguraNaPolju = figureNaPolju.size();
+	if (figura->poljeUKuæi < 0)
+		++figureUKuæi;
 	if (brojPomaka <= 4) {
 		for (int i = 0; i < brojFiguraNaPolju; ++i) {
-				if (figureNaPolju[i].poljeUKuæi <= brojPomaka)
+				if (figureNaPolju[i].poljeUKuæi >= 0)
+					if (&figureNaPolju[i] != figura)
 						return false;
 		}
-		if ((figura->poljeUKuæi + brojPomaka - 1) > zadnjeSlobodnoMjestoUKuæi)
+		if ((figura->poljeUKuæi + brojPomaka - 1) > 4)
 			return false;
 		kuæa.at(brojPomaka - 1) = figura;
-		figura->poljeUKuæi += brojPomaka - 1;
-		if(figura->poljeUKuæi == zadnjeSlobodnoMjestoUKuæi)
-			--zadnjeSlobodnoMjestoUKuæi;
+		figura->poljeUKuæi = brojPomaka - 1;
 		return true;
 	}
 	return false;
