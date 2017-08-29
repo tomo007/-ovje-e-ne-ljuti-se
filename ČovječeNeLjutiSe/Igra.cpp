@@ -46,7 +46,7 @@ Igraè * Igra::promjenaIgraèa(Igraè * trenutniIgraè)
 	}
 	return nullptr;
 }
-Figura ** Igra::izaberiFiguru(Igraè * trenutniIgraè, int dobivenBrojSKocke)
+std::vector<Figura *> Igra::izaberiFiguru(Igraè * trenutniIgraè, int dobivenBrojSKocke)
 {
 	if (dobivenBrojSKocke == 6)
 		return trenutniIgraè->figure;

@@ -1,19 +1,21 @@
 #pragma once
 #include "Ploèa.h"
 #include "Igraè.h"
+#include "Figura.h"
 #include <time.h> 
+#include <vector>
 class Igra
 {
 private:
 	Ploèa* ploèa;
-	Igraè* igraèi[4];
+	std::vector<Igraè*> igraèi;
 	char vratiBojuIgraèa(int i);
 public:
 	Igra(byte brojIgraèa);
 	~Igra();
 	int bacajKocku();
 	Igraè* promjenaIgraèa(Igraè* trenutniIgraè);
-	Figura** izaberiFiguru(Igraè* trenutniIgraè, int dobivenBrojSKocke);
+	std::vector<Figura *> izaberiFiguru(Igraè* trenutniIgraè, int dobivenBrojSKocke);
 	bool pomakniFiguru(Igraè* trenutniIgraè,Figura* figura, int brojPomaka);
 };
 

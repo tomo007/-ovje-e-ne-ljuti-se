@@ -49,7 +49,7 @@ Igraè::Igraè(char boja)
 	for (int i = 0; i < 4; ++i) {
 		kuæa[i] = nullptr;
 		figureNaPolju[i] = nullptr;
-		figure[i] = new Figura(boja, vratiPoèetnoPolje(boja), vratiZadnjePolje(boja));
+		figure[i] =new Figura(boja, vratiPoèetnoPolje(boja), vratiZadnjePolje(boja));
 	}
 
 

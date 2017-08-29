@@ -2,6 +2,7 @@
 #include "Figura.h"
 #include <stdio.h>
 #include <map>
+#include <vector>
 class Igraè
 {
 private:
@@ -10,8 +11,8 @@ private:
 	int vratiZadnjePolje(char boja);
 	bool provjeraZaPreskakanjeFigura(int zadanoPolje);
 public:
-	Figura* figure[4];
-	Figura* figureNaPolju[4];
+	std::vector<Figura*> figure;
+	std::vector<Figura*> figureNaPolju;
 	Igraè(char boja);
 	~Igraè();
 	bool pomakni(Figura* figura,int brojPomaka);
