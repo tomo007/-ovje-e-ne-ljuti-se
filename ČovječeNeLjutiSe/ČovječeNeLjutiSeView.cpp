@@ -23,6 +23,7 @@ IMPLEMENT_DYNCREATE(CÈovjeèeNeLjutiSeView, CView)
 
 BEGIN_MESSAGE_MAP(CÈovjeèeNeLjutiSeView, CView)
 	ON_WM_TIMER()
+	ON_COMMAND(ID_FILE_NEW, &CÈovjeèeNeLjutiSeView::OnFileNew)
 END_MESSAGE_MAP()
 
 // CÈovjeèeNeLjutiSeView construction/destruction
@@ -51,12 +52,18 @@ void CÈovjeèeNeLjutiSeView::iscrtajPolje(CDC* pDC, double dx, double dy, RECT r)
 {
 	
 	CPen * oldPen;
-	CBrush * oldBrush;
 	CPen crvenaOlovka(PS_SOLID, 7, RGB(255, 0, 0));
 	CPen plavaOlovka(PS_SOLID, 7, RGB(0, 0, 255));
 	CPen zelenaOlovka(PS_SOLID, 7, RGB(0, 255, 0));
 	CPen zutaOlovka(PS_SOLID, 7, RGB(255, 255, 0));
 	CPen crnaOlovka(PS_SOLID, 5, RGB(0, 0, 0));
+
+	CBrush crvenaPozadina(RGB(255, 0, 0));
+	CBrush plavaPozadina(RGB(0, 0, 255));
+	CBrush zelenaPozadina(RGB(0, 255, 0));
+	CBrush zutaPozadina(RGB(255, 255, 0));
+	CBrush crnaPozadina(RGB(0, 0, 0));
+
 	//stupci
 	double cetvrtiStupac = duljinaKuèice * 4;
 	double petiStupac = duljinaKuèice * 5;
@@ -127,6 +134,10 @@ void CÈovjeèeNeLjutiSeView::iscrtajPolje(CDC* pDC, double dx, double dy, RECT r)
 	oldPen = pDC->SelectObject(&crnaOlovka);
 	pDC->Rectangle(petiStupac, petiRed, sestiStupac, sestiRed);
 	pDC->SelectObject(oldPen);
+	
+	pDC->SelectObject(&crvenaPozadina);
+	iscrtajFiguru(pDC,0,0);
+	pDC->SelectObject(&crnaPozadina);
 	switch (i)
 	{
 	case 1:
@@ -270,6 +281,25 @@ void CÈovjeèeNeLjutiSeView::iscrtajKockuJedan(CDC * pDC, double dx, double dy)
 	pDC->Ellipse(dx, dy, dx + duljinaKuèiceUKockici, dy + visinaKuèiceUKockici);
 }
 
+void CÈovjeèeNeLjutiSeView::iscrtajFiguru(CDC * pDC, double dx, double dy)
+{
+	double poèetakTijelaDx = dx + duljinaKuèiceUKockici;
+	double poèetakTijelaDy = dy + visinaKuèiceUKockici;
+	double krajTijelaDx = (dx + duljinaKuèice) - duljinaKuèiceUKockici;
+	double krajTijelaDy = (dy + visinaKuèice) - visinaKuèiceUKockici;
+
+	double poèetakGlaveDx = poèetakTijelaDx + duljinaKuèiceUKockici;
+	double poèetakGlaveDy = poèetakTijelaDy + visinaKuèiceUKockici;
+	double krajGlaveDx = poèetakGlaveDx + duljinaKuèiceUKockici;
+	double krajGlaveDy = poèetakGlaveDy + visinaKuèiceUKockici;
+
+	pDC->Ellipse(poèetakTijelaDx, poèetakTijelaDy, krajTijelaDx, krajTijelaDy);
+	CBrush brush1;   
+	brush1.CreateSolidBrush(RGB(204, 0, 204));
+	pDC->SelectObject(&brush1);
+	pDC->Ellipse(poèetakGlaveDx, poèetakGlaveDy, krajGlaveDx, krajGlaveDy);
+}
+
 void CÈovjeèeNeLjutiSeView::OnDraw(CDC* pDC)
 {
 	CÈovjeèeNeLjutiSeDoc* pDoc = GetDocument();
@@ -311,9 +341,9 @@ void CÈovjeèeNeLjutiSeView::OnTimer(UINT_PTR nIDEvent)
 	
 }
 
-void CÈovjeèeNeLjutiSeView::OnStartTimer()
+void CÈovjeèeNeLjutiSeView::OnFileNew()
 {
-	timer= timer = SetTimer(1, 50, 0);
+	timer= timer = SetTimer(1, 500, 0);
 }
 
 

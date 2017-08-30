@@ -30,12 +30,14 @@ private: void iscrtajCijeliRedVertikalno(CDC* pDC, double dx, double dy, RECT r)
 private: void iscrtajCiljHorizontalno(CDC* pDC, double dx, double dy, RECT r);
 private: void iscrtajCiljVertikalno(CDC* pDC, double dx, double dy, RECT r);
 //crtanje kocke
-private: void iscrtajKockuSest(CDC* pDC, double dx, double d);
+private: void iscrtajKockuSest(CDC* pDC, double dx, double dy);
 private: void iscrtajKockuPet(CDC* pDC, double dx, double dy);
 private: void iscrtajKockuCetri(CDC* pDC, double dx, double dy);
 private: void iscrtajKockuTri(CDC* pDC, double dx, double dy);
 private: void iscrtajKockuDva(CDC* pDC, double dx, double dy);
 private: void iscrtajKockuJedan(CDC* pDC, double dx, double dy);
+//crtanje pijuna
+private: void iscrtajFiguru(CDC* pDC, double dx, double dy);
 // Overrides
 public:
 	virtual void OnDraw(CDC* pDC);  // overridden to draw this view
@@ -45,10 +47,10 @@ protected:
 // Implementation
 public:
 	virtual ~CÈovjeèeNeLjutiSeView();
-#ifdef _DEBUG
+
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
-#endif
+
 
 protected:
 
@@ -57,7 +59,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
-	afx_msg void OnStartTimer();
+	afx_msg void OnFileNew();
 };
 
 #ifndef _DEBUG  // debug version in ÈovjeèeNeLjutiSeView.cpp
