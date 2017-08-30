@@ -24,6 +24,7 @@ IMPLEMENT_DYNCREATE(CÈovjeèeNeLjutiSeView, CView)
 BEGIN_MESSAGE_MAP(CÈovjeèeNeLjutiSeView, CView)
 	ON_WM_TIMER()
 	ON_COMMAND(ID_FILE_NEW, &CÈovjeèeNeLjutiSeView::OnFileNew)
+	ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 // CÈovjeèeNeLjutiSeView construction/destruction
@@ -313,6 +314,7 @@ void CÈovjeèeNeLjutiSeView::OnDraw(CDC* pDC)
 	visinaKuèice = r.bottom / brojRedova;
 	duljinaKuèiceUKockici = duljinaKuèice / 5;
 	visinaKuèiceUKockici = visinaKuèice / 5;
+	KillTimer(timer);
 	iscrtajPolje(pDC, 0, 0, r);
 	
 	// TODO: add draw code for native data here
@@ -343,7 +345,19 @@ void CÈovjeèeNeLjutiSeView::OnTimer(UINT_PTR nIDEvent)
 
 void CÈovjeèeNeLjutiSeView::OnFileNew()
 {
-	timer= timer = SetTimer(1, 500, 0);
+	KillTimer(timer);
+}
+void CÈovjeèeNeLjutiSeView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	POINT p;
+	GetCursorPos(&p);
+	if (point.x > duljinaKuèice * 5 && point.x < duljinaKuèice * 6) {
+	if (point.y > visinaKuèice * 5 && point.y < visinaKuèice * 6)
+		timer = SetTimer(1, 10, 0);
+	}
+	else {
+		KillTimer(timer);
+	}
 }
 
 
