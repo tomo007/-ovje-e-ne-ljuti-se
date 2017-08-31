@@ -91,6 +91,12 @@
     <Image Include="res\ČovječeNeLjutiSe.ico">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\CovjeceNeLjutiSe.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\CovjeceNeLjutiSeDoc.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\CovjeceNeLjutiSe.rc2">

@@ -8,9 +8,14 @@ Figura::Figura(Boja b, byte p, byte c)
 	poljeUKuæi = -1;
 	poèetak = p;
 	cilj = c;
-	for (int i = poèetak; i != cilj; ++i)
-		trenutnoPolje.push_back(i % 40);
+	for (int i = poèetak; i != cilj;) {
+		trenutnoPolje.push_back(i);
+		i = (i % 40) + 1;
+	}
+}
 
+Figura::Figura()
+{
 }
 
 

@@ -47,17 +47,32 @@ bool Igraè::provjeraZaPreskakanjeFigura(int zadanoPolje)
 Igraè::Igraè(Boja boja)
 {
 	for (int i = 0; i < 4; ++i) {
-		figure[i] =Figura(boja, vratiPoèetnoPolje(boja), vratiZadnjePolje(boja));
-		kuæa[i] = nullptr;
+		figure.push_back(Figura(boja, vratiPoèetnoPolje(boja), vratiZadnjePolje(boja)));
+		kuæa.push_back(nullptr);
 	}
 	zadnjeSlobodnoMjestoUKuæi = 4;
-
-
+	brojFiguraNaPolju = 0;
 }
+
+Igraè::Igraè()
+{
+}
+
+
 
 
 Igraè::~Igraè()
 {
+}
+
+int Igraè::vratiPoèetnoPolje()
+{
+	return figure[0].vratiPoèetnuToèku();
+}
+
+int Igraè::vratiZadnjePolje()
+{
+	return figure[0].vratiZavršnuToèku();;
 }
 
 bool Igraè::pomakni(Figura * figura, int brojPomaka)

@@ -1,43 +1,79 @@
-
-// ÈovjeèeNeLjutiSeView.h : interface of the CÈovjeèeNeLjutiSeView class
+ï»¿
+// ÄŒovjeÄeNeLjutiSeView.h : interface of the CÄŒovjeÄeNeLjutiSeView class
 //
 
 #pragma once
+#include <vector>
+#include "Igra.h"
 
 
-class CÈovjeèeNeLjutiSeView : public CView
+class CÄŒovjeÄeNeLjutiSeView : public CView
 {
 protected: // create from serialization only
-	CÈovjeèeNeLjutiSeView();
-	DECLARE_DYNCREATE(CÈovjeèeNeLjutiSeView)
+	CÄŒovjeÄeNeLjutiSeView();
+	DECLARE_DYNCREATE(CÄŒovjeÄeNeLjutiSeView)
 
 // Attributes
 public:
-	CÈovjeèeNeLjutiSeDoc* GetDocument() const;
+	CÄŒovjeÄeNeLjutiSeDoc* GetDocument() const;
 
-// Operations
+//Älanovi igre
+private: Igra* igra;
+		 IgraÄ trenutniIgraÄ;
+		 Figura figura;
+private: void igraj();
 //crtanje polja
-private: double duljinaKuèice;
-private: double visinaKuèice;
-private: double duljinaKuèiceUKockici;
-private: double visinaKuèiceUKockici;
-private: UINT_PTR timer;
-private: int i = 0;
+private: double duljinaKuÄice;
+		 double visinaKuÄice;
+		 double duljinaKuÄiceUKockici;
+		 double visinaKuÄiceUKockici;
+		 UINT_PTR timer;
+		 int brojSKocke = 0;
+		 bool kockaSeOkreÄ‡e = false;
+		 std::vector<std::vector<RECT>> kuÄice;
+		 std::vector<std::vector<RECT>> ciljevi;
+		 std::vector<RECT>  ploÄa;
+//olovke i ispune
+private: double cetvrtiStupac;
+		 double petiStupac;
+		 double sestiStupac;
+		 double sedmiStupac;
+		 double devetiStupac;
+		 double desetiStupac;
+		 //redci
+		 double cetvrtiRed;
+		 double petiRed;
+		 double sestiRed;
+		 double sedmiRed;
+		 double devetiRed;
+		 double desetiRed;
+//crtanje polja
 private: void iscrtajPolje(CDC* pDC,double dx, double dy, RECT r);
-private: void iscrtajKuèicu(CDC* pDC, double dx, double dy, RECT r);
-private: void iscrtajCijeliRedHorizontalno(CDC* pDC, double dx, double dy, RECT r);
-private: void iscrtajCijeliRedVertikalno(CDC* pDC, double dx, double dy, RECT r);
-private: void iscrtajCiljHorizontalno(CDC* pDC, double dx, double dy, RECT r);
-private: void iscrtajCiljVertikalno(CDC* pDC, double dx, double dy, RECT r);
+		 void iscrtajKuÄicu(CDC* pDC, double dx, double dy, RECT r);
+		 void iscrtajCijeliRedHorizontalno(CDC* pDC, double dx, double dy, RECT r);
+		 void iscrtajCijeliRedVertikalno(CDC* pDC, double dx, double dy, RECT r);
+		 void iscrtajCiljHorizontalno(CDC* pDC, double dx, double dy, RECT r);
+		 void iscrtajCiljVertikalno(CDC* pDC, double dx, double dy, RECT r);
 //crtanje kocke
 private: void iscrtajKockuSest(CDC* pDC, double dx, double dy);
-private: void iscrtajKockuPet(CDC* pDC, double dx, double dy);
-private: void iscrtajKockuCetri(CDC* pDC, double dx, double dy);
-private: void iscrtajKockuTri(CDC* pDC, double dx, double dy);
-private: void iscrtajKockuDva(CDC* pDC, double dx, double dy);
-private: void iscrtajKockuJedan(CDC* pDC, double dx, double dy);
+		 void iscrtajKockuPet(CDC* pDC, double dx, double dy);
+		 void iscrtajKockuCetri(CDC* pDC, double dx, double dy);
+		 void iscrtajKockuTri(CDC* pDC, double dx, double dy);
+		 void iscrtajKockuDva(CDC* pDC, double dx, double dy);
+		 void iscrtajKockuJedan(CDC* pDC, double dx, double dy);
 //crtanje pijuna
 private: void iscrtajFiguru(CDC* pDC, double dx, double dy);
+//popunjavanje polja
+private: void prodiPoljaHorizontalno(double dx, double dy, int brojPoljaZaPoci);
+		 void prodiPoljaVertikalno(double dx, double dy, int brojPoljaZaPoci);
+		 void prodiKucicu(double dx, double dy);
+		 void prodiPoljaVertikalnoPremaGore(double dx, double dy, int brojPoljaZaPoci);
+		 void prodiPoljaHorizontalnoSDesnaNaLijevo(double dx, double dy, int brojPoljaZaPoci);
+//inicijalizacija varijabli
+private: void inicijalizirajVarijableCrtanja();
+		 void inicijalizirajVektorPolja();
+		 void inicijalizirajKuÄicu(Boja b);
+		 void osvjeziPolje(RECT r);
 // Overrides
 public:
 	virtual void OnDraw(CDC* pDC);  // overridden to draw this view
@@ -46,7 +82,7 @@ protected:
 
 // Implementation
 public:
-	virtual ~CÈovjeèeNeLjutiSeView();
+	virtual ~CÄŒovjeÄeNeLjutiSeView();
 
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
@@ -61,10 +97,11 @@ public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnFileNew();
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnFileNewDvaIgraÄa();
 };
 
-#ifndef _DEBUG  // debug version in ÈovjeèeNeLjutiSeView.cpp
-inline CÈovjeèeNeLjutiSeDoc* CÈovjeèeNeLjutiSeView::GetDocument() const
-   { return reinterpret_cast<CÈovjeèeNeLjutiSeDoc*>(m_pDocument); }
+#ifndef _DEBUG  // debug version in ÄŒovjeÄeNeLjutiSeView.cpp
+inline CÄŒovjeÄeNeLjutiSeDoc* CÄŒovjeÄeNeLjutiSeView::GetDocument() const
+   { return reinterpret_cast<CÄŒovjeÄeNeLjutiSeDoc*>(m_pDocument); }
 #endif
 

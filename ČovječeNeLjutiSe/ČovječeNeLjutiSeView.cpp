@@ -1,10 +1,11 @@
 
-// ÈovjeèeNeLjutiSeView.cpp : implementation of the CÈovjeèeNeLjutiSeView class
-//
+
+	// ÈovjeèeNeLjutiSeView.cpp : implementation of the CÈovjeèeNeLjutiSeView class
+	//
 
 #include "stdafx.h"
-// SHARED_HANDLERS can be defined in an ATL project implementing preview, thumbnail
-// and search filter handlers and allows sharing of document code with that project.
+	// SHARED_HANDLERS can be defined in an ATL project implementing preview, thumbnail
+	// and search filter handlers and allows sharing of document code with that project.
 #ifndef SHARED_HANDLERS
 #include "ÈovjeèeNeLjutiSe.h"
 #endif
@@ -17,12 +18,13 @@
 #endif
 
 
-// CÈovjeèeNeLjutiSeView
+	// CÈovjeèeNeLjutiSeView
 
-IMPLEMENT_DYNCREATE(CÈovjeèeNeLjutiSeView, CView)
+	IMPLEMENT_DYNCREATE(CÈovjeèeNeLjutiSeView, CView)
 
 BEGIN_MESSAGE_MAP(CÈovjeèeNeLjutiSeView, CView)
 	ON_WM_TIMER()
+	ON_COMMAND(ID_DVA_IGRACA, &CÈovjeèeNeLjutiSeView::OnFileNewDvaIgraèa)
 	ON_COMMAND(ID_FILE_NEW, &CÈovjeèeNeLjutiSeView::OnFileNew)
 	ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
@@ -31,13 +33,16 @@ END_MESSAGE_MAP()
 
 CÈovjeèeNeLjutiSeView::CÈovjeèeNeLjutiSeView()
 {
-	
+
 
 }
+
+
 
 CÈovjeèeNeLjutiSeView::~CÈovjeèeNeLjutiSeView()
 {
 }
+
 
 BOOL CÈovjeèeNeLjutiSeView::PreCreateWindow(CREATESTRUCT& cs)
 {
@@ -48,10 +53,23 @@ BOOL CÈovjeèeNeLjutiSeView::PreCreateWindow(CREATESTRUCT& cs)
 }
 
 // CÈovjeèeNeLjutiSeView drawing
+void CÈovjeèeNeLjutiSeView::igraj()
+{
+	CDC* pDC =this-> GetDC();
+	if (trenutniIgraè.brojFiguraNaPolju == 0) {
+		if (brojSKocke == 6) {
+			RECT poljeFigure = ploèa[trenutniIgraè.vratiPoèetnoPolje()];
+			CBrush crnaPozadina(RGB(0, 0, 0));
+			pDC->SelectObject(crnaPozadina);
+			iscrtajFiguru(pDC, poljeFigure.left, poljeFigure.top);
+			osvjeziPolje(poljeFigure);
+		}
+	}
 
+}
 void CÈovjeèeNeLjutiSeView::iscrtajPolje(CDC* pDC, double dx, double dy, RECT r)
 {
-	
+
 	CPen * oldPen;
 	CPen crvenaOlovka(PS_SOLID, 7, RGB(255, 0, 0));
 	CPen plavaOlovka(PS_SOLID, 7, RGB(0, 0, 255));
@@ -65,31 +83,14 @@ void CÈovjeèeNeLjutiSeView::iscrtajPolje(CDC* pDC, double dx, double dy, RECT r)
 	CBrush zutaPozadina(RGB(255, 255, 0));
 	CBrush crnaPozadina(RGB(0, 0, 0));
 
-	//stupci
-	double cetvrtiStupac = duljinaKuèice * 4;
-	double petiStupac = duljinaKuèice * 5;
-	double sestiStupac = duljinaKuèice * 6;
-	double sedmiStupac = duljinaKuèice * 7;
-	double devetiStupac = duljinaKuèice * 9;
-	double desetiStupac = duljinaKuèice * 10;
-	//redci
-	double cetvrtiRed = visinaKuèice * 4;
-	double petiRed = visinaKuèice * 5;
-	double sestiRed = visinaKuèice * 6;
-	double sedmiRed = visinaKuèice * 7;
-	double devetiRed = visinaKuèice * 9;
-	double desetiRed = visinaKuèice * 10;
-
-	
-	timer = SetTimer(1, 200, 0);
 	oldPen = pDC->SelectObject(&crvenaOlovka);
 	iscrtajKuèicu(pDC, 0, 0, r);
-	pDC->SelectObject(oldPen);	
+	pDC->SelectObject(oldPen);
 
 	oldPen = pDC->SelectObject(&plavaOlovka);
 	iscrtajKuèicu(pDC, devetiStupac, 0, r);
 	pDC->SelectObject(oldPen);
-	
+
 
 	oldPen = pDC->SelectObject(&zutaOlovka);
 	iscrtajKuèicu(pDC, 0, devetiRed, r);
@@ -100,14 +101,13 @@ void CÈovjeèeNeLjutiSeView::iscrtajPolje(CDC* pDC, double dx, double dy, RECT r)
 	pDC->SelectObject(oldPen);
 
 	oldPen = pDC->SelectObject(&crnaOlovka);
-	
-	iscrtajCijeliRedHorizontalno(pDC,0,cetvrtiRed,r);
+	iscrtajCijeliRedHorizontalno(pDC, 0, cetvrtiRed, r);
 	iscrtajCijeliRedHorizontalno(pDC, 0, sestiRed, r);
 	iscrtajCijeliRedVertikalno(pDC, cetvrtiStupac, 0, r);
 	iscrtajCijeliRedVertikalno(pDC, sestiStupac, 0, r);
 	pDC->Ellipse(0, petiRed, duljinaKuèice, sestiRed);
-	pDC->Ellipse(petiStupac, desetiRed,  sestiStupac, r.bottom);
-	pDC->Ellipse(desetiStupac, petiRed, r.right, sestiRed);
+	pDC->Ellipse(petiStupac, desetiRed, sestiStupac,desetiRed+visinaKuèice);
+	pDC->Ellipse(desetiStupac, petiRed, desetiStupac+duljinaKuèice, sestiRed);
 	pDC->Ellipse(petiStupac, 0, sestiStupac, visinaKuèice);
 	pDC->SelectObject(oldPen);
 
@@ -118,7 +118,7 @@ void CÈovjeèeNeLjutiSeView::iscrtajPolje(CDC* pDC, double dx, double dy, RECT r)
 
 
 	oldPen = pDC->SelectObject(&zelenaOlovka);
-	pDC->Ellipse(desetiStupac, sestiRed, r.right, sedmiRed);
+	pDC->Ellipse(desetiStupac, sestiRed, desetiStupac+duljinaKuèice, sedmiRed);
 	iscrtajCiljHorizontalno(pDC, sestiStupac, petiRed, r);
 	pDC->SelectObject(oldPen);
 
@@ -128,49 +128,25 @@ void CÈovjeèeNeLjutiSeView::iscrtajPolje(CDC* pDC, double dx, double dy, RECT r)
 	pDC->SelectObject(oldPen);
 
 	oldPen = pDC->SelectObject(&zutaOlovka);
-	pDC->Ellipse(cetvrtiStupac, desetiRed, petiStupac, r.bottom);
+	pDC->Ellipse(cetvrtiStupac, desetiRed, petiStupac, desetiRed+visinaKuèice);
 	iscrtajCiljVertikalno(pDC, petiStupac, sestiRed, r);
 	pDC->SelectObject(oldPen);
 
 	oldPen = pDC->SelectObject(&crnaOlovka);
 	pDC->Rectangle(petiStupac, petiRed, sestiStupac, sestiRed);
 	pDC->SelectObject(oldPen);
+
 	
-	pDC->SelectObject(&crvenaPozadina);
-	iscrtajFiguru(pDC,0,0);
-	pDC->SelectObject(&crnaPozadina);
-	switch (i)
-	{
-	case 1:
-		iscrtajKockuJedan(pDC,petiStupac+duljinaKuèiceUKockici*2,petiRed+visinaKuèiceUKockici*2);
-		break;
-	case 2:
-		iscrtajKockuDva(pDC, petiStupac + duljinaKuèiceUKockici, petiRed+visinaKuèiceUKockici);
-		break;
-	case 3:
-		iscrtajKockuTri(pDC, petiStupac + duljinaKuèiceUKockici*2, petiRed + 5);
-		break;
-	case 4:
-		iscrtajKockuCetri(pDC, petiStupac + duljinaKuèiceUKockici, petiRed + visinaKuèiceUKockici);
-		break;
-	case 5:
-		iscrtajKockuPet(pDC, petiStupac + duljinaKuèiceUKockici, petiRed + 5);
-		break;
-	case 6:
-		iscrtajKockuSest(pDC, petiStupac + duljinaKuèiceUKockici, petiRed + 5);
-		break;
-	default:
-		break;
-	}
+	
 
 }
 
 void CÈovjeèeNeLjutiSeView::iscrtajKuèicu(CDC * pDC, double dx, double dy, RECT r)
-{	
+{
 	int i = 1;
 	while (i < 3) {
 		pDC->Ellipse(dx, dy, dx + duljinaKuèice, dy + visinaKuèice);
-		pDC->Ellipse(dx+duljinaKuèice, dy, dx +duljinaKuèice*2, dy + visinaKuèice);
+		pDC->Ellipse(dx + duljinaKuèice, dy, dx + duljinaKuèice * 2, dy + visinaKuèice);
 		dy = dy + visinaKuèice;
 		++i;
 	}
@@ -178,7 +154,7 @@ void CÈovjeèeNeLjutiSeView::iscrtajKuèicu(CDC * pDC, double dx, double dy, RECT 
 
 void CÈovjeèeNeLjutiSeView::iscrtajCijeliRedHorizontalno(CDC * pDC, double dx, double dy, RECT r)
 {
-	while (dx +duljinaKuèice< r.right) {
+	while (dx + duljinaKuèice< r.right) {
 		pDC->Ellipse(dx, dy, dx + duljinaKuèice, dy + visinaKuèice);
 		dx += duljinaKuèice;
 	}
@@ -186,7 +162,7 @@ void CÈovjeèeNeLjutiSeView::iscrtajCijeliRedHorizontalno(CDC * pDC, double dx, d
 
 void CÈovjeèeNeLjutiSeView::iscrtajCijeliRedVertikalno(CDC * pDC, double dx, double dy, RECT r)
 {
-	while (dy < r.bottom) {
+	while (dy+visinaKuèice < r.bottom) {
 		pDC->Ellipse(dx, dy, dx + duljinaKuèice, dy + visinaKuèice);
 		dy += visinaKuèice;
 	}
@@ -220,11 +196,11 @@ void CÈovjeèeNeLjutiSeView::iscrtajKockuSest(CDC * pDC, double dx, double dy)
 		pDC->Ellipse(dx, dy, dx + duljinaKuèiceUKockici, dy + visinaKuèiceUKockici);
 		dx = dx + duljinaKuèiceUKockici + duljinaKuèiceUKockici;
 		pDC->Ellipse(dx, dy, dx + duljinaKuèiceUKockici, dy + visinaKuèiceUKockici);
-		dx=dx- duljinaKuèiceUKockici - duljinaKuèiceUKockici;
-		dy = dy + visinaKuèiceUKockici + visinaKuèiceUKockici-5;
+		dx = dx - duljinaKuèiceUKockici - duljinaKuèiceUKockici;
+		dy = dy + visinaKuèiceUKockici + visinaKuèiceUKockici - 5;
 		++i;
 	}
-	
+
 }
 
 void CÈovjeèeNeLjutiSeView::iscrtajKockuPet(CDC * pDC, double dx, double dy)
@@ -235,11 +211,11 @@ void CÈovjeèeNeLjutiSeView::iscrtajKockuPet(CDC * pDC, double dx, double dy)
 		dx = dx + duljinaKuèiceUKockici + duljinaKuèiceUKockici;
 		pDC->Ellipse(dx, dy, dx + duljinaKuèiceUKockici, dy + visinaKuèiceUKockici);
 		dx = dx - duljinaKuèiceUKockici - duljinaKuèiceUKockici;
-		dy = dy + visinaKuèiceUKockici *4 - 10;
+		dy = dy + visinaKuèiceUKockici * 4 - 10;
 		++i;
 	}
 	dx = dx + duljinaKuèiceUKockici;
-	dy = dy - visinaKuèiceUKockici*4-1;
+	dy = dy - visinaKuèiceUKockici * 4 - 1;
 	pDC->Ellipse(dx, dy, dx + duljinaKuèiceUKockici, dy + visinaKuèiceUKockici);
 }
 
@@ -293,12 +269,159 @@ void CÈovjeèeNeLjutiSeView::iscrtajFiguru(CDC * pDC, double dx, double dy)
 	double poèetakGlaveDy = poèetakTijelaDy + visinaKuèiceUKockici;
 	double krajGlaveDx = poèetakGlaveDx + duljinaKuèiceUKockici;
 	double krajGlaveDy = poèetakGlaveDy + visinaKuèiceUKockici;
-
+	CBrush* oldPen;
 	pDC->Ellipse(poèetakTijelaDx, poèetakTijelaDy, krajTijelaDx, krajTijelaDy);
-	CBrush brush1;   
+	CBrush brush1;
 	brush1.CreateSolidBrush(RGB(204, 0, 204));
-	pDC->SelectObject(&brush1);
+	oldPen=pDC->SelectObject(&brush1);
 	pDC->Ellipse(poèetakGlaveDx, poèetakGlaveDy, krajGlaveDx, krajGlaveDy);
+	pDC->SelectObject(oldPen);
+}
+
+void CÈovjeèeNeLjutiSeView::prodiPoljaHorizontalno(double dx, double dy, int brojPoljaZaPoci)
+{
+	RECT p;
+	for (int i = 0; i < brojPoljaZaPoci; ++i) {
+		p.left = dx;
+		p.right = dx + duljinaKuèice;
+		p.top = dy;
+		p.bottom = dy + visinaKuèice;
+		ploèa.push_back(p);
+		dx = dx + duljinaKuèice;
+	}
+}
+
+void CÈovjeèeNeLjutiSeView::prodiPoljaVertikalno(double dx, double dy, int brojPoljaZaPoci)
+{
+	RECT p;
+	for (int i = 0; i < brojPoljaZaPoci; ++i) {
+		p.left = dx;
+		p.right = dx + duljinaKuèice;
+		p.top = dy;
+		p.bottom = dy + visinaKuèice;
+		ploèa.push_back(p);
+		dy = dy + visinaKuèice;
+	}
+}
+
+void CÈovjeèeNeLjutiSeView::prodiKucicu(double dx, double dy)
+{
+	RECT r;
+	int i = 0;
+	std::vector<RECT> vec;
+	while (i < 2) {
+		r.left = dx;
+		r.right = dy+duljinaKuèice;
+		r.top = dy;
+		r.bottom = dy + visinaKuèice;
+		vec.push_back(r);
+		r.left = dx + duljinaKuèice;
+		r.right = dx + duljinaKuèice * 2;
+		vec.push_back(r);
+		dy = dy + visinaKuèice;
+		++i;
+	}
+	kuèice.push_back(vec);
+}
+
+void CÈovjeèeNeLjutiSeView::prodiPoljaVertikalnoPremaGore(double dx, double dy, int brojPoljaZaPoci)
+{
+	RECT p;
+	for (int i = 0; i < brojPoljaZaPoci; ++i) {
+		p.left = dx;
+		p.right = dx + duljinaKuèice;
+		p.top = dy;
+		p.bottom = dy + visinaKuèice;
+		ploèa.push_back(p);
+		dy = dy - visinaKuèice;
+	}
+}
+
+void CÈovjeèeNeLjutiSeView::prodiPoljaHorizontalnoSDesnaNaLijevo(double dx, double dy, int brojPoljaZaPoci)
+{
+	RECT p;
+	for (int i = 0; i < brojPoljaZaPoci; ++i) {
+		p.left = dx;
+		p.right = dx + duljinaKuèice;
+		p.top = dy;
+		p.bottom = dy + visinaKuèice;
+		ploèa.push_back(p);
+		dx = dx - duljinaKuèice;
+	}
+}
+
+void CÈovjeèeNeLjutiSeView::inicijalizirajVarijableCrtanja()
+{
+	RECT r;
+	GetClientRect(&r);
+	int brojRedova = 11;
+	duljinaKuèice = r.right / brojRedova;
+	visinaKuèice = r.bottom / brojRedova;
+	//stupci
+	cetvrtiStupac = duljinaKuèice * 4;
+	petiStupac = duljinaKuèice * 5;
+	sestiStupac = duljinaKuèice * 6;
+	sedmiStupac = duljinaKuèice * 7;
+	devetiStupac = duljinaKuèice * 9;
+	desetiStupac = duljinaKuèice * 10;
+	//redci
+	cetvrtiRed = visinaKuèice * 4;
+	petiRed = visinaKuèice * 5;
+	sestiRed = visinaKuèice * 6;
+	sedmiRed = visinaKuèice * 7;
+	devetiRed = visinaKuèice * 9;
+	desetiRed = visinaKuèice * 10;
+	duljinaKuèiceUKockici = duljinaKuèice / 5;
+	visinaKuèiceUKockici = visinaKuèice / 5;
+}
+
+void CÈovjeèeNeLjutiSeView::inicijalizirajVektorPolja()
+{
+	prodiPoljaHorizontalno(0, petiRed, 5);
+	prodiPoljaVertikalnoPremaGore(petiStupac, cetvrtiRed, 4);
+	ploèa.push_back(CRect(petiStupac, 0, sestiStupac, visinaKuèice));
+	prodiPoljaVertikalno(sestiStupac, 0, 4);
+	prodiPoljaHorizontalno(sestiRed, petiRed, 5);
+	ploèa.push_back(CRect(desetiStupac, sestiRed, duljinaKuèice * 11, sedmiRed));
+	prodiPoljaHorizontalnoSDesnaNaLijevo(desetiStupac, sedmiRed, 5);
+	prodiPoljaVertikalnoPremaGore(sestiStupac, sedmiRed + visinaKuèice, 4);
+	ploèa.push_back(CRect(petiStupac, desetiRed, sestiStupac, visinaKuèice * 11));
+	prodiPoljaVertikalno(petiStupac, desetiRed, 4);
+	prodiPoljaHorizontalnoSDesnaNaLijevo(cetvrtiRed, sedmiRed, 4);
+	ploèa.push_back(CRect(0, sestiRed, duljinaKuèice, sedmiRed));
+}
+
+void CÈovjeèeNeLjutiSeView::inicijalizirajKuèicu(Boja b)
+{
+	double dx, dy;
+	switch (b) {
+	case Boja::CRVENA:
+		dx = 0;
+		dy = 0;
+		break;
+	case Boja::PLAVA:
+		dx = devetiStupac;
+		dy = 0;
+		break;
+	case Boja::ZELENA:
+		dx = 0;
+		dy = devetiRed;
+		break;
+	case Boja::ZUTA:
+		dx = devetiStupac;
+		dy = devetiRed;
+		break;
+	}
+	prodiKucicu(dx, dy);
+}
+
+void CÈovjeèeNeLjutiSeView::osvjeziPolje(RECT r)
+{
+	r.left += duljinaKuèiceUKockici;
+	r.top += visinaKuèiceUKockici;
+	r.right -= duljinaKuèiceUKockici;
+	r.bottom -= visinaKuèiceUKockici;
+	InvalidateRect(&r);
 }
 
 void CÈovjeèeNeLjutiSeView::OnDraw(CDC* pDC)
@@ -307,16 +430,37 @@ void CÈovjeèeNeLjutiSeView::OnDraw(CDC* pDC)
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
-	RECT r;
-	GetClientRect(&r);
-	int brojRedova = 11;
-	duljinaKuèice = r.right / brojRedova;
-	visinaKuèice = r.bottom / brojRedova;
-	duljinaKuèiceUKockici = duljinaKuèice / 5;
-	visinaKuèiceUKockici = visinaKuèice / 5;
-	KillTimer(timer);
-	iscrtajPolje(pDC, 0, 0, r);
+	CBrush* oldBrush;
+	CBrush crnaPozadina(RGB(0, 0, 0));
+	oldBrush=pDC->SelectObject(&crnaPozadina);
+	if (kockaSeOkreæe) {
+		switch (brojSKocke)
+		{
+		case 1:
+			iscrtajKockuJedan(pDC, petiStupac + duljinaKuèiceUKockici * 2, petiRed + visinaKuèiceUKockici * 2);
+			break;
+		case 2:
+			iscrtajKockuDva(pDC, petiStupac + duljinaKuèiceUKockici, petiRed + visinaKuèiceUKockici);
+			break;
+		case 3:
+			iscrtajKockuTri(pDC, petiStupac + duljinaKuèiceUKockici * 2, petiRed + 5);
+			break;
+		case 4:
+			iscrtajKockuCetri(pDC, petiStupac + duljinaKuèiceUKockici, petiRed + visinaKuèiceUKockici);
+			break;
+		case 5:
+			iscrtajKockuPet(pDC, petiStupac + duljinaKuèiceUKockici, petiRed + 5);
+			break;
+		case 6:
+			iscrtajKockuSest(pDC, petiStupac + duljinaKuèiceUKockici, petiRed + 5);
+			break;
+		default:
+			break;
+		}
+		pDC->SelectObject(oldBrush);
+	}
 	
+
 	// TODO: add draw code for native data here
 }
 
@@ -337,28 +481,80 @@ void CÈovjeèeNeLjutiSeView::Dump(CDumpContext& dc) const
 
 void CÈovjeèeNeLjutiSeView::OnTimer(UINT_PTR nIDEvent)
 {
-	srand(time(NULL));
-	i= rand() % 6 + 1;
-	InvalidateRect(CRect(duljinaKuèice*5,visinaKuèice*5,duljinaKuèice*6,visinaKuèice*6));
-	
+	static int brojOkretajaKocke = 0;
+	if (brojOkretajaKocke < 5) {
+		if (!kockaSeOkreæe)
+			kockaSeOkreæe = true;
+		srand(time(NULL));
+		brojSKocke = rand() % 6 + 1;
+		++brojOkretajaKocke;
+		InvalidateRect(CRect(duljinaKuèice * 5, visinaKuèice * 5, duljinaKuèice * 6, visinaKuèice * 6));
+	}
+	else {
+		KillTimer(timer);
+		igraj();
+		kockaSeOkreæe = false;
+		brojOkretajaKocke = 0;
+		
+	}
+
+
 }
 
 void CÈovjeèeNeLjutiSeView::OnFileNew()
 {
-	KillTimer(timer);
+	
 }
 void CÈovjeèeNeLjutiSeView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	POINT p;
 	GetCursorPos(&p);
 	if (point.x > duljinaKuèice * 5 && point.x < duljinaKuèice * 6) {
-	if (point.y > visinaKuèice * 5 && point.y < visinaKuèice * 6)
-		timer = SetTimer(1, 10, 0);
-	}
-	else {
-		KillTimer(timer);
+		if (point.y > visinaKuèice * 5 && point.y < visinaKuèice * 6)
+			timer = SetTimer(1, 1000, 0);
 	}
 }
+
+void CÈovjeèeNeLjutiSeView::OnFileNewDvaIgraèa()
+{
+	
+	RECT r;
+	CBrush* oldBrush;
+	CBrush plavaPozadina(RGB(51, 51, 255));
+	CBrush crvenaPozadina(RGB(255, 0, 0));
+	int indeks = 0;
+	GetClientRect(&r);
+	CDC* pDC = this->GetDC();
+	igra = new Igra(2);
+	trenutniIgraè = igra->prviIgraè();
+	inicijalizirajVarijableCrtanja();
+	inicijalizirajVektorPolja();
+	iscrtajPolje(pDC, 0, 0, r);
+
+	for each (Igraè igrac in igra->vratiIgraèe())
+	{
+		inicijalizirajKuèicu(igrac.vratiBoju());
+			switch (igrac.vratiBoju()) {
+				case Boja::CRVENA: 					
+					oldBrush=pDC->SelectObject(&crvenaPozadina);
+					indeks = 0;
+					break; 
+				case Boja::PLAVA:					
+					oldBrush = pDC->SelectObject(&plavaPozadina);
+					indeks = 1;
+					break;
+				default:
+					oldBrush = new CBrush();
+					break;
+			}
+			for each(RECT r in kuèice[indeks]) {
+				iscrtajFiguru(pDC, r.left, r.top);
+			}
+			pDC->SelectObject(oldBrush);
+		}
+		
+	}
+
 
 
 CÈovjeèeNeLjutiSeDoc* CÈovjeèeNeLjutiSeView::GetDocument() const // non-debug version is inline
@@ -367,6 +563,3 @@ CÈovjeèeNeLjutiSeDoc* CÈovjeèeNeLjutiSeView::GetDocument() const // non-debug ve
 	return (CÈovjeèeNeLjutiSeDoc*)m_pDocument;
 }
 #endif //_DEBUG
-
-
-// CÈovjeèeNeLjutiSeView message handlers

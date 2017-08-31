@@ -215,6 +215,8 @@
     <ClCompile Include="ČovječeNeLjutiSeView.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\CovjeceNeLjutiSe.ico" />
+    <Image Include="res\CovjeceNeLjutiSeDoc.ico" />
     <Image Include="res\ČovječeNeLjutiSe.ico" />
     <Image Include="res\ČovječeNeLjutiSeDoc.ico" />
   </ItemGroup>

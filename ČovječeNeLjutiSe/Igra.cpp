@@ -3,10 +3,8 @@
 
 
 Igra::Igra (byte brojIgraèa){
-	ploèa = Ploèa();
-	srand(time(NULL));
 	for (int i = 0; i < brojIgraèa; ++i) {
-			igraèi[i] = Igraè(vratiBojuIgraèa(i));
+		igraèi.push_back(Igraè(vratiBojuIgraèa(i)));
 	}
 }
 
@@ -14,10 +12,15 @@ Igra::Igra (byte brojIgraèa){
 Igra::~Igra()
 {
 }
-int Igra::bacajKocku()
+std::vector<Igraè> Igra::vratiIgraèe()
 {
-	srand(time(NULL));
-	return rand() % 6+1;
+	return igraèi;
+}
+int Igra::bacajKocku(Igraè trenutniIgraè)
+{
+	if (trenutniIgraè.figureNaPolju.size() == 0)
+		return 3;
+	return 1;
 }
 Igraè Igra::promjenaIgraèa(Igraè * trenutniIgraè)
 {	
@@ -42,6 +45,7 @@ Igraè Igra::promjenaIgraèa(Igraè * trenutniIgraè)
 	}
 	
 }
+
 std::vector<Figura> Igra::izaberiFiguru(Igraè * trenutniIgraè, int dobivenBrojSKocke)
 {
 	if (dobivenBrojSKocke == 6)
@@ -52,6 +56,18 @@ std::vector<Figura> Igra::izaberiFiguru(Igraè * trenutniIgraè, int dobivenBrojSK
 
 bool Igra::pomakniFiguru(Igraè* trenutniIgraè, Figura * figura, int brojPomaka)
 {
+	bool flagFiguraNaPolju = false;
+	for each (Figura var in trenutniIgraè->figureNaPolju)
+	{
+		if (&var == figura) {
+			flagFiguraNaPolju = true;
+				break;
+		}	
+	}
+	if (!flagFiguraNaPolju){
+		trenutniIgraè->figureNaPolju.push_back(*figura);
+		++trenutniIgraè->brojFiguraNaPolju;
+	}
 	if (trenutniIgraè->pomakni(figura, brojPomaka)) {
 		Figura* figuraNaTomPolju = ploèa.provjeraPolja(figura->trenutnoPolje.front());
 		if (figuraNaTomPolju != nullptr) {
@@ -63,6 +79,11 @@ bool Igra::pomakniFiguru(Igraè* trenutniIgraè, Figura * figura, int brojPomaka)
 			return true;
 	}
 	return false;
+}
+
+Igraè Igra::prviIgraè()
+{
+	return igraèi.front();
 }
 
 Boja Igra::vratiBojuIgraèa(int i)

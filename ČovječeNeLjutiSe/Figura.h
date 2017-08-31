@@ -11,6 +11,7 @@ public: std::deque<int> trenutnoPolje;
 		int poljeUKuæi;
 public:
 	Figura(Boja b, byte p, byte c);
+	Figura();
 	~Figura();
 	Boja vratiBoju();
 	byte vratiPoèetnuToèku();
