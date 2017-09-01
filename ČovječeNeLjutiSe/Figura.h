@@ -14,6 +14,7 @@ public:
 	Figura();
 	~Figura();
 	Boja vratiBoju();
+	byte vratiTrenutnoPolje();
 	byte vratiPoèetnuToèku();
 	byte vratiZavršnuToèku();
 };

@@ -7,7 +7,6 @@ class Igraè
 {
 private:
 	std::vector<Figura*> kuæa;
-	
 	int vratiPoèetnoPolje(Boja boja);
 	int vratiZadnjePolje(Boja boja);
 	bool provjeraZaPreskakanjeFigura(int zadanoPolje);

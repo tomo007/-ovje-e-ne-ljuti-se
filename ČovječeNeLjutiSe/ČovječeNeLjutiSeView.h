@@ -30,11 +30,14 @@ private: double duljinaKučice;
 		 UINT_PTR timer;
 		 int brojSKocke = 0;
 		 bool kockaSeOkreće = false;
+		 bool bacajKocku;
 		 std::vector<std::vector<RECT>> kučice;
+		 std::vector<std::vector<RECT>> figureNaPolju;
 		 std::vector<std::vector<RECT>> ciljevi;
 		 std::vector<RECT>  ploča;
 //olovke i ispune
-private: double cetvrtiStupac;
+private: int brojRedova = 11;
+		 double cetvrtiStupac;
 		 double petiStupac;
 		 double sestiStupac;
 		 double sedmiStupac;
@@ -48,12 +51,13 @@ private: double cetvrtiStupac;
 		 double devetiRed;
 		 double desetiRed;
 //crtanje polja
-private: void iscrtajPolje(CDC* pDC,double dx, double dy, RECT r);
-		 void iscrtajKučicu(CDC* pDC, double dx, double dy, RECT r);
-		 void iscrtajCijeliRedHorizontalno(CDC* pDC, double dx, double dy, RECT r);
-		 void iscrtajCijeliRedVertikalno(CDC* pDC, double dx, double dy, RECT r);
-		 void iscrtajCiljHorizontalno(CDC* pDC, double dx, double dy, RECT r);
-		 void iscrtajCiljVertikalno(CDC* pDC, double dx, double dy, RECT r);
+private: void iscrtajPolje(CDC* pDC,double dx, double dy);
+		 void iscrtajKučicu(CDC* pDC, double dx, double dy);
+		 void iscrtajCijeliRedHorizontalno(CDC* pDC, double dx, double dy);
+		 void iscrtajCijeliRedVertikalno(CDC* pDC, double dx, double dy);
+		 void iscrtajCiljHorizontalno(CDC* pDC, double dx, double dy);
+		 void iscrtajCiljVertikalno(CDC* pDC, double dx, double dy);
+		 void potresiDostupneFigure();
 //crtanje kocke
 private: void iscrtajKockuSest(CDC* pDC, double dx, double dy);
 		 void iscrtajKockuPet(CDC* pDC, double dx, double dy);
@@ -63,6 +67,7 @@ private: void iscrtajKockuSest(CDC* pDC, double dx, double dy);
 		 void iscrtajKockuJedan(CDC* pDC, double dx, double dy);
 //crtanje pijuna
 private: void iscrtajFiguru(CDC* pDC, double dx, double dy);
+		 CBrush* vratiBrush(Igrač trenutniIgrač);
 //popunjavanje polja
 private: void prodiPoljaHorizontalno(double dx, double dy, int brojPoljaZaPoci);
 		 void prodiPoljaVertikalno(double dx, double dy, int brojPoljaZaPoci);
@@ -73,7 +78,7 @@ private: void prodiPoljaHorizontalno(double dx, double dy, int brojPoljaZaPoci);
 private: void inicijalizirajVarijableCrtanja();
 		 void inicijalizirajVektorPolja();
 		 void inicijalizirajKučicu(Boja b);
-		 void osvjeziPolje(RECT r);
+		 void osvjeziPolje(RECT r,int izbrisi);
 // Overrides
 public:
 	virtual void OnDraw(CDC* pDC);  // overridden to draw this view

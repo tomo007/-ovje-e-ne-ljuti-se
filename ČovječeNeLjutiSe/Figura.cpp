@@ -28,6 +28,11 @@ Boja Figura::vratiBoju()
 	return boja;
 }
 
+byte Figura::vratiTrenutnoPolje()
+{
+	return trenutnoPolje.front();
+}
+
 byte Figura::vratiPoèetnuToèku()
 {
 	return poèetak;
