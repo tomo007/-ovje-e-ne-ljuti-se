@@ -21,7 +21,8 @@ public:
 	Igraè promjenaIgraèa(Igraè* trenutniIgraè);
 	std::vector<Figura> izaberiFiguru(Igraè* trenutniIgraè, int dobivenBrojSKocke);
 	bool pomakniFiguru(Igraè* trenutniIgraè,Figura* figura, int brojPomaka);
-	
+	void oslobodiPolje(Figura* figura);
+	Igraè* dajIgraèaSTomFigurom(Figura* figura);
 	Igraè prviIgraè();
 };
 

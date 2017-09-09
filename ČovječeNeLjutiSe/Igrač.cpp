@@ -52,6 +52,7 @@ Igraè::Igraè(Boja boja)
 	}
 	zadnjeSlobodnoMjestoUKuæi = 4;
 	brojFiguraNaPolju = 0;
+	brojFiguraUCilju = 0;
 }
 
 Igraè::Igraè()
@@ -100,6 +101,7 @@ bool Igraè::pomakniUKuæu(Figura * figura, int brojPomaka)
 		if ((figura->poljeUKuæi + brojPomaka - 1) > zadnjeSlobodnoMjestoUKuæi)
 			return false;
 		kuæa.at(brojPomaka - 1) = figura;
+		++brojFiguraUCilju;
 		figura->poljeUKuæi += brojPomaka - 1;
 		if(figura->poljeUKuæi == zadnjeSlobodnoMjestoUKuæi)
 			--zadnjeSlobodnoMjestoUKuæi;

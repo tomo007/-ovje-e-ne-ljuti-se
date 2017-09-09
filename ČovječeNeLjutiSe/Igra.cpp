@@ -24,19 +24,15 @@ int Igra::bacajKocku(Igraè trenutniIgraè)
 	return 1;
 }
 bool Igra::pomakniFiguruNaPoèetnoPolje(Igraè trenutniIgraè)
-{	
-	if (trenutniIgraè.figureNaPolju.size() > 0) {
-		int i = 0;
-		while (i < trenutniIgraè.figureNaPolju.size()) {
-			if(trenutniIgraè.figureNaPolju[i].vratiTrenutnoPolje()+1== trenutniIgraè.vratiPoèetnoPolje()+1)
-				return false;
-			++i;
-		}
-	}	
-	trenutniIgraè.figureNaPolju.push_back(trenutniIgraè.figure.back());
-	trenutniIgraè.figureNaPolju.back().trenutnoPolje.pop_front();
-	trenutniIgraè.figure.pop_back();
-	return true;
+{
+	if (trenutniIgraè.figure.size() > 0) {
+		trenutniIgraè.figureNaPolju.push_back(trenutniIgraè.figure.back());
+		trenutniIgraè.figureNaPolju.back().trenutnoPolje.pop_front();
+		trenutniIgraè.figure.pop_back();
+		return true;
+	}
+	else
+		return false;
 }
 Igraè Igra::promjenaIgraèa(Igraè * trenutniIgraè)
 {	
@@ -77,15 +73,15 @@ std::vector<Figura> Igra::izaberiFiguru(Igraè * trenutniIgraè, int dobivenBrojSK
 		return trenutniIgraè->figureNaPolju;
 }
 
-bool Igra::pomakniFiguru(Igraè* trenutniIgraè, Figura * figura, int brojPomaka)
+bool Igra::pomakniFiguru(Igraè* trenutniIgraè, Figura* figura, int brojPomaka)
 {
 	bool flagFiguraNaPolju = false;
 	for each (Figura var in trenutniIgraè->figureNaPolju)
 	{
 		if (&var == figura) {
 			flagFiguraNaPolju = true;
-				break;
-		}	
+			break;
+		}
 	}
 	if (!flagFiguraNaPolju){
 		trenutniIgraè->figureNaPolju.push_back(*figura);
@@ -94,14 +90,34 @@ bool Igra::pomakniFiguru(Igraè* trenutniIgraè, Figura * figura, int brojPomaka)
 	if (trenutniIgraè->pomakni(figura, brojPomaka)) {
 		Figura* figuraNaTomPolju = ploèa.provjeraPolja(figura->trenutnoPolje.front());
 		if (figuraNaTomPolju != nullptr) {
+			oslobodiPolje(figuraNaTomPolju);
 			figuraNaTomPolju = new Figura(figuraNaTomPolju->vratiBoju(), figuraNaTomPolju->vratiPoèetnuToèku(), figuraNaTomPolju->vratiZavršnuToèku());
-			if (figura->poljeUKuæi < 0)
-				ploèa.zauzmiPolje(figura, figura->trenutnoPolje.front());
+			ploèa.zauzmiPolje(figura, figura->trenutnoPolje.front());
 		}
 		if (trenutniIgraè->zadnjeSlobodnoMjestoUKuæi == 0)
 			return true;
 	}
 	return false;
+}
+
+void Igra::oslobodiPolje(Figura * figura)
+{
+	Igraè* igraè = dajIgraèaSTomFigurom(figura);
+	std::vector<Figura> v = igraè->figureNaPolju;
+	igraè->figureNaPolju.erase(std::find(v.begin(), v.end(), figura));
+	--igraè->brojFiguraNaPolju;
+	igraè->figure.push_back(*figura);
+
+}
+
+Igraè* Igra::dajIgraèaSTomFigurom(Figura* figura)
+{
+	for each (Igraè var in igraèi)
+	{
+		if (figura->vratiBoju() == var.vratiBoju())
+			return &var;
+	}
+	return nullptr;
 }
 
 Igraè Igra::prviIgraè()

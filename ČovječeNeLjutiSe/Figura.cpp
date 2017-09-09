@@ -42,3 +42,5 @@ byte Figura::vratiZavršnuToèku()
 {
 	return cilj;
 }
+
+

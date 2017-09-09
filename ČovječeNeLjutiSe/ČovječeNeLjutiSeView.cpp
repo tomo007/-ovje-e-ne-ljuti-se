@@ -27,6 +27,7 @@ BEGIN_MESSAGE_MAP(CÈovjeèeNeLjutiSeView, CView)
 	ON_COMMAND(ID_DVA_IGRACA, &CÈovjeèeNeLjutiSeView::OnFileNewDvaIgraèa)
 	ON_COMMAND(ID_FILE_NEW, &CÈovjeèeNeLjutiSeView::OnFileNew)
 	ON_WM_LBUTTONDOWN()
+	ON_WM_LBUTTONDBLCLK()
 END_MESSAGE_MAP()
 
 // CÈovjeèeNeLjutiSeView construction/destruction
@@ -57,31 +58,11 @@ void CÈovjeèeNeLjutiSeView::igraj()
 {
 	CDC* pDC =this-> GetDC();
 	CBrush* oldBrush;
-	oldBrush = pDC->SelectObject(vratiBrush(trenutniIgraè));
-	if (trenutniIgraè.brojFiguraNaPolju == 0) {
-		int i = 3;
-		while (i > 0) {
-		//	if (brojSKocke == 6) {
-			if (trenutniIgraè.brojFiguraNaPolju == 0) {
-				potresiDostupneFigure();
-			}
-			
-			if (igra->pomakniFiguruNaPoèetnoPolje(trenutniIgraè)) {
-				osvjeziPolje(kuèice[igra->indeksIgraèa].back(), 1);
-				kuèice[igra->indeksIgraèa].pop_back();
-				RECT poljeFigure = ploèa.at(trenutniIgraè.vratiPoèetnoPolje());
-				std::vector<RECT> vec;
-				vec.push_back(poljeFigure);
-				figureNaPolju.push_back(vec);
-				iscrtajFiguru(pDC, poljeFigure.left, poljeFigure.top);
-				osvjeziPolje(poljeFigure, 0);
-		//	}
-			bacajKocku = true;
-			break;
-			}
-			++i;
-			bacajKocku = true;
-		}
+	oldBrush = pDC->SelectObject(vratiBrush(trenutniIgrac));
+	potresiDostupneFigure();
+	if (brojSKocke == 6 || trenutniIgrac.brojFiguraNaPolju > 0) {
+		odaberiFiguru();
+
 	}
 	pDC->SelectObject(oldBrush);
 
@@ -213,7 +194,7 @@ void CÈovjeèeNeLjutiSeView::iscrtajCiljVertikalno(CDC * pDC, double dx, double d
 void CÈovjeèeNeLjutiSeView::potresiDostupneFigure()
 {
 	CDC* pDC = this->GetDC();
-	CBrush* oldBrush = pDC->SelectObject(vratiBrush(trenutniIgraè));
+	CBrush* oldBrush = pDC->SelectObject(vratiBrush(trenutniIgrac));
 	if (brojSKocke == 6) {
 		for each (RECT var in kuèice[igra->indeksIgraèa])
 		{
@@ -359,10 +340,10 @@ void CÈovjeèeNeLjutiSeView::prodiPoljaHorizontalno(double dx, double dy, int bro
 	}
 }
 
-void CÈovjeèeNeLjutiSeView::prodiPoljaVertikalno(double dx, double dy, int brojPoljaZaPoci)
+void CÈovjeèeNeLjutiSeView::prodiPoljaVertikalno(double dx, double dy, int brojPoljaZaProci)
 {
 	RECT p;
-	for (int i = 0; i < brojPoljaZaPoci; ++i) {
+	for (int i = 0; i < brojPoljaZaProci; ++i) {
 		p.left = dx;
 		p.right = dx + duljinaKuèice;
 		p.top = dy;
@@ -491,6 +472,40 @@ void CÈovjeèeNeLjutiSeView::osvjeziPolje(RECT r,int izbrisi)
 	InvalidateRect(&r, izbrisi);
 }
 
+void CÈovjeèeNeLjutiSeView::postaviFiguruNaPocetnoPolje(CDC* pDC,Igraè trenutniIgraè)
+{
+	osvjeziPolje(kuèice[igra->indeksIgraèa].back(), 1);
+	kuèice[igra->indeksIgraèa].pop_back();
+	RECT poljeFigure = ploèa.at(trenutniIgraè.vratiPoèetnoPolje());
+	std::vector<RECT> vec;
+	vec.push_back(poljeFigure);
+	figureNaPolju.push_back(vec);
+	iscrtajFiguru(pDC, poljeFigure.left, poljeFigure.top);
+	osvjeziPolje(poljeFigure, 0);
+}
+
+void CÈovjeèeNeLjutiSeView::odaberiFiguru()
+{
+	while (!figuraJeOdabrana);
+}
+
+void CÈovjeèeNeLjutiSeView::pomakniFiguru(Figura fig)
+{
+	std::vector<Figura> vec = trenutniIgrac.figureNaPolju;
+	auto it = std::find(vec.begin(), vec.end(), fig);
+	int index;
+	if (it != vec.end())
+		index = std::distance(vec.begin(), it);
+	RECT poljeNaKojemJeFigura = figureNaPolju[igra->indeksIgraèa][index];
+	if (igra->pomakniFiguru(&trenutniIgrac, &fig, brojSKocke)) {
+		auto itPolja = std::next(std::find(ploèa.begin(), ploèa.end(), poljeNaKojemJeFigura), brojSKocke);
+		if (itPolja != ploèa.end()) {
+			figureNaPolju[igra->indeksIgraèa].at(index)= *itPolja;
+			osvjeziPolje(poljeNaKojemJeFigura, 1);
+			osvjeziPolje(*itPolja,0);
+		}
+	}
+}
 void CÈovjeèeNeLjutiSeView::OnDraw(CDC* pDC)
 {
 	CÈovjeèeNeLjutiSeDoc* pDoc = GetDocument();
@@ -596,7 +611,7 @@ void CÈovjeèeNeLjutiSeView::OnFileNewDvaIgraèa()
 	CBrush crvenaPozadina(RGB(255, 0, 0));
 	CDC* pDC = this->GetDC();
 	igra = new Igra(2);
-	trenutniIgraè = igra->prviIgraè();
+	trenutniIgrac = igra->prviIgraè();
 	int indeks = 0;
 	bacajKocku = true;
 	inicijalizirajVarijableCrtanja();
@@ -626,6 +641,40 @@ void CÈovjeèeNeLjutiSeView::OnFileNewDvaIgraèa()
 		}
 		
 	}
+
+void CÈovjeèeNeLjutiSeView::OnLButtonDblClk(UINT nFlags, CPoint point)
+{
+	POINT p;
+	GetCursorPos(&p);
+	if (brojSKocke == 6) {
+		for each (RECT var in kuèice[igra->indeksIgraèa])
+		{
+			if (var.left >= p.x&&var.right <= p.x)
+				if (var.top >= p.y&&var.bottom <= p.y) {
+					postaviFiguruNaPocetnoPolje(this->GetDC(), trenutniIgrac);
+					figuraJeOdabrana = true;
+					return;
+				}
+		}
+	}
+	RECT r;
+	for each (RECT var in figureNaPolju[igra->indeksIgraèa])
+	{
+		if (var.left >= p.x&&var.right <= p.x)
+			if (var.top >= p.y&&var.bottom <= p.y) {
+				figuraJeOdabrana = true;
+				r = var;
+			}
+	}
+	std::vector<RECT> vec = figureNaPolju[igra->indeksIgraèa];
+	if (figuraJeOdabrana) {
+		auto it = std::find(vec.begin(), vec.end(), r);
+		if (it != vec.end()) {
+			int index = std::distance(vec.begin(), it);
+			figura = trenutniIgrac.figureNaPolju[index];
+		}
+	}
+}
 
 
 

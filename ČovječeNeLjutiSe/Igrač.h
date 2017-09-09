@@ -15,6 +15,7 @@ public:
 	std::vector<Figura> figure;
 	std::vector<Figura> figureNaPolju;
 	byte zadnjeSlobodnoMjestoUKuæi;
+	int brojFiguraUCilju;
 	Igraè(Boja boja);
 	Igraè();
 	~Igraè();

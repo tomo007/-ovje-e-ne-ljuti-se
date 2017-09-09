@@ -19,8 +19,12 @@ public:
 
 //članovi igre
 private: Igra* igra;
-		 Igrač trenutniIgrač;
+		 Igrač trenutniIgrac;
 		 Figura figura;
+		 bool figuraJeOdabrana = false;
+		 int brojSKocke = 0;
+		 bool kockaSeOkreće = false;
+		 bool bacajKocku;
 private: void igraj();
 //crtanje polja
 private: double duljinaKučice;
@@ -28,9 +32,6 @@ private: double duljinaKučice;
 		 double duljinaKučiceUKockici;
 		 double visinaKučiceUKockici;
 		 UINT_PTR timer;
-		 int brojSKocke = 0;
-		 bool kockaSeOkreće = false;
-		 bool bacajKocku;
 		 std::vector<std::vector<RECT>> kučice;
 		 std::vector<std::vector<RECT>> figureNaPolju;
 		 std::vector<std::vector<RECT>> ciljevi;
@@ -79,6 +80,10 @@ private: void inicijalizirajVarijableCrtanja();
 		 void inicijalizirajVektorPolja();
 		 void inicijalizirajKučicu(Boja b);
 		 void osvjeziPolje(RECT r,int izbrisi);
+//azuriranje polja
+		 void postaviFiguruNaPocetnoPolje(CDC* pDC, Igrač trenutniIgrač);
+		 void odaberiFiguru();
+		 void pomakniFiguru(Figura fig);
 // Overrides
 public:
 	virtual void OnDraw(CDC* pDC);  // overridden to draw this view
@@ -103,6 +108,7 @@ public:
 	afx_msg void OnFileNew();
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnFileNewDvaIgrača();
+	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 };
 
 #ifndef _DEBUG  // debug version in ČovječeNeLjutiSeView.cpp
