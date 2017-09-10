@@ -571,21 +571,24 @@ void CÈovjeèeNeLjutiSeView::Dump(CDumpContext& dc) const
 void CÈovjeèeNeLjutiSeView::OnTimer(UINT_PTR nIDEvent)
 {
 	static int brojOkretajaKocke = 0;
-	if (brojOkretajaKocke < 5) {
-		if (!kockaSeOkreæe)
-			kockaSeOkreæe = true;
-		srand(time(NULL));
-		brojSKocke = rand() % 6 + 1;
-		++brojOkretajaKocke;
-		InvalidateRect(CRect(duljinaKuèice * 5, visinaKuèice * 5, duljinaKuèice * 6, visinaKuèice * 6));
-	}
-	else {
-		KillTimer(timer);
-		igraj();
-		kockaSeOkreæe = false;
-		brojOkretajaKocke = 0;
-		
-	}
+		if (bacajKocku) {
+			if (brojOkretajaKocke < 5) {
+				if (!kockaSeOkreæe)
+					kockaSeOkreæe = true;
+				srand(time(NULL));
+				brojSKocke = rand() % 6 + 1;
+				++brojOkretajaKocke;
+				InvalidateRect(CRect(duljinaKuèice * 5, visinaKuèice * 5, duljinaKuèice * 6, visinaKuèice * 6));
+			}
+			else {
+				KillTimer(timer);
+				igraj();
+				bacajKocku = false;
+				kockaSeOkreæe = false;
+				brojOkretajaKocke = 0;
+
+			}
+		}
 
 
 }
@@ -597,8 +600,7 @@ void CÈovjeèeNeLjutiSeView::OnLButtonDown(UINT nFlags, CPoint point)
 	if (bacajKocku) {
 		if (point.x > duljinaKuèice * 5 && point.x < duljinaKuèice * 6) {
 			if (point.y > visinaKuèice * 5 && point.y < visinaKuèice * 6)
-				timer = SetTimer(1, 1000, 0);
-			bacajKocku = false;
+				timer = SetTimer(1, 500, 0);
 		}
 	}
 	
