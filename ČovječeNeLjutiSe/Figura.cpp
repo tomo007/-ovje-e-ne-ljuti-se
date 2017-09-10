@@ -43,4 +43,18 @@ byte Figura::vratiZavršnuToèku()
 	return cilj;
 }
 
+void Figura::pomakni()
+{
+	if(trenutnoPolje.size()>0)
+		trenutnoPolje.pop_front();
+}
+
+bool Figura::operator==(Figura fig)
+{
+	if (this->boja == fig.boja)
+		if (this->trenutnoPolje.front() == fig.trenutnoPolje.front())
+			return true;
+	return false;
+}
+
 

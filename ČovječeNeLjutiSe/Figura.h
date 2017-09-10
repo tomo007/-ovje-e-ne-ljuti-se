@@ -17,5 +17,7 @@ public:
 	byte vratiTrenutnoPolje();
 	byte vratiPoèetnuToèku();
 	byte vratiZavršnuToèku();
+	void pomakni();
+	bool operator== (Figura fig);
 };
 

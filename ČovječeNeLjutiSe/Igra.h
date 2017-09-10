@@ -15,7 +15,7 @@ public:
 	Igra(byte brojIgraèa);
 	~Igra();
 	std::vector<Igraè> vratiIgraèe();
-	int bacajKocku(Igraè trenutniIgraè);
+	int brojBacanjaKocke(Igraè trenutniIgraè);
 	int indeksIgraèa;
 	bool pomakniFiguruNaPoèetnoPolje(Igraè trenutniIgraè);
 	Igraè promjenaIgraèa(Igraè* trenutniIgraè);

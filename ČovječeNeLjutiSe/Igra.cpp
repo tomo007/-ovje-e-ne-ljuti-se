@@ -17,7 +17,7 @@ std::vector<Igraè> Igra::vratiIgraèe()
 {
 	return igraèi;
 }
-int Igra::bacajKocku(Igraè trenutniIgraè)
+int Igra::brojBacanjaKocke(Igraè trenutniIgraè)
 {
 	if (trenutniIgraè.figureNaPolju.size() == 0)
 		return 3;
@@ -27,7 +27,7 @@ bool Igra::pomakniFiguruNaPoèetnoPolje(Igraè trenutniIgraè)
 {
 	if (trenutniIgraè.figure.size() > 0) {
 		trenutniIgraè.figureNaPolju.push_back(trenutniIgraè.figure.back());
-		trenutniIgraè.figureNaPolju.back().trenutnoPolje.pop_front();
+		trenutniIgraè.figureNaPolju.back().pomakni();
 		trenutniIgraè.figure.pop_back();
 		return true;
 	}
@@ -78,7 +78,7 @@ bool Igra::pomakniFiguru(Igraè* trenutniIgraè, Figura* figura, int brojPomaka)
 	bool flagFiguraNaPolju = false;
 	for each (Figura var in trenutniIgraè->figureNaPolju)
 	{
-		if (&var == figura) {
+		if (var == *figura) {
 			flagFiguraNaPolju = true;
 			break;
 		}

@@ -25,7 +25,6 @@
 BEGIN_MESSAGE_MAP(CÈovjeèeNeLjutiSeView, CView)
 	ON_WM_TIMER()
 	ON_COMMAND(ID_DVA_IGRACA, &CÈovjeèeNeLjutiSeView::OnFileNewDvaIgraèa)
-	ON_COMMAND(ID_FILE_NEW, &CÈovjeèeNeLjutiSeView::OnFileNew)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONDBLCLK()
 END_MESSAGE_MAP()
@@ -59,15 +58,19 @@ void CÈovjeèeNeLjutiSeView::igraj()
 	CDC* pDC =this-> GetDC();
 	CBrush* oldBrush;
 	oldBrush = pDC->SelectObject(vratiBrush(trenutniIgrac));
+	for (int i = 1; i < igra->brojBacanjaKocke(trenutniIgrac) && brojSKocke != 6;++i) {
+		bacajKocku = true;
+		kockaSeVrti();
+	}
 	potresiDostupneFigure();
 	if (brojSKocke == 6 || trenutniIgrac.brojFiguraNaPolju > 0) {
 		odaberiFiguru();
-
+		pomakniFiguru(figura);
+		if (brojSKocke == 6)
+			return;
 	}
+	trenutniIgrac = igra->promjenaIgraèa(&trenutniIgrac);
 	pDC->SelectObject(oldBrush);
-
-	
-
 }
 void CÈovjeèeNeLjutiSeView::iscrtajPolje(CDC* pDC, double dx, double dy)
 {
@@ -206,6 +209,8 @@ void CÈovjeèeNeLjutiSeView::potresiDostupneFigure()
 				++i;
 			}
 		}
+	}
+	if (figureNaPolju[igra->indeksIgraèa].size() > 0) {
 		for each (RECT var in figureNaPolju[igra->indeksIgraèa])
 		{
 			int i = 0;
@@ -216,10 +221,8 @@ void CÈovjeèeNeLjutiSeView::potresiDostupneFigure()
 				++i;
 			}
 		}
-
 	}
-	pDC->SelectObject(oldBrush);
-	
+	pDC->SelectObject(oldBrush);	
 }
 
 void CÈovjeèeNeLjutiSeView::iscrtajKockuSest(CDC * pDC, double dx, double dy)
@@ -477,11 +480,11 @@ void CÈovjeèeNeLjutiSeView::postaviFiguruNaPocetnoPolje(CDC* pDC,Igraè trenutniI
 	osvjeziPolje(kuèice[igra->indeksIgraèa].back(), 1);
 	kuèice[igra->indeksIgraèa].pop_back();
 	RECT poljeFigure = ploèa.at(trenutniIgraè.vratiPoèetnoPolje());
-	std::vector<RECT> vec;
-	vec.push_back(poljeFigure);
-	figureNaPolju.push_back(vec);
+	figureNaPolju[igra->indeksIgraèa].push_back(poljeFigure);
 	iscrtajFiguru(pDC, poljeFigure.left, poljeFigure.top);
 	osvjeziPolje(poljeFigure, 0);
+	igra->pomakniFiguruNaPoèetnoPolje(trenutniIgraè);
+	figura = trenutniIgraè.figureNaPolju.back();
 }
 
 void CÈovjeèeNeLjutiSeView::odaberiFiguru()
@@ -496,7 +499,7 @@ void CÈovjeèeNeLjutiSeView::pomakniFiguru(Figura fig)
 	int index;
 	if (it != vec.end())
 		index = std::distance(vec.begin(), it);
-	RECT poljeNaKojemJeFigura = figureNaPolju[igra->indeksIgraèa][index];
+	RECT poljeNaKojemJeFigura = figureNaPolju[igra->indeksIgraèa].at(index);
 	if (igra->pomakniFiguru(&trenutniIgrac, &fig, brojSKocke)) {
 		auto itPolja = std::next(std::find(ploèa.begin(), ploèa.end(), poljeNaKojemJeFigura), brojSKocke);
 		if (itPolja != ploèa.end()) {
@@ -505,6 +508,10 @@ void CÈovjeèeNeLjutiSeView::pomakniFiguru(Figura fig)
 			osvjeziPolje(*itPolja,0);
 		}
 	}
+}
+void CÈovjeèeNeLjutiSeView::kockaSeVrti()
+{
+	while (bacajKocku);
 }
 void CÈovjeèeNeLjutiSeView::OnDraw(CDC* pDC)
 {
@@ -583,10 +590,6 @@ void CÈovjeèeNeLjutiSeView::OnTimer(UINT_PTR nIDEvent)
 
 }
 
-void CÈovjeèeNeLjutiSeView::OnFileNew()
-{
-	
-}
 void CÈovjeèeNeLjutiSeView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	POINT p;
@@ -617,16 +620,20 @@ void CÈovjeèeNeLjutiSeView::OnFileNewDvaIgraèa()
 	inicijalizirajVarijableCrtanja();
 	inicijalizirajVektorPolja();
 	iscrtajPolje(pDC, 0, 0);
-
+	std::vector<RECT> vec;
 	for each (Igraè igrac in igra->vratiIgraèe())
 	{
 		inicijalizirajKuèicu(igrac.vratiBoju());
 			switch (igrac.vratiBoju()) {
-				case Boja::CRVENA: 					
+				case Boja::CRVENA: 
+					figureNaPolju.push_back(vec);
+					ciljevi.push_back(vec);
 					oldBrush=pDC->SelectObject(&crvenaPozadina);
 					indeks = 0;
 					break; 
-				case Boja::PLAVA:					
+				case Boja::PLAVA:	
+					figureNaPolju.push_back(vec);
+					ciljevi.push_back(vec);
 					oldBrush = pDC->SelectObject(&plavaPozadina);
 					indeks = 1;
 					break;

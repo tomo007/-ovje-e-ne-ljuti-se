@@ -84,6 +84,7 @@ private: void inicijalizirajVarijableCrtanja();
 		 void postaviFiguruNaPocetnoPolje(CDC* pDC, Igrač trenutniIgrač);
 		 void odaberiFiguru();
 		 void pomakniFiguru(Figura fig);
+		 void kockaSeVrti();
 // Overrides
 public:
 	virtual void OnDraw(CDC* pDC);  // overridden to draw this view
@@ -105,7 +106,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
-	afx_msg void OnFileNew();
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnFileNewDvaIgrača();
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);

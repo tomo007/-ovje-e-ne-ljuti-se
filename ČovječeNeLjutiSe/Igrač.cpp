@@ -85,14 +85,14 @@ bool Igraè::pomakni(Figura * figura, int brojPomaka)
 		return pomakniUKuæu(figura, novoPolje - zadnjePolje);
 	else {
 		for (int i = 0; i < brojPomaka; ++i)
-			figura->trenutnoPolje.pop_front();
+			figura->pomakni();
 	}
 	return true;
 }
 
 bool Igraè::pomakniUKuæu(Figura * figura, int brojPomaka)
 {
-	int brojFiguraNaPolju = figureNaPolju.size();
+int brojFiguraNaPolju = figureNaPolju.size();
 	if (brojPomaka <= 4) {
 		for (int i = 0; i < brojFiguraNaPolju; ++i) {
 				if (figureNaPolju[i].poljeUKuæi <= brojPomaka)
