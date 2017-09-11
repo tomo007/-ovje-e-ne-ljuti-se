@@ -104,7 +104,7 @@ void Igra::oslobodiPolje(Figura * figura)
 {
 	Igraè* igraè = dajIgraèaSTomFigurom(figura);
 	std::vector<Figura> v = igraè->figureNaPolju;
-	igraè->figureNaPolju.erase(std::find(v.begin(), v.end(), figura));
+	igraè->figureNaPolju.erase(std::find(v.begin(), v.end(),*figura));
 	--igraè->brojFiguraNaPolju;
 	igraè->figure.push_back(*figura);
 

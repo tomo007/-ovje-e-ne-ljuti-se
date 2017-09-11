@@ -30,6 +30,10 @@ BEGIN_MESSAGE_MAP(CÈovjeèeNeLjutiSeView, CView)
 END_MESSAGE_MAP()
 
 // CÈovjeèeNeLjutiSeView construction/destruction
+bool operator==(const RECT& a, const RECT& b) {
+	return a.left == b.left && a.right == b.right && a.top == b.top &&
+		a.bottom == b.bottom;
+};
 
 CÈovjeèeNeLjutiSeView::CÈovjeèeNeLjutiSeView()
 {
@@ -60,16 +64,20 @@ void CÈovjeèeNeLjutiSeView::igraj()
 	oldBrush = pDC->SelectObject(vratiBrush(trenutniIgrac));
 	for (int i = 1; i < igra->brojBacanjaKocke(trenutniIgrac) && brojSKocke != 6;++i) {
 		bacajKocku = true;
+		protresiKocku();
 		kockaSeVrti();
 	}
-	potresiDostupneFigure();
+	protresiDostupneFigure();
 	if (brojSKocke == 6 || trenutniIgrac.brojFiguraNaPolju > 0) {
 		odaberiFiguru();
 		pomakniFiguru(figura);
-		if (brojSKocke == 6)
+		if (brojSKocke == 6) {
+			protresiKocku();
 			return;
+		}
 	}
 	trenutniIgrac = igra->promjenaIgraèa(&trenutniIgrac);
+	protresiKocku();
 	pDC->SelectObject(oldBrush);
 }
 void CÈovjeèeNeLjutiSeView::iscrtajPolje(CDC* pDC, double dx, double dy)
@@ -194,7 +202,7 @@ void CÈovjeèeNeLjutiSeView::iscrtajCiljVertikalno(CDC * pDC, double dx, double d
 	}
 }
 
-void CÈovjeèeNeLjutiSeView::potresiDostupneFigure()
+void CÈovjeèeNeLjutiSeView::protresiDostupneFigure()
 {
 	CDC* pDC = this->GetDC();
 	CBrush* oldBrush = pDC->SelectObject(vratiBrush(trenutniIgrac));
@@ -223,6 +231,58 @@ void CÈovjeèeNeLjutiSeView::potresiDostupneFigure()
 		}
 	}
 	pDC->SelectObject(oldBrush);	
+}
+
+void CÈovjeèeNeLjutiSeView::protresiKocku()
+{
+	CDC* pDC = this->GetDC();
+	CBrush* oldBrush;
+	CBrush crnaPozadina(RGB(0, 0, 0));
+	oldBrush = pDC->SelectObject(&crnaPozadina);
+	int i = 1;
+	RECT r;
+	r.bottom = sestiRed;
+	r.top = petiRed;
+	r.right = sestiStupac;
+	r.left = petiStupac;
+
+	while (i < 5) {
+		switch (brojSKocke)
+		{
+		case 1:
+			InvalidateRect(&r, 1);
+			iscrtajKockuJedan(pDC, petiStupac + duljinaKuèiceUKockici * 2, petiRed + visinaKuèiceUKockici * 2);
+			break;
+		case 2:
+			InvalidateRect(&r, 1);
+			iscrtajKockuDva(pDC, petiStupac + duljinaKuèiceUKockici, petiRed + visinaKuèiceUKockici);
+			break;
+		case 3:
+			InvalidateRect(&r, 1);
+			iscrtajKockuTri(pDC, petiStupac + duljinaKuèiceUKockici * 2, petiRed + 5);
+			break;
+		case 4:
+			InvalidateRect(&r, 1);
+			iscrtajKockuCetri(pDC, petiStupac + duljinaKuèiceUKockici, petiRed + visinaKuèiceUKockici);
+			break;
+		case 5:
+			InvalidateRect(&r, 1);
+			iscrtajKockuPet(pDC, petiStupac + duljinaKuèiceUKockici, petiRed + 5);
+			break;
+		case 6:
+			InvalidateRect(&r, 1);
+			iscrtajKockuSest(pDC, petiStupac + duljinaKuèiceUKockici, petiRed + 5);
+			break;
+		default:
+			iscrtajKockuPet(pDC, petiStupac + duljinaKuèiceUKockici, petiRed + 5);
+			break;
+		}
+		Sleep(100);
+		if (brojSKocke < 1 || brojSKocke>6)
+			InvalidateRect(&r, 1);
+		++i;
+	}
+	pDC->SelectObject(oldBrush);
 }
 
 void CÈovjeèeNeLjutiSeView::iscrtajKockuSest(CDC * pDC, double dx, double dy)
@@ -495,7 +555,7 @@ void CÈovjeèeNeLjutiSeView::odaberiFiguru()
 void CÈovjeèeNeLjutiSeView::pomakniFiguru(Figura fig)
 {
 	std::vector<Figura> vec = trenutniIgrac.figureNaPolju;
-	auto it = std::find(vec.begin(), vec.end(), fig);
+	auto it = std::find(vec.begin(), vec.end(),fig);
 	int index;
 	if (it != vec.end())
 		index = std::distance(vec.begin(), it);
@@ -511,7 +571,9 @@ void CÈovjeèeNeLjutiSeView::pomakniFiguru(Figura fig)
 }
 void CÈovjeèeNeLjutiSeView::kockaSeVrti()
 {
-	while (bacajKocku);
+	while (bacajKocku) {
+	}
+	return;
 }
 void CÈovjeèeNeLjutiSeView::OnDraw(CDC* pDC)
 {
@@ -571,7 +633,7 @@ void CÈovjeèeNeLjutiSeView::Dump(CDumpContext& dc) const
 void CÈovjeèeNeLjutiSeView::OnTimer(UINT_PTR nIDEvent)
 {
 	static int brojOkretajaKocke = 0;
-		if (bacajKocku) {
+		
 			if (brojOkretajaKocke < 5) {
 				if (!kockaSeOkreæe)
 					kockaSeOkreæe = true;
@@ -582,15 +644,11 @@ void CÈovjeèeNeLjutiSeView::OnTimer(UINT_PTR nIDEvent)
 			}
 			else {
 				KillTimer(timer);
-				igraj();
 				bacajKocku = false;
 				kockaSeOkreæe = false;
 				brojOkretajaKocke = 0;
-
+				igraj();
 			}
-		}
-
-
 }
 
 void CÈovjeèeNeLjutiSeView::OnLButtonDown(UINT nFlags, CPoint point)
@@ -647,6 +705,7 @@ void CÈovjeèeNeLjutiSeView::OnFileNewDvaIgraèa()
 				iscrtajFiguru(pDC, r.left, r.top);
 			}
 			pDC->SelectObject(oldBrush);
+			protresiKocku();
 		}
 		
 	}

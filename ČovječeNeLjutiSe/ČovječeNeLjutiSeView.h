@@ -58,7 +58,8 @@ private: void iscrtajPolje(CDC* pDC,double dx, double dy);
 		 void iscrtajCijeliRedVertikalno(CDC* pDC, double dx, double dy);
 		 void iscrtajCiljHorizontalno(CDC* pDC, double dx, double dy);
 		 void iscrtajCiljVertikalno(CDC* pDC, double dx, double dy);
-		 void potresiDostupneFigure();
+		 void protresiDostupneFigure();
+		 void protresiKocku();
 //crtanje kocke
 private: void iscrtajKockuSest(CDC* pDC, double dx, double dy);
 		 void iscrtajKockuPet(CDC* pDC, double dx, double dy);
