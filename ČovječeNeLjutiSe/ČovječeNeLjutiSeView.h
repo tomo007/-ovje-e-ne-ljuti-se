@@ -23,6 +23,7 @@ private: Igra* igra;
 		 Figura figura;
 		 bool figuraJeOdabrana = false;
 		 int brojSKocke = 0;
+		 int brojBacanjaKocke;
 		 bool kockaSeOkreće = false;
 		 bool bacajKocku;
 private: void igraj();
@@ -60,6 +61,7 @@ private: void iscrtajPolje(CDC* pDC,double dx, double dy);
 		 void iscrtajCiljVertikalno(CDC* pDC, double dx, double dy);
 		 void protresiDostupneFigure();
 		 void protresiKocku();
+		 void protresiKucicuIgraca();
 //crtanje kocke
 private: void iscrtajKockuSest(CDC* pDC, double dx, double dy);
 		 void iscrtajKockuPet(CDC* pDC, double dx, double dy);
@@ -73,7 +75,7 @@ private: void iscrtajFiguru(CDC* pDC, double dx, double dy);
 //popunjavanje polja
 private: void prodiPoljaHorizontalno(double dx, double dy, int brojPoljaZaPoci);
 		 void prodiPoljaVertikalno(double dx, double dy, int brojPoljaZaPoci);
-		 void prodiKucicu(double dx, double dy);
+		 void prodiKucicu(double dx, double dy,int index);
 		 void prodiPoljaVertikalnoPremaGore(double dx, double dy, int brojPoljaZaPoci);
 		 void prodiPoljaHorizontalnoSDesnaNaLijevo(double dx, double dy, int brojPoljaZaPoci);
 //inicijalizacija varijabli
@@ -82,10 +84,8 @@ private: void inicijalizirajVarijableCrtanja();
 		 void inicijalizirajKučicu(Boja b);
 		 void osvjeziPolje(RECT r,int izbrisi);
 //azuriranje polja
-		 void postaviFiguruNaPocetnoPolje(CDC* pDC, Igrač trenutniIgrač);
-		 void odaberiFiguru();
-		 void pomakniFiguru(Figura fig);
-		 void kockaSeVrti();
+		 void postaviFiguruNaPocetnoPolje(CDC* pDC);
+		 void pomakniFiguru();
 // Overrides
 public:
 	virtual void OnDraw(CDC* pDC);  // overridden to draw this view
@@ -109,6 +109,8 @@ public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnFileNewDvaIgrača();
+	afx_msg void OnFileNewTriIgrača();
+	afx_msg void OnFileNewCetriIgrača();
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 };
 

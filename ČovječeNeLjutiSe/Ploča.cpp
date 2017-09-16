@@ -4,13 +4,13 @@
 
 Ploèa::Ploèa()
 {
+	for (int i = 0; i < 40; ++i)
+		polje[i] = nullptr;
 }
 
 
 Ploèa::~Ploèa()
 {
-	for (int i = 0; i < 40; ++i)
-		polje[i] = nullptr;
 }
 
 void Ploèa::zauzmiPolje(Figura* figura, int trenutnoPolje)
@@ -20,7 +20,7 @@ void Ploèa::zauzmiPolje(Figura* figura, int trenutnoPolje)
 
 Figura * Ploèa::provjeraPolja(int trenutnoPolje)
 {
-	std::map<int, Figura*>::const_iterator it;
-	it = polje.find(trenutnoPolje);
-	return it->second;
+	if (polje.find(trenutnoPolje) != polje.end())
+		return polje.find(trenutnoPolje)->second;
+	return nullptr;
 }

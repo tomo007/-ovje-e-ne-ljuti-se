@@ -23,12 +23,14 @@ int Igra::brojBacanjaKocke(Igraè trenutniIgraè)
 		return 3;
 	return 1;
 }
-bool Igra::pomakniFiguruNaPoèetnoPolje(Igraè trenutniIgraè)
+bool Igra::pomakniFiguruNaPoèetnoPolje(Igraè* trenutniIgraè)
 {
-	if (trenutniIgraè.figure.size() > 0) {
-		trenutniIgraè.figureNaPolju.push_back(trenutniIgraè.figure.back());
-		trenutniIgraè.figureNaPolju.back().pomakni();
-		trenutniIgraè.figure.pop_back();
+	if (trenutniIgraè->figure.size() > 0) {
+		Figura f = trenutniIgraè->figure.back();
+		trenutniIgraè->figureNaPolju.push_back(f);
+		trenutniIgraè->figureNaPolju.back().pomakni();
+		trenutniIgraè->figure.pop_back();
+		++trenutniIgraè->brojFiguraNaPolju;
 		return true;
 	}
 	else
@@ -41,25 +43,25 @@ Igraè Igra::promjenaIgraèa(Igraè * trenutniIgraè)
 	switch (bojaTrenutnogIgraèa) 
 	{
 	case Boja::CRVENA:
-		indeksIgraèa = 2;
+		indeksIgraèa = 1;
 		return igraèi[1];
 	case Boja::PLAVA:
 		if (brojIgraèa <= 2) {
-			indeksIgraèa = 1;
+			indeksIgraèa = 0;
 			return igraèi.front();
 		}else {
-			indeksIgraèa = 3;
+			indeksIgraèa = 2;
 			return igraèi[2];
 		}
 	case Boja::ZELENA:
 		if (brojIgraèa <= 3) {
-			indeksIgraèa = 1;
+			indeksIgraèa = 0;
 			return igraèi.front();
 		}else
-			indeksIgraèa = 4;
+			indeksIgraèa = 3;
 			return igraèi[3];
 	case Boja::ZUTA:
-		indeksIgraèa = 1;
+		indeksIgraèa = 0;
 		return igraèi.front();
 	}
 	
@@ -145,16 +147,16 @@ void Igra::promjeniIndeksIgraèa(Igraè igraè)
 {
 	switch (igraè.vratiBoju()) {
 	case Boja::CRVENA:
-		indeksIgraèa=1;
+		indeksIgraèa=0;
 		break;
 	case Boja::PLAVA:
-		indeksIgraèa = 2;
+		indeksIgraèa = 1;
 		break;
 	case Boja::ZELENA:
-		indeksIgraèa = 3;
+		indeksIgraèa = 2;
 		break;
 	case Boja::ZUTA:
-		indeksIgraèa = 4;
+		indeksIgraèa = 3;
 		break;
 	default:
 		break;

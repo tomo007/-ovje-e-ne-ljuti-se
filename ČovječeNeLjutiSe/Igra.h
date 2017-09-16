@@ -17,7 +17,7 @@ public:
 	std::vector<Igraè> vratiIgraèe();
 	int brojBacanjaKocke(Igraè trenutniIgraè);
 	int indeksIgraèa;
-	bool pomakniFiguruNaPoèetnoPolje(Igraè trenutniIgraè);
+	bool pomakniFiguruNaPoèetnoPolje(Igraè* trenutniIgraè);
 	Igraè promjenaIgraèa(Igraè* trenutniIgraè);
 	std::vector<Figura> izaberiFiguru(Igraè* trenutniIgraè, int dobivenBrojSKocke);
 	bool pomakniFiguru(Igraè* trenutniIgraè,Figura* figura, int brojPomaka);
