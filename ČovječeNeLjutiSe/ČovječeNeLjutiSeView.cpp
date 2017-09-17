@@ -48,6 +48,7 @@ CÈovjeèeNeLjutiSeView::CÈovjeèeNeLjutiSeView()
 
 CÈovjeèeNeLjutiSeView::~CÈovjeèeNeLjutiSeView()
 {
+	delete igra;
 }
 
 
@@ -65,6 +66,10 @@ void CÈovjeèeNeLjutiSeView::igraj()
 	CDC* pDC =this-> GetDC();
 	CBrush* oldBrush;
 	oldBrush = pDC->SelectObject(vratiBrush(trenutniIgrac));
+	if (trenutniIgrac.brojFiguraNaPolju <= 0 && brojSKocke == 6) {
+		postaviFiguruNaPocetnoPolje(this->GetDC());
+		brojBacanjaKocke = 1;
+	}
 	if (brojSKocke != 6 && trenutniIgrac.brojFiguraNaPolju <= 0) {
 		if (brojBacanjaKocke <= 0) {
 			trenutniIgrac = igra->promjenaIgraèa(&trenutniIgrac);
@@ -83,6 +88,7 @@ void CÈovjeèeNeLjutiSeView::igraj()
 		if (figuraJeOdabrana) {
 			figuraJeOdabrana = false;
 			pomakniFiguru();
+			brojBacanjaKocke = 1;
 			if (brojSKocke == 6) {
 				protresiKocku();
 				pDC->SelectObject(oldBrush);
@@ -163,7 +169,17 @@ void CÈovjeèeNeLjutiSeView::iscrtajPolje(CDC* pDC, double dx, double dy)
 	pDC->Rectangle(petiStupac, petiRed, sestiStupac, sestiRed);
 	pDC->SelectObject(oldPen);
 
-	
+	DeleteObject(crnaPozadina);
+	DeleteObject(crvenaPozadina);
+	DeleteObject(zelenaPozadina);
+	DeleteObject(zutaPozadina);
+	DeleteObject(plavaPozadina);
+	DeleteObject(crvenaOlovka);
+	DeleteObject(zelenaOlovka);
+	DeleteObject(zutaOlovka);
+	DeleteObject(plavaOlovka);
+	DeleteObject(crnaOlovka);
+
 	
 
 }
@@ -261,6 +277,8 @@ void CÈovjeèeNeLjutiSeView::protresiKocku()
 	r.left = petiStupac;
 
 	while (i < 2) {
+		InvalidateRect(&r, true);
+		Sleep(50);
 		switch (brojSKocke)
 		{
 		case 1:
@@ -285,12 +303,12 @@ void CÈovjeèeNeLjutiSeView::protresiKocku()
 			iscrtajKockuPet(pDC, petiStupac + duljinaKuèiceUKockici, petiRed + 5);
 			break;
 		}
-		Sleep(50);
-		InvalidateRect(&r, 1);
+		InvalidateRect(&r, false);
 		if (brojSKocke < 1 || brojSKocke>6)
 			InvalidateRect(&r, 1);
 		++i;
 	}
+	DeleteObject(crnaPozadina);
 	pDC->SelectObject(oldBrush);
 }
 
@@ -515,17 +533,17 @@ void CÈovjeèeNeLjutiSeView::inicijalizirajVarijableCrtanja()
 
 void CÈovjeèeNeLjutiSeView::inicijalizirajVektorPolja()
 {
-	prodiPoljaHorizontalno(0, petiRed, 5);
-	prodiPoljaVertikalnoPremaGore(petiStupac, cetvrtiRed, 4);
+	prodiPoljaHorizontalno(0, cetvrtiRed, 5);
+	prodiPoljaVertikalnoPremaGore(cetvrtiStupac, cetvrtiRed-visinaKuèice, 4);
 	ploèa.push_back(CRect(petiStupac, 0, sestiStupac, visinaKuèice));
 	prodiPoljaVertikalno(sestiStupac, 0, 4);
-	prodiPoljaHorizontalno(sestiRed, petiRed, 5);
-	ploèa.push_back(CRect(desetiStupac, sestiRed, duljinaKuèice * 11, sedmiRed));
-	prodiPoljaHorizontalnoSDesnaNaLijevo(desetiStupac, sedmiRed, 5);
-	prodiPoljaVertikalnoPremaGore(sestiStupac, sedmiRed + visinaKuèice, 4);
+	prodiPoljaHorizontalno(sestiStupac, cetvrtiRed, 5);
+	ploèa.push_back(CRect(desetiStupac, petiRed, duljinaKuèice * 11, sestiRed));
+	prodiPoljaHorizontalnoSDesnaNaLijevo(desetiStupac, sestiRed, 5);
+	prodiPoljaVertikalno(sestiStupac, sedmiRed , 4);
 	ploèa.push_back(CRect(petiStupac, desetiRed, sestiStupac, visinaKuèice * 11));
-	prodiPoljaVertikalno(petiStupac, desetiRed, 4);
-	prodiPoljaHorizontalnoSDesnaNaLijevo(cetvrtiRed, sedmiRed, 4);
+	prodiPoljaVertikalnoPremaGore(cetvrtiStupac, desetiRed, 4);
+	prodiPoljaHorizontalnoSDesnaNaLijevo(cetvrtiStupac, sestiRed, 4);
 	ploèa.push_back(CRect(0, sestiRed, duljinaKuèice, sedmiRed));
 }
 
@@ -571,28 +589,49 @@ void CÈovjeèeNeLjutiSeView::osvjeziPolje(RECT r,int izbrisi)
 
 void CÈovjeèeNeLjutiSeView::postaviFiguruNaPocetnoPolje(CDC* pDC)
 {
-	osvjeziPolje(kuèice[igra->indeksIgraèa].back(), 1);
-	kuèice[igra->indeksIgraèa].pop_back();
+	bool poljeJeZauzeto = false;
 	RECT poljeFigure = ploèa.at(trenutniIgrac.vratiPoèetnoPolje());
-	figureNaPolju[igra->indeksIgraèa].push_back(poljeFigure);
-	iscrtajFiguru(pDC, poljeFigure.left, poljeFigure.top);
-	osvjeziPolje(poljeFigure, 0);
-	igra->pomakniFiguruNaPoèetnoPolje(&trenutniIgrac);
-	figura = trenutniIgrac.figureNaPolju.back();
+	if(trenutniIgrac.brojFiguraNaPolju>0){
+		for each (RECT r in figureNaPolju[igra->indeksIgraèa]) {
+			if (r == poljeFigure)
+				poljeJeZauzeto = true;
+		}
+	}
+	if (!poljeJeZauzeto) {
+		osvjeziPolje(kuèice[igra->indeksIgraèa].back(), 1);
+		kuèice[igra->indeksIgraèa].pop_back();
+		figureNaPolju[igra->indeksIgraèa].push_back(poljeFigure);
+		iscrtajFiguru(pDC, poljeFigure.left, poljeFigure.top);
+		osvjeziPolje(poljeFigure, 0);
+		igra->pomakniFiguruNaPoèetnoPolje(&igra->igraèi[igra->indeksIgraèa]);
+		trenutniIgrac = igra->igraèi[igra->indeksIgraèa];
+		figura = &trenutniIgrac.figureNaPolju.back();
+		iscrtajFiguru(pDC, poljeFigure.left, poljeFigure.top);
+		osvjeziPolje(poljeFigure, 0);
+	}
 }
 void CÈovjeèeNeLjutiSeView::pomakniFiguru()
 {
+	int staroPolje = figura->trenutnoPolje.front();
 	std::vector<Figura> vec = trenutniIgrac.figureNaPolju;
-	auto it = std::find(vec.begin(), vec.end(),figura);
+	auto it = std::find(vec.begin(), vec.end(),*figura);
 	int index;
 	if (it != vec.end())
 		index = std::distance(vec.begin(), it);
 	RECT poljeNaKojemJeFigura = figureNaPolju[igra->indeksIgraèa].at(index);
-	if (igra->pomakniFiguru(&trenutniIgrac, &figura, brojSKocke)) {
-		auto itPolja = std::next(std::find(ploèa.begin(), ploèa.end(), poljeNaKojemJeFigura), brojSKocke);
+	if (!igra->pomakniFiguru(&trenutniIgrac, figura, brojSKocke)) {
+		if (trenutniIgrac.zadnjeSlobodnoMjestoUKuæi == 0) {
+		//protresi cilj igraèa
+		//makni ga iz igre
+			igra->igraèi.erase(igra->igraèi.begin() + igra->indeksIgraèa);
+		//ako je u igri samo jedan igraè on je izgubio i kraj igre
+		}
+		//if ako je u cilju makni figuru s igre i nacrtaj u cilju 
+		auto itPolja = std::next(ploèa.begin(), figura->trenutnoPolje.front());
 		if (itPolja != ploèa.end()) {
 			figureNaPolju[igra->indeksIgraèa].at(index)= *itPolja;
-			osvjeziPolje(poljeNaKojemJeFigura, 0);
+			osvjeziPolje(poljeNaKojemJeFigura, 1);
+			iscrtajFiguru(this->GetDC(),itPolja->left,itPolja->top);
 			osvjeziPolje(*itPolja,0);
 		}
 	}
@@ -733,6 +772,8 @@ void CÈovjeèeNeLjutiSeView::OnFileNewDvaIgraèa()
 		}
 	protresiKocku();
 	brojBacanjaKocke = igra->brojBacanjaKocke(trenutniIgrac);
+	DeleteObject(plavaPozadina);
+	DeleteObject(crvenaPozadina);
 	}
 
 void CÈovjeèeNeLjutiSeView::OnFileNewTriIgraèa()
@@ -783,6 +824,9 @@ void CÈovjeèeNeLjutiSeView::OnFileNewTriIgraèa()
 	}
 	protresiKocku();
 	brojBacanjaKocke = igra->brojBacanjaKocke(trenutniIgrac);
+	DeleteObject(plavaPozadina);
+	DeleteObject(crvenaPozadina);
+	DeleteObject(zelenaPozadina);
 }
 
 void CÈovjeèeNeLjutiSeView::OnFileNewCetriIgraèa()
@@ -840,6 +884,10 @@ void CÈovjeèeNeLjutiSeView::OnFileNewCetriIgraèa()
 	}
 	protresiKocku();
 	brojBacanjaKocke = igra->brojBacanjaKocke(trenutniIgrac);
+	DeleteObject(plavaPozadina);
+	DeleteObject(zutaPozadina);
+	DeleteObject(crvenaPozadina);
+	DeleteObject(zelenaPozadina);
 }
 
 void CÈovjeèeNeLjutiSeView::OnLButtonDblClk(UINT nFlags, CPoint point)
@@ -850,8 +898,8 @@ void CÈovjeèeNeLjutiSeView::OnLButtonDblClk(UINT nFlags, CPoint point)
 	if (brojSKocke == 6) {
 		for each (RECT var in kuèice[igra->indeksIgraèa])
 		{
-			if (var.left <= p.x&&var.right <= p.x)
-				if (var.top <= p.y&&var.bottom <= p.y) {
+			if (var.left <= p.x&&var.right >= p.x)
+				if (var.top <= p.y&&var.bottom >= p.y) {
 					postaviNaPocetnoPolje = true;
 				}
 		}
@@ -860,8 +908,8 @@ void CÈovjeèeNeLjutiSeView::OnLButtonDblClk(UINT nFlags, CPoint point)
 		RECT r;
 		for each (RECT var in figureNaPolju[igra->indeksIgraèa])
 		{
-			if (var.left <= p.x&&var.right <= p.x)
-				if (var.top <= p.y&&var.bottom <= p.y) {
+			if (var.left <= p.x && p.x <= var.right)
+				if (var.top <= p.y&&p.y <= var.bottom) {
 					figuraJeOdabrana = true;
 					r = var;
 				}
@@ -871,14 +919,15 @@ void CÈovjeèeNeLjutiSeView::OnLButtonDblClk(UINT nFlags, CPoint point)
 			auto it = std::find(vec.begin(), vec.end(), r);
 			if (it != vec.end()) {
 				int index = std::distance(vec.begin(), it);
-				figura = trenutniIgrac.figureNaPolju[index];
+				figura = &trenutniIgrac.figureNaPolju[index];
 			}
 		}
 	}
-	if (postaviNaPocetnoPolje){
-		postaviFiguruNaPocetnoPolje(this->GetDC());
-		brojBacanjaKocke = 1;
-	}
+		if (postaviNaPocetnoPolje)
+		{
+			postaviFiguruNaPocetnoPolje(this->GetDC());
+			brojBacanjaKocke = 1;
+		}
 	igraj();
 }
 

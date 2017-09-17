@@ -20,7 +20,7 @@ public:
 //članovi igre
 private: Igra* igra;
 		 Igrač trenutniIgrac;
-		 Figura figura;
+		 Figura* figura;
 		 bool figuraJeOdabrana = false;
 		 int brojSKocke = 0;
 		 int brojBacanjaKocke;

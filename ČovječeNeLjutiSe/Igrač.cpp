@@ -22,7 +22,7 @@ int Igraè::vratiZadnjePolje(Boja boja)
 {
 	switch (boja) {
 	case Boja::CRVENA:
-		return 39;
+		return 40;
 	case Boja::PLAVA:
 		return 9;
 	case Boja::ZELENA:
@@ -64,6 +64,7 @@ Igraè::Igraè()
 
 Igraè::~Igraè()
 {
+	kuæa.clear();
 }
 
 int Igraè::vratiPoèetnoPolje()
@@ -78,7 +79,7 @@ int Igraè::vratiZadnjePolje()
 
 bool Igraè::pomakni(Figura * figura, int brojPomaka)
 {	
-	int novoPolje = figura->trenutnoPolje.front() + brojPomaka;
+	int novoPolje = (figura->trenutnoPolje.front() + brojPomaka)%40;
 	int zadnjePolje = figura->vratiZavršnuToèku();
 
 	if(figura->trenutnoPolje.size()<brojPomaka)

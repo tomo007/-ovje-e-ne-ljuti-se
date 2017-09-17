@@ -11,6 +11,7 @@ Ploèa::Ploèa()
 
 Ploèa::~Ploèa()
 {
+	polje.clear();
 }
 
 void Ploèa::zauzmiPolje(Figura* figura, int trenutnoPolje)

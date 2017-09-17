@@ -8,12 +8,12 @@ class Igra
 {
 private:
 	Ploèa ploèa;
-	std::vector<Igraè> igraèi;
 	Boja vratiBojuIgraèa(int i);
 	void promjeniIndeksIgraèa(Igraè igraè);
 public:
 	Igra(byte brojIgraèa);
 	~Igra();
+	std::vector<Igraè> igraèi;
 	std::vector<Igraè> vratiIgraèe();
 	int brojBacanjaKocke(Igraè trenutniIgraè);
 	int indeksIgraèa;
