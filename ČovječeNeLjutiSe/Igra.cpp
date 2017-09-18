@@ -7,6 +7,8 @@ Igra::Igra (byte brojIgraèa){
 		igraèi.push_back(Igraè(vratiBojuIgraèa(i)));
 	}
 	indeksIgraèa = 0;
+	indeksZauzetogPolja = -1;
+	indeksIgracaNaZauzetomPolju = -1;
 }
 
 
@@ -28,7 +30,6 @@ bool Igra::pomakniFiguruNaPoèetnoPolje(Igraè* trenutniIgraè)
 	if (trenutniIgraè->figure.size() > 0) {
 		Figura f = trenutniIgraè->figure.back();
 		trenutniIgraè->figureNaPolju.push_back(f);
-		trenutniIgraè->figureNaPolju.back().pomakni();
 		trenutniIgraè->figure.pop_back();
 		++trenutniIgraè->brojFiguraNaPolju;
 		return true;
@@ -77,39 +78,38 @@ std::vector<Figura> Igra::izaberiFiguru(Igraè * trenutniIgraè, int dobivenBrojSK
 
 bool Igra::pomakniFiguru(Igraè* trenutniIgraè, Figura* figura, int brojPomaka)
 {
-	bool flagFiguraNaPolju = false;
-	for each (Figura var in trenutniIgraè->figureNaPolju)
-	{
-		if (var == *figura) {
-			flagFiguraNaPolju = true;
-			break;
-		}
-	}
-	if (!flagFiguraNaPolju){
-		trenutniIgraè->figureNaPolju.push_back(*figura);
-		++trenutniIgraè->brojFiguraNaPolju;
-	}
+
 	if (trenutniIgraè->pomakni(figura, brojPomaka)) {
-		Figura* figuraNaTomPolju = ploèa.provjeraPolja(figura->trenutnoPolje.front());
+		oslobodiPolje((figura->vratiTrenutnoPolje()-brojPomaka)%40);
+		Figura* figuraNaTomPolju = ploèa.provjeraPolja(figura->vratiTrenutnoPolje());
 		if (figuraNaTomPolju != nullptr) {
+			poljeJeZauzeto = true;
 			oslobodiPolje(figuraNaTomPolju);
-			figuraNaTomPolju = new Figura(figuraNaTomPolju->vratiBoju(), figuraNaTomPolju->vratiPoèetnuToèku(), figuraNaTomPolju->vratiZavršnuToèku());
-			ploèa.zauzmiPolje(figura, figura->trenutnoPolje.front());
+			ploèa.zauzmiPolje(figura, figura->vratiTrenutnoPolje());
 		}
-		if (trenutniIgraè->zadnjeSlobodnoMjestoUKuæi == 0)
-			return true;
+		ploèa.zauzmiPolje(figura, figura->vratiTrenutnoPolje());
+		return true;
 	}
 	return false;
+	
 }
 
 void Igra::oslobodiPolje(Figura * figura)
 {
 	Igraè* igraè = dajIgraèaSTomFigurom(figura);
 	std::vector<Figura> v = igraè->figureNaPolju;
+	auto it = std::find(v.begin(), v.end(),*figura);
+	promjeniIndeksIgraèaNaZauzetomPolju(*igraè);
+	indeksZauzetogPolja = std::distance(v.begin(), it);
 	igraè->figureNaPolju.erase(std::find(v.begin(), v.end(),*figura));
 	--igraè->brojFiguraNaPolju;
 	igraè->figure.push_back(*figura);
 
+}
+
+void Igra::oslobodiPolje(int polje)
+{
+	ploèa.zauzmiPolje(nullptr, polje);
 }
 
 Igraè* Igra::dajIgraèaSTomFigurom(Figura* figura)
@@ -125,6 +125,13 @@ Igraè* Igra::dajIgraèaSTomFigurom(Figura* figura)
 Igraè Igra::prviIgraè()
 {
 	return igraèi.front();
+}
+
+void Igra::vratiPromjeneNakonZauzetoPolja()
+{
+	poljeJeZauzeto = false;
+	indeksZauzetogPolja = -1;
+	indeksIgracaNaZauzetomPolju = -1;
 }
 
 Boja Igra::vratiBojuIgraèa(int i)
@@ -143,20 +150,20 @@ Boja Igra::vratiBojuIgraèa(int i)
 	}
 }
 
-void Igra::promjeniIndeksIgraèa(Igraè igraè)
+void Igra::promjeniIndeksIgraèaNaZauzetomPolju(Igraè igraè)
 {
 	switch (igraè.vratiBoju()) {
 	case Boja::CRVENA:
-		indeksIgraèa=0;
+		indeksIgracaNaZauzetomPolju =0;
 		break;
 	case Boja::PLAVA:
-		indeksIgraèa = 1;
+		indeksIgracaNaZauzetomPolju = 1;
 		break;
 	case Boja::ZELENA:
-		indeksIgraèa = 2;
+		indeksIgracaNaZauzetomPolju = 2;
 		break;
 	case Boja::ZUTA:
-		indeksIgraèa = 3;
+		indeksIgracaNaZauzetomPolju = 3;
 		break;
 	default:
 		break;

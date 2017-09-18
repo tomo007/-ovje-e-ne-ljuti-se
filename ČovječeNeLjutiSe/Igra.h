@@ -9,8 +9,11 @@ class Igra
 private:
 	Ploèa ploèa;
 	Boja vratiBojuIgraèa(int i);
-	void promjeniIndeksIgraèa(Igraè igraè);
+	void promjeniIndeksIgraèaNaZauzetomPolju(Igraè igraè);
 public:
+	bool poljeJeZauzeto = false;
+	int indeksZauzetogPolja;
+	int indeksIgracaNaZauzetomPolju;
 	Igra(byte brojIgraèa);
 	~Igra();
 	std::vector<Igraè> igraèi;
@@ -22,7 +25,9 @@ public:
 	std::vector<Figura> izaberiFiguru(Igraè* trenutniIgraè, int dobivenBrojSKocke);
 	bool pomakniFiguru(Igraè* trenutniIgraè,Figura* figura, int brojPomaka);
 	void oslobodiPolje(Figura* figura);
+	void oslobodiPolje(int polje);
 	Igraè* dajIgraèaSTomFigurom(Figura* figura);
 	Igraè prviIgraè();
+	void vratiPromjeneNakonZauzetoPolja();
 };
 

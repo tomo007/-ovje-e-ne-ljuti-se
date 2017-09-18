@@ -16,12 +16,10 @@ Ploèa::~Ploèa()
 
 void Ploèa::zauzmiPolje(Figura* figura, int trenutnoPolje)
 {
-	polje.at(trenutnoPolje) = figura;
+	polje[trenutnoPolje] = figura;
 }
 
 Figura * Ploèa::provjeraPolja(int trenutnoPolje)
 {
-	if (polje.find(trenutnoPolje) != polje.end())
-		return polje.find(trenutnoPolje)->second;
-	return nullptr;
+	return polje[trenutnoPolje];
 }

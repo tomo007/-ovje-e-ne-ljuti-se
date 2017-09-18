@@ -9,7 +9,7 @@ private:
 	std::vector<Figura*> kuæa;
 	int vratiPoèetnoPolje(Boja boja);
 	int vratiZadnjePolje(Boja boja);
-	bool provjeraZaPreskakanjeFigura(int zadanoPolje);
+	bool provjeraZaPreskakanjeFigura(int zadanoPolje,Figura f);
 public:
 	int brojFiguraNaPolju;
 	std::vector<Figura> figure;

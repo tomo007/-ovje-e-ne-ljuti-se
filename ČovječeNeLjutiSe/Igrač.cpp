@@ -34,12 +34,14 @@ int Igraè::vratiZadnjePolje(Boja boja)
 	}
 }
 
-bool Igraè::provjeraZaPreskakanjeFigura(int zadanoPolje)
+bool Igraè::provjeraZaPreskakanjeFigura(int zadanoPolje,Figura f)
 {
 	int brojFiguraNaPolju = figureNaPolju.size();
 	for (int i = 0; i < brojFiguraNaPolju; ++i) {
-			if (figureNaPolju[i].trenutnoPolje.front() <= zadanoPolje)
-				return false;
+		if (figureNaPolju[i] == f)
+			continue;
+		if (figureNaPolju[i].vratiTrenutnoPolje() <= zadanoPolje&&figureNaPolju[i].vratiTrenutnoPolje() > f.vratiTrenutnoPolje())
+			return false;
 	}
 	return true;
 }
@@ -79,14 +81,20 @@ int Igraè::vratiZadnjePolje()
 
 bool Igraè::pomakni(Figura * figura, int brojPomaka)
 {	
-	int novoPolje = (figura->trenutnoPolje.front() + brojPomaka)%40;
+	int novoPolje = (figura->vratiTrenutnoPolje() + brojPomaka)%40;
 	int zadnjePolje = figura->vratiZavršnuToèku();
-
+	
 	if(figura->trenutnoPolje.size()<brojPomaka)
 		return pomakniUKuæu(figura, novoPolje - zadnjePolje);
 	else {
-		for (int i = 0; i < brojPomaka; ++i)
-			figura->pomakni();
+		if (provjeraZaPreskakanjeFigura(novoPolje, *figura)) {
+			for (int i = 0; i < brojPomaka; ++i) {
+				figura->pomakni();
+			}
+		}
+		else {
+				return false;
+		}
 	}
 	return true;
 }

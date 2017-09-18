@@ -34,7 +34,9 @@ private: double duljinaKučice;
 		 double visinaKučiceUKockici;
 		 UINT_PTR timer;
 		 std::vector<std::vector<RECT>> kučice;
+		 std::vector<std::vector<RECT>> poljaKučice;
 		 std::vector<std::vector<RECT>> figureNaPolju;
+		 std::vector<std::vector<RECT>> poljaCiljeva;
 		 std::vector<std::vector<RECT>> ciljevi;
 		 std::vector<RECT>  ploča;
 //olovke i ispune
@@ -82,6 +84,7 @@ private: void prodiPoljaHorizontalno(double dx, double dy, int brojPoljaZaPoci);
 private: void inicijalizirajVarijableCrtanja();
 		 void inicijalizirajVektorPolja();
 		 void inicijalizirajKučicu(Boja b);
+		 void inicijalizirajCiljeve(Boja b);
 		 void osvjeziPolje(RECT r,int izbrisi);
 //azuriranje polja
 		 void postaviFiguruNaPocetnoPolje();
