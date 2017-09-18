@@ -251,7 +251,7 @@ void CÈovjeèeNeLjutiSeView::protresiDostupneFigure()
 			}
 		}
 	}
-	DeleteObject(pDC->SelectObject(oldBrush));	
+	delete (pDC->SelectObject(oldBrush));
 	ReleaseDC(pDC);
 }
 
@@ -319,7 +319,8 @@ void CÈovjeèeNeLjutiSeView::protresiKucicuIgraca()
 			++i;
 		}
 	}
-	pDC->SelectObject(oldBrush);
+	delete (pDC->SelectObject(oldBrush));
+	ReleaseDC(pDC);
 }
 
 void CÈovjeèeNeLjutiSeView::iscrtajKockuSest(CDC * pDC, double dx, double dy)
@@ -691,7 +692,7 @@ void CÈovjeèeNeLjutiSeView::OnDraw(CDC* pDC)
 		for (auto r : i) {
 			oldBrush = pDC->SelectObject(vratiBrush(igra->igraèi[indexIgraca]));
 			iscrtajFiguru(pDC, r.left, r.top);
-			DeleteObject(pDC->SelectObject(oldBrush));
+			delete (pDC->SelectObject(oldBrush));
 		}
 		++indexIgraca;
 	}
@@ -701,17 +702,16 @@ void CÈovjeèeNeLjutiSeView::OnDraw(CDC* pDC)
 			if (indexIgraca < igra->igraèi.size()) {
 				oldBrush = pDC->SelectObject(vratiBrush(igra->igraèi[indexIgraca]));
 				iscrtajFiguru(pDC, r.left, r.top);
-				DeleteObject(pDC->SelectObject(oldBrush));
+				delete (pDC->SelectObject(oldBrush));
 			}
 		}
 		++indexIgraca;
 	}
 	DeleteObject(crnaOlovka);
 	DeleteObject(crnaPozadina);
+	ReleaseDC(pDC);
 		
 }
-	// TODO: add draw code for native data here
-
 
 
 // CÈovjeèeNeLjutiSeView diagnostics
