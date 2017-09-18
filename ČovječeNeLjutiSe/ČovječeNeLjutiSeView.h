@@ -84,7 +84,7 @@ private: void inicijalizirajVarijableCrtanja();
 		 void inicijalizirajKučicu(Boja b);
 		 void osvjeziPolje(RECT r,int izbrisi);
 //azuriranje polja
-		 void postaviFiguruNaPocetnoPolje(CDC* pDC);
+		 void postaviFiguruNaPocetnoPolje();
 		 void pomakniFiguru();
 // Overrides
 public:
