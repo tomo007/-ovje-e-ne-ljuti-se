@@ -6,9 +6,9 @@ Figura::Figura(Boja b, byte p, byte c)
 {
 	boja = b;
 	poljeUKuci = -1;
-	poèetak = p;
+	pocetak = p;
 	cilj = c;
-	for (int i = poèetak; i != cilj;) {
+	for (int i = pocetak; i != cilj;) {
 		trenutnoPolje.push_back(i);
 		i = (i + 1 )% 40 ;
 	}
@@ -35,7 +35,7 @@ byte Figura::vratiTrenutnoPolje()
 
 byte Figura::vratiPocetnuTocku()
 {
-	return poèetak;
+	return pocetak;
 }
 
 byte Figura::vratiZavrsnuTocku()

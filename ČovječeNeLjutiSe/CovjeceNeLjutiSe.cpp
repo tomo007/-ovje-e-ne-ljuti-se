@@ -1,5 +1,5 @@
 
-// ÈovjeèeNeLjutiSe.cpp : Defines the class behaviors for the application.
+// CovjeceNeLjutiSe.cpp : Defines the class behaviors for the application.
 //
 
 #include "stdafx.h"
@@ -16,7 +16,7 @@
 #endif
 
 
-// CÈovjeèeNeLjutiSeApp
+// CCovjeceNeLjutiSeApp
 
 BEGIN_MESSAGE_MAP(CCovjeceNeLjutiSeApp, CWinApp)
 	ON_COMMAND(ID_APP_ABOUT, &CCovjeceNeLjutiSeApp::OnAppAbout)
@@ -26,24 +26,24 @@ BEGIN_MESSAGE_MAP(CCovjeceNeLjutiSeApp, CWinApp)
 END_MESSAGE_MAP()
 
 
-// CÈovjeèeNeLjutiSeApp construction
+// CCovjeceNeLjutiSeApp construction
 
 CCovjeceNeLjutiSeApp::CCovjeceNeLjutiSeApp()
 {
 	// TODO: replace application ID string below with unique ID string; recommended
 	// format for string is CompanyName.ProductName.SubProduct.VersionInformation
-	SetAppID(_T("ÈovjeèeNeLjutiSe.AppID.NoVersion"));
+	SetAppID(_T("CovjeceNeLjutiSe.AppID.NoVersion"));
 
 	// TODO: add construction code here,
 	// Place all significant initialization in InitInstance
 }
 
-// The one and only CÈovjeèeNeLjutiSeApp object
+// The one and only CCovjeceNeLjutiSeApp object
 
 CCovjeceNeLjutiSeApp theApp;
 
 
-// CÈovjeèeNeLjutiSeApp initialization
+// CCovjeceNeLjutiSeApp initialization
 
 BOOL CCovjeceNeLjutiSeApp::InitInstance()
 {
@@ -106,7 +106,7 @@ BOOL CCovjeceNeLjutiSeApp::InitInstance()
 	return TRUE;
 }
 
-// CÈovjeèeNeLjutiSeApp message handlers
+// CCovjeceNeLjutiSeApp message handlers
 
 
 // CAboutDlg dialog used for App About
@@ -148,7 +148,7 @@ void CCovjeceNeLjutiSeApp::OnAppAbout()
 	aboutDlg.DoModal();
 }
 
-// CÈovjeèeNeLjutiSeApp message handlers
+// CCovjeceNeLjutiSeApp message handlers
 
 
 

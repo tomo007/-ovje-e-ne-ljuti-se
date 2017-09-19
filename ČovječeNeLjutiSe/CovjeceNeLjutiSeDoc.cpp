@@ -1,5 +1,5 @@
 
-// ÈovjeèeNeLjutiSeDoc.cpp : implementation of the CÈovjeèeNeLjutiSeDoc class
+// CovjeceNeLjutiSeDoc.cpp : implementation of the CCovjeceNeLjutiSeDoc class
 //
 
 #include "stdafx.h"
@@ -17,7 +17,7 @@
 #define new DEBUG_NEW
 #endif
 
-// CÈovjeèeNeLjutiSeDoc
+// CCovjeceNeLjutiSeDoc
 
 IMPLEMENT_DYNCREATE(CCovjeceNeLjutiSeDoc, CDocument)
 
@@ -25,7 +25,7 @@ BEGIN_MESSAGE_MAP(CCovjeceNeLjutiSeDoc, CDocument)
 END_MESSAGE_MAP()
 
 
-// CÈovjeèeNeLjutiSeDoc construction/destruction
+// CCovjeceNeLjutiSeDoc construction/destruction
 
 CCovjeceNeLjutiSeDoc::CCovjeceNeLjutiSeDoc()
 {
@@ -51,7 +51,7 @@ BOOL CCovjeceNeLjutiSeDoc::OnNewDocument()
 
 
 
-// CÈovjeèeNeLjutiSeDoc serialization
+// CCovjeceNeLjutiSeDoc serialization
 
 void CCovjeceNeLjutiSeDoc::Serialize(CArchive& ar)
 {
@@ -68,7 +68,7 @@ void CCovjeceNeLjutiSeDoc::Serialize(CArchive& ar)
 #ifdef SHARED_HANDLERS
 
 // Support for thumbnails
-void CÈovjeèeNeLjutiSeDoc::OnDrawThumbnail(CDC& dc, LPRECT lprcBounds)
+void CCovjeceNeLjutiSeDoc::OnDrawThumbnail(CDC& dc, LPRECT lprcBounds)
 {
 	// Modify this code to draw the document's data
 	dc.FillSolidRect(lprcBounds, RGB(255, 255, 255));
@@ -89,7 +89,7 @@ void CÈovjeèeNeLjutiSeDoc::OnDrawThumbnail(CDC& dc, LPRECT lprcBounds)
 }
 
 // Support for Search Handlers
-void CÈovjeèeNeLjutiSeDoc::InitializeSearchContent()
+void CCovjeceNeLjutiSeDoc::InitializeSearchContent()
 {
 	CString strSearchContent;
 	// Set search contents from document's data. 
@@ -99,7 +99,7 @@ void CÈovjeèeNeLjutiSeDoc::InitializeSearchContent()
 	SetSearchContent(strSearchContent);
 }
 
-void CÈovjeèeNeLjutiSeDoc::SetSearchContent(const CString& value)
+void CCovjeceNeLjutiSeDoc::SetSearchContent(const CString& value)
 {
 	if (value.IsEmpty())
 	{
@@ -119,7 +119,7 @@ void CÈovjeèeNeLjutiSeDoc::SetSearchContent(const CString& value)
 
 #endif // SHARED_HANDLERS
 
-// CÈovjeèeNeLjutiSeDoc diagnostics
+// CCovjeceNeLjutiSeDoc diagnostics
 
 #ifdef _DEBUG
 void CCovjeceNeLjutiSeDoc::AssertValid() const
@@ -134,4 +134,4 @@ void CCovjeceNeLjutiSeDoc::Dump(CDumpContext& dc) const
 #endif //_DEBUG
 
 
-// CÈovjeèeNeLjutiSeDoc commands
+// CCovjeceNeLjutiSeDoc commands

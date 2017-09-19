@@ -1,5 +1,5 @@
 
-// ÈovjeèeNeLjutiSe.h : main header file for the ÈovjeèeNeLjutiSe application
+// CovjeceNeLjutiSe.h : main header file for the CovjeceNeLjutiSe application
 //
 #pragma once
 
@@ -10,8 +10,8 @@
 #include "resource.h"       // main symbols
 
 
-// CÈovjeèeNeLjutiSeApp:
-// See ÈovjeèeNeLjutiSe.cpp for the implementation of this class
+// CCovjeceNeLjutiSeApp:
+// See CovjeceNeLjutiSe.cpp for the implementation of this class
 //
 
 class CCovjeceNeLjutiSeApp : public CWinApp

@@ -1,5 +1,5 @@
 
-// ÈovjeèeNeLjutiSeDoc.h : interface of the CÈovjeèeNeLjutiSeDoc class
+// CovjeceNeLjutiSeDoc.h : interface of the CCovjeceNeLjutiSeDoc class
 //
 
 

@@ -1,6 +1,6 @@
 
 
-	// ÈovjeèeNeLjutiSeView.cpp : implementation of the CÈovjeèeNeLjutiSeView class
+	// CovjeceNeLjutiSeView.cpp : implementation of the CCovjeceNeLjutiSeView class
 	//
 
 #include "stdafx.h"
@@ -18,7 +18,7 @@
 #endif
 
 
-	// CÈovjeèeNeLjutiSeView
+	// CCovjeceNeLjutiSeView
 
 	IMPLEMENT_DYNCREATE(CCovjeCeNeLjutiSeView, CView)
 
@@ -31,7 +31,7 @@ BEGIN_MESSAGE_MAP(CCovjeCeNeLjutiSeView, CView)
 	ON_WM_LBUTTONDBLCLK(UINT nFlags, CPoint point)
 END_MESSAGE_MAP()
 
-// CÈovjeèeNeLjutiSeView construction/destruction
+// CCovjeceNeLjutiSeView construction/destruction
 bool operator==(const RECT& a, const RECT& b) {
 	return a.left == b.left && a.right == b.right && a.top == b.top &&
 		a.bottom == b.bottom;
@@ -61,7 +61,7 @@ BOOL CCovjeCeNeLjutiSeView::PreCreateWindow(CREATESTRUCT& cs)
 	return CView::PreCreateWindow(cs);
 }
 
-// CÈovjeèeNeLjutiSeView drawing
+// CCovjeceNeLjutiSeView drawing
 void CCovjeCeNeLjutiSeView::igraj()
 {
 	if (trenutniIgrac.brojFiguraNaPolju <= 0 && brojSKocke == 6) {
@@ -398,21 +398,21 @@ void CCovjeCeNeLjutiSeView::iscrtajKockuJedan(CDC * pDC, double dx, double dy)
 
 void CCovjeCeNeLjutiSeView::iscrtajFiguru(CDC * pDC, double dx, double dy)
 {
-	double poèetakTijelaDx = dx + duljinaKuciceUKockici;
-	double poèetakTijelaDy = dy + visinaKuciceUKockici;
+	double pocetakTijelaDx = dx + duljinaKuciceUKockici;
+	double pocetakTijelaDy = dy + visinaKuciceUKockici;
 	double krajTijelaDx = (dx + duljinaKucice) - duljinaKuciceUKockici;
 	double krajTijelaDy = (dy + visinaKucice) - visinaKuciceUKockici;
 
-	double poèetakGlaveDx = poèetakTijelaDx + duljinaKuciceUKockici;
-	double poèetakGlaveDy = poèetakTijelaDy + visinaKuciceUKockici;
-	double krajGlaveDx = poèetakGlaveDx + duljinaKuciceUKockici;
-	double krajGlaveDy = poèetakGlaveDy + visinaKuciceUKockici;
+	double pocetakGlaveDx = pocetakTijelaDx + duljinaKuciceUKockici;
+	double pocetakGlaveDy = pocetakTijelaDy + visinaKuciceUKockici;
+	double krajGlaveDx = pocetakGlaveDx + duljinaKuciceUKockici;
+	double krajGlaveDy = pocetakGlaveDy + visinaKuciceUKockici;
 	CBrush* oldPen;
-	pDC->Ellipse(poèetakTijelaDx, poèetakTijelaDy, krajTijelaDx, krajTijelaDy);
+	pDC->Ellipse(pocetakTijelaDx, pocetakTijelaDy, krajTijelaDx, krajTijelaDy);
 	CBrush brush1;
 	brush1.CreateSolidBrush(RGB(204, 0, 204));
 	oldPen=pDC->SelectObject(&brush1);
-	pDC->Ellipse(poèetakGlaveDx, poèetakGlaveDy, krajGlaveDx, krajGlaveDy);
+	pDC->Ellipse(pocetakGlaveDx, pocetakGlaveDy, krajGlaveDx, krajGlaveDy);
 	pDC->SelectObject(oldPen);
 	DeleteObject(brush1);
 }
@@ -728,10 +728,7 @@ void CCovjeCeNeLjutiSeView::pomakniFiguru()
 		}
 		trenutniIgrac = igra->igraci[igra->indeksIgraca];
 		if (trenutniIgrac.zadnjeSlobodnoMjestoUKuci == 0) {
-		//protresi cilj igraèa
-		//makni ga iz igre
 			igra->igraci.erase(igra->igraci.begin() + igra->indeksIgraca);
-		//ako je u igri samo jedan igraè on je izgubio i kraj igre
 		}if (staroPoljeUCiljuFigure < figura->poljeUKuci) {
 			if (figureNaPolju[igra->indeksIgraca].size() > 1) {
 				figureNaPolju[igra->indeksIgraca].erase(std::next(figureNaPolju[igra->indeksIgracaNaZauzetomPolju].begin(), index));
@@ -834,9 +831,9 @@ void CCovjeCeNeLjutiSeView::OnDraw(CDC* pDC)
 }
 
 
-// CÈovjeèeNeLjutiSeView diagnostics
+// CCovjeceNeLjutiSeView diagnostics
 
-#ifdef _DEBUG
+
 void CCovjeCeNeLjutiSeView::AssertValid() const
 {
 	CView::AssertValid();
@@ -1058,7 +1055,7 @@ void CCovjeCeNeLjutiSeView::OnLButtonDblClk(UINT nFlags, CPoint point)
 }
 
 
-
+#ifdef _DEBUG
 CCovjeceNeLjutiSeDoc* CCovjeCeNeLjutiSeView::GetDocument() const // non-debug version is inline
 {
 	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CCovjeceNeLjutiSeDoc)));

@@ -6,7 +6,7 @@ class Figura
 private:
 	byte naziv;
 	Boja boja;
-	byte poèetak,cilj;
+	byte pocetak,cilj;
 public: std::deque<int> trenutnoPolje;
 		int poljeUKuci;
 public:

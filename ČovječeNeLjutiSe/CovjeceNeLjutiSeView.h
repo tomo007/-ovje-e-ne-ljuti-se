@@ -1,5 +1,5 @@
 ﻿
-// ČovječeNeLjutiSeView.h : interface of the CČovječeNeLjutiSeView class
+// CovjeceNeLjutiSeView.h : interface of the CCovjeceNeLjutiSeView class
 //
 
 #pragma once
@@ -17,7 +17,7 @@ protected: // create from serialization only
 public:
 	CCovjeceNeLjutiSeDoc* GetDocument() const;
 
-//članovi igre
+//clanovi igre
 private: Igra* igra;
 		 Igrac trenutniIgrac;
 		 Figura* figura;
@@ -122,8 +122,8 @@ public:
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 };
 
-#ifndef _DEBUG  // debug version in ČovječeNeLjutiSeView.cpp
-inline CČovječeNeLjutiSeDoc* CČovječeNeLjutiSeView::GetDocument() const
-   { return reinterpret_cast<CČovječeNeLjutiSeDoc*>(m_pDocument); }
+#ifndef _DEBUG  // debug version in CovjeceNeLjutiSeView.cpp
+inline CCovjeceNeLjutiSeDoc* CCovjeCeNeLjutiSeView::GetDocument() const
+   { return reinterpret_cast<CCovjeceNeLjutiSeDoc*>(m_pDocument); }
 #endif
 
