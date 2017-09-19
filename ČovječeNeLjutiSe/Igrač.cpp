@@ -22,7 +22,7 @@ int Igraè::vratiZadnjePolje(Boja boja)
 {
 	switch (boja) {
 	case Boja::CRVENA:
-		return 40;
+		return 39;
 	case Boja::PLAVA:
 		return 9;
 	case Boja::ZELENA:
@@ -40,7 +40,7 @@ bool Igraè::provjeraZaPreskakanjeFigura(int zadanoPolje,Figura f)
 	for (int i = 0; i < brojFiguraNaPolju; ++i) {
 		if (figureNaPolju[i] == f)
 			continue;
-		if (figureNaPolju[i].vratiTrenutnoPolje() <= zadanoPolje&&figureNaPolju[i].vratiTrenutnoPolje() > f.vratiTrenutnoPolje())
+		if (figureNaPolju[i].vratiTrenutnoPolje() == zadanoPolje)
 			return false;
 	}
 	return true;
@@ -53,6 +53,7 @@ Igraè::Igraè(Boja boja)
 		kuæa.push_back(nullptr);
 	}
 	zadnjeSlobodnoMjestoUKuæi = 4;
+	brojFiguraUKuèici = 4;
 	brojFiguraNaPolju = 0;
 	brojFiguraUCilju = 0;
 }
@@ -81,7 +82,7 @@ int Igraè::vratiZadnjePolje()
 
 bool Igraè::pomakni(Figura * figura, int brojPomaka)
 {	
-	int novoPolje = (figura->vratiTrenutnoPolje() + brojPomaka)%40;
+	int novoPolje = (figura->vratiTrenutnoPolje() + brojPomaka);
 	int zadnjePolje = figura->vratiZavršnuToèku();
 	
 	if(figura->trenutnoPolje.size()<brojPomaka)
@@ -104,13 +105,16 @@ bool Igraè::pomakniUKuæu(Figura * figura, int brojPomaka)
 int brojFiguraNaPolju = figureNaPolju.size();
 	if (brojPomaka <= 4) {
 		for (int i = 0; i < brojFiguraNaPolju; ++i) {
-				if (figureNaPolju[i].poljeUKuæi <= brojPomaka)
+				if (figureNaPolju[i].poljeUKuæi <= brojPomaka&&figureNaPolju[i].poljeUKuæi >-1)
 						return false;
 		}
 		if ((figura->poljeUKuæi + brojPomaka - 1) > zadnjeSlobodnoMjestoUKuæi)
 			return false;
-		kuæa.at(brojPomaka - 1) = figura;
+		kuæa[brojPomaka - 1] = figura;
 		++brojFiguraUCilju;
+		if (figura->poljeUKuæi = -1)
+			figura->poljeUKuæi = brojPomaka -1;
+		else
 		figura->poljeUKuæi += brojPomaka - 1;
 		if(figura->poljeUKuæi == zadnjeSlobodnoMjestoUKuæi)
 			--zadnjeSlobodnoMjestoUKuæi;

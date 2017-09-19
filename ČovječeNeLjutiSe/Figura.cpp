@@ -10,7 +10,7 @@ Figura::Figura(Boja b, byte p, byte c)
 	cilj = c;
 	for (int i = poèetak; i != cilj;) {
 		trenutnoPolje.push_back(i);
-		i = (i % 40) + 1;
+		i = (i + 1 )% 40 ;
 	}
 }
 

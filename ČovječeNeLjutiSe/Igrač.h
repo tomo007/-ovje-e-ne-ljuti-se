@@ -6,11 +6,13 @@
 class Igraè
 {
 private:
-	std::vector<Figura*> kuæa;
+	
 	int vratiPoèetnoPolje(Boja boja);
 	int vratiZadnjePolje(Boja boja);
 	bool provjeraZaPreskakanjeFigura(int zadanoPolje,Figura f);
 public:
+	std::vector<Figura*> kuæa;
+	int brojFiguraUKuèici;
 	int brojFiguraNaPolju;
 	std::vector<Figura> figure;
 	std::vector<Figura> figureNaPolju;

@@ -78,6 +78,10 @@ private: void iscrtajFiguru(CDC* pDC, double dx, double dy);
 private: void prodiPoljaHorizontalno(double dx, double dy, int brojPoljaZaPoci);
 		 void prodiPoljaVertikalno(double dx, double dy, int brojPoljaZaPoci);
 		 void prodiKucicu(double dx, double dy,int index);
+		 void prodiCiljVertikalno(int index);
+		 void prodiCiljHorizontalno(int index);
+		 void prodiCiljVertikalnoOdGorePremaDolje(int index);
+		 void prodiCiljHorizontalnoSDesnaNaLijevo(int index);
 		 void prodiPoljaVertikalnoPremaGore(double dx, double dy, int brojPoljaZaPoci);
 		 void prodiPoljaHorizontalnoSDesnaNaLijevo(double dx, double dy, int brojPoljaZaPoci);
 //inicijalizacija varijabli

@@ -30,8 +30,14 @@ bool Igra::pomakniFiguruNaPoèetnoPolje(Igraè* trenutniIgraè)
 	if (trenutniIgraè->figure.size() > 0) {
 		Figura f = trenutniIgraè->figure.back();
 		trenutniIgraè->figureNaPolju.push_back(f);
-		trenutniIgraè->figure.pop_back();
+		if (trenutniIgraè->figure.size() > 1) {
+			trenutniIgraè->figure.pop_back();
+		}
+		else {
+			trenutniIgraè->figure.clear();
+		}
 		++trenutniIgraè->brojFiguraNaPolju;
+		--trenutniIgraè->brojFiguraUKuèici;
 		return true;
 	}
 	else
@@ -78,18 +84,50 @@ std::vector<Figura> Igra::izaberiFiguru(Igraè * trenutniIgraè, int dobivenBrojSK
 
 bool Igra::pomakniFiguru(Igraè* trenutniIgraè, Figura* figura, int brojPomaka)
 {
-
+	int staroPoljeUKuci = figura->poljeUKuæi;
 	if (trenutniIgraè->pomakni(figura, brojPomaka)) {
-		oslobodiPolje((figura->vratiTrenutnoPolje()-brojPomaka)%40);
-		Figura* figuraNaTomPolju = ploèa.provjeraPolja(figura->vratiTrenutnoPolje());
-		if (figuraNaTomPolju != nullptr) {
-			poljeJeZauzeto = true;
-			oslobodiPolje(figuraNaTomPolju);
-			ploèa.zauzmiPolje(figura, figura->vratiTrenutnoPolje());
+		if (figura->vratiTrenutnoPolje() > 6) {
+			oslobodiPolje((figura->vratiTrenutnoPolje() - brojPomaka));
 		}
-		ploèa.zauzmiPolje(figura, figura->vratiTrenutnoPolje());
+		else {
+			switch (figura->vratiTrenutnoPolje()) {
+			case 0:
+				oslobodiPolje(40 - brojPomaka);
+				break;
+			case 1:
+				oslobodiPolje(41 - brojPomaka);
+				break;
+			case 2:
+				oslobodiPolje(42 - brojPomaka);
+				break;
+			case 3:
+				oslobodiPolje(43 - brojPomaka);
+				break;
+			case 4:
+				oslobodiPolje(44 - brojPomaka);
+				break;
+			case 5:
+				oslobodiPolje(45 - brojPomaka);
+				break;
+			case 6:
+				oslobodiPolje(0);
+				break;
+			default:
+				break;
+			}
+		}
+		if (figura->poljeUKuæi <= -1) {
+			Figura* figuraNaTomPolju = ploèa.provjeraPolja(figura->vratiTrenutnoPolje());
+			if (figuraNaTomPolju != nullptr) {
+				poljeJeZauzeto = true;
+				oslobodiPolje(figuraNaTomPolju);
+				ploèa.zauzmiPolje(figura, figura->vratiTrenutnoPolje());
+			}
+			ploèa.zauzmiPolje(figura, figura->vratiTrenutnoPolje());
+			return true;
+		}
+	}if(staroPoljeUKuci!=figura->poljeUKuæi)
 		return true;
-	}
 	return false;
 	
 }
@@ -108,6 +146,7 @@ void Igra::oslobodiPolje(Figura * figura)
 	}
 	--igraèi[indeksIgracaNaZauzetomPolju].brojFiguraNaPolju;
 	igraèi[indeksIgracaNaZauzetomPolju].figure.push_back(Figura(figura->vratiBoju(),figura->vratiPoèetnuToèku(),figura->vratiZavršnuToèku()));
+	++igraèi[indeksIgracaNaZauzetomPolju].brojFiguraUKuèici;
 
 }
 
