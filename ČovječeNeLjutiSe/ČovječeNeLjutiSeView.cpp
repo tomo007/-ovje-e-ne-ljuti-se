@@ -317,7 +317,7 @@ void CÈovjeèeNeLjutiSeView::protresiKucicuIgraca()
 		int i = 0;
 		while (i < 2) {
 			iscrtajFiguru(pDC, var.left, var.top - visinaKuciceUKockici);
-			Sleep(50);
+			Sleep(100);
 			iscrtajFiguru(pDC, var.left, var.top);
 			++i;
 		}
