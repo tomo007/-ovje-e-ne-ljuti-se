@@ -26,7 +26,7 @@ public:
 	bool pomakniFiguru(Igraè* trenutniIgraè,Figura* figura, int brojPomaka);
 	void oslobodiPolje(Figura* figura);
 	void oslobodiPolje(int polje);
-	Igraè* dajIgraèaSTomFigurom(Figura* figura);
+	void namjestiIndeksIgraèaNaZauzetomPolju(Figura* figura);
 	Igraè prviIgraè();
 	void vratiPromjeneNakonZauzetoPolja();
 };

@@ -452,7 +452,7 @@ void CÈovjeèeNeLjutiSeView::prodiKucicu(double dx, double dy,int indeks)
 	
 	while (i < 2) {
 		r.left = dx;
-		r.right = dy+duljinaKuèice;
+		r.right = dx+duljinaKuèice;
 		r.top = dy;
 		r.bottom = dy + visinaKuèice;
 		kuèice[indeks].push_back(r);
@@ -569,6 +569,16 @@ void CÈovjeèeNeLjutiSeView::inicijalizirajCiljeve(Boja b)
 {
 }
 
+void CÈovjeèeNeLjutiSeView::isprazniKontenjereProsleIgre()
+{
+	kuèice.clear();
+	ciljevi.clear();
+	poljaCiljeva.clear();
+	poljaKuèice.clear();
+	figureNaPolju.clear();
+	ploèa.clear();
+}
+
 void CÈovjeèeNeLjutiSeView::osvjeziPolje(RECT r,int izbrisi)
 {
 	r.left += duljinaKuèiceUKockici;
@@ -608,8 +618,8 @@ void CÈovjeèeNeLjutiSeView::pomakniFiguru()
 	int staroPoljeUCiljuFigure = figura->poljeUKuæi;
 	if (igra->pomakniFiguru(&igra->igraèi[igra->indeksIgraèa], figura, brojSKocke)) {
 		if (igra->poljeJeZauzeto) {
-			figureNaPolju[igra->indeksIgracaNaZauzetomPolju].erase(figureNaPolju[igra->indeksIgracaNaZauzetomPolju].begin() + igra->indeksZauzetogPolja - 1);
-			kuèice[igra->indeksIgracaNaZauzetomPolju].push_back(poljaKuèice[igra->indeksIgracaNaZauzetomPolju].at(kuèice[igra->indeksIgracaNaZauzetomPolju].size() + 1));
+			figureNaPolju[igra->indeksIgracaNaZauzetomPolju].erase(figureNaPolju[igra->indeksIgracaNaZauzetomPolju].begin() + igra->indeksZauzetogPolja);
+			kuèice[igra->indeksIgracaNaZauzetomPolju].push_back(poljaKuèice[igra->indeksIgracaNaZauzetomPolju][(kuèice[igra->indeksIgracaNaZauzetomPolju].size())]);
 			igra->vratiPromjeneNakonZauzetoPolja();
 		}
 		trenutniIgrac = igra->igraèi[igra->indeksIgraèa];
@@ -739,13 +749,15 @@ void CÈovjeèeNeLjutiSeView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 
 	if (brojBacanjaKocke > 0||brojSKocke==6) {
+		if (!kockaSeOkreæe) {
 			if (point.x > duljinaKuèice * 5 && point.x < duljinaKuèice * 6) {
 				if (point.y > visinaKuèice * 5 && point.y < visinaKuèice * 6) {
 					--brojBacanjaKocke;
 					timer = SetTimer(1, 500, 0);
 				}
-				
+
 			}
+		}
 	}
 	
 
@@ -755,6 +767,8 @@ void CÈovjeèeNeLjutiSeView::OnLButtonDown(UINT nFlags, CPoint point)
 void CÈovjeèeNeLjutiSeView::OnFileNewDvaIgraèa()
 {
 	igra = new Igra(2);
+	if (poljaKuèice.size() > 0)
+		isprazniKontenjereProsleIgre();
 	trenutniIgrac = igra->prviIgraè();
 	bacajKocku = true;
 	inicijalizirajVarijableCrtanja();
@@ -785,6 +799,8 @@ void CÈovjeèeNeLjutiSeView::OnFileNewDvaIgraèa()
 void CÈovjeèeNeLjutiSeView::OnFileNewTriIgraèa()
 {
 	igra = new Igra(3);
+	if (poljaKuèice.size() > 0)
+		isprazniKontenjereProsleIgre();
 	trenutniIgrac = igra->prviIgraè();
 	bacajKocku = true;
 	inicijalizirajVarijableCrtanja();
@@ -819,6 +835,8 @@ void CÈovjeèeNeLjutiSeView::OnFileNewTriIgraèa()
 void CÈovjeèeNeLjutiSeView::OnFileNewCetriIgraèa()
 {
 	igra = new Igra(4);
+	if (poljaKuèice.size() > 0)
+		isprazniKontenjereProsleIgre();
 	trenutniIgrac = igra->prviIgraè();
 	bacajKocku = true;
 	inicijalizirajVarijableCrtanja();
@@ -859,8 +877,8 @@ void CÈovjeèeNeLjutiSeView::OnLButtonDblClk(UINT nFlags, CPoint point)
 	if (brojSKocke == 6) {
 		for (auto var : kuèice[igra->indeksIgraèa])
 		{
-			if (var.left <= point.x&&var.right >= point.x)
-				if (var.top <= point.y&&var.bottom >= point.y) {
+			if (var.left <= point.x && var.right >= point.x)
+				if (var.top <= point.y && var.bottom >= point.y) {
 					postaviNaPocetnoPolje = true;
 				}
 		}

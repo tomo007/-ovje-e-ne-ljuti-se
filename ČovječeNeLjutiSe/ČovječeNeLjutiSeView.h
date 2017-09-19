@@ -85,6 +85,7 @@ private: void inicijalizirajVarijableCrtanja();
 		 void inicijalizirajVektorPolja();
 		 void inicijalizirajKučicu(Boja b);
 		 void inicijalizirajCiljeve(Boja b);
+		 void isprazniKontenjereProsleIgre();
 		 void osvjeziPolje(RECT r,int izbrisi);
 //azuriranje polja
 		 void postaviFiguruNaPocetnoPolje();
