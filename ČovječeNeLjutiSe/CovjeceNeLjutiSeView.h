@@ -93,7 +93,7 @@ private: void inicijalizirajVarijableCrtanja();
 		 void osvjeziPolje(RECT r,int izbrisi);
 //azuriranje polja
 		 void postaviFiguruNaPocetnoPolje();
-		 void pomakniFiguru();
+		 bool pomakniFiguru();
 // Overrides
 public:
 	virtual void OnDraw(CDC* pDC);  // overridden to draw this view

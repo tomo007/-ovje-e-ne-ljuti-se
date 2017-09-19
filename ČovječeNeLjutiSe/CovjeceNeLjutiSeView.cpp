@@ -83,19 +83,23 @@ void CCovjeCeNeLjutiSeView::igraj()
 	if (brojSKocke == 6 || trenutniIgrac.brojFiguraNaPolju > 0) {
 		if (figuraJeOdabrana) {
 			figuraJeOdabrana = false;
-			pomakniFiguru();
-			if (brojSKocke == 6) {
-				brojBacanjaKocke = 1;
-				return;
+			if (pomakniFiguru()) {
+				if (brojSKocke == 6) {
+					brojBacanjaKocke = 1;
+					return;
+				}
+				else {
+					trenutniIgrac = igra->promjenaIgraca(&trenutniIgrac);
+					brojBacanjaKocke = igra->brojBacanjaKocke(trenutniIgrac);
+					Invalidate();
+					protresiKucicuIgraca();
+				}
 			}
 			else {
-				trenutniIgrac = igra->promjenaIgraca(&trenutniIgrac);
-				brojBacanjaKocke = igra->brojBacanjaKocke(trenutniIgrac);
-				Invalidate();
-				protresiKucicuIgraca();
+				protresiDostupneFigure();
 			}
 		}
-	}	
+	}
 }
 
 void CCovjeCeNeLjutiSeView::iscrtajPolje(CDC* pDC, double dx, double dy)
@@ -694,7 +698,7 @@ void CCovjeCeNeLjutiSeView::postaviFiguruNaPocetnoPolje()
 	}
 	Invalidate();
 }
-void CCovjeCeNeLjutiSeView::pomakniFiguru()
+bool CCovjeCeNeLjutiSeView::pomakniFiguru()
 {
 	RECT poljeNaKojemJeFigura;
 	int index;
@@ -747,10 +751,11 @@ void CCovjeCeNeLjutiSeView::pomakniFiguru()
 			}
 		}
 		Invalidate();
+		return true;
 	}
 	else {
 		protresiDostupneFigure();
-		return;
+		return false;
 	}
 }
 
