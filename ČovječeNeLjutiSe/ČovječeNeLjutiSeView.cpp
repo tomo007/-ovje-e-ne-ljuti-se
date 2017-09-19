@@ -163,16 +163,6 @@ void CÈovjeèeNeLjutiSeView::iscrtajPolje(CDC* pDC, double dx, double dy)
 	iscrtajCiljVertikalno(pDC, petiStupac, sestiRed);
 	pDC->SelectObject(oldPen);
 
-	DeleteObject(crnaPozadina);
-	DeleteObject(crvenaPozadina);
-	DeleteObject(zelenaPozadina);
-	DeleteObject(zutaPozadina);
-	DeleteObject(plavaPozadina);
-	DeleteObject(crvenaOlovka);
-	DeleteObject(zelenaOlovka);
-	DeleteObject(zutaOlovka);
-	DeleteObject(plavaOlovka);
-	DeleteObject(crnaOlovka);
 }
 
 void CÈovjeèeNeLjutiSeView::iscrtajKuèicu(CDC * pDC, double dx, double dy)
@@ -299,7 +289,6 @@ void CÈovjeèeNeLjutiSeView::protresiKocku()
 			InvalidateRect(&r, 1);
 		++i;
 	}
-	DeleteObject(crnaPozadina);
 	pDC->SelectObject(oldBrush);
 	ReleaseDC(pDC);
 }
@@ -707,8 +696,6 @@ void CÈovjeèeNeLjutiSeView::OnDraw(CDC* pDC)
 		}
 		++indexIgraca;
 	}
-	DeleteObject(crnaOlovka);
-	DeleteObject(crnaPozadina);
 	ReleaseDC(pDC);
 		
 }
