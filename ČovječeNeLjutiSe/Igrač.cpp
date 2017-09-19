@@ -84,7 +84,8 @@ bool Igraè::pomakni(Figura * figura, int brojPomaka)
 {	
 	int novoPolje = (figura->vratiTrenutnoPolje() + brojPomaka);
 	int zadnjePolje = figura->vratiZavršnuToèku();
-	
+	if (figura->poljeUKuæi > 0)
+		return pomakniUKuæu(figura, brojPomaka);
 	if(figura->trenutnoPolje.size()<brojPomaka)
 		return pomakniUKuæu(figura, novoPolje - zadnjePolje);
 	else {

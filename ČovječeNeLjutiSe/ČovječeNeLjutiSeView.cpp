@@ -696,19 +696,34 @@ void CÈovjeèeNeLjutiSeView::postaviFiguruNaPocetnoPolje()
 }
 void CÈovjeèeNeLjutiSeView::pomakniFiguru()
 {
-	std::vector<Figura> vec = trenutniIgrac.figureNaPolju;
-	auto it = std::find(vec.begin(), vec.end(),*figura);
+	RECT poljeNaKojemJeFigura;
 	int index;
-	if (it != vec.end())
-		index = std::distance(vec.begin(), it);
-
-	RECT poljeNaKojemJeFigura = figureNaPolju[igra->indeksIgraèa].at(index);
+	if(figura->poljeUKuæi>0){
+		std::vector<Figura*> vec = trenutniIgrac.kuæa;
+		auto it = std::find(vec.begin(), vec.end(), figura);
+		if (it != vec.end()) {
+			index = std::distance(vec.begin(), it);
+		}
+	}
+	else
+	{
+		std::vector<Figura> vec = trenutniIgrac.figureNaPolju;
+		auto it = std::find(vec.begin(), vec.end(), *figura);
+		if (it != vec.end()) {
+			index = std::distance(vec.begin(), it);
+		}
+	}
 	int staroPoljeUCiljuFigure = figura->poljeUKuæi;
 
 	if (igra->pomakniFiguru(&igra->igraèi[igra->indeksIgraèa], figura, brojSKocke)) {
 		if (igra->poljeJeZauzeto) {
-			figureNaPolju[igra->indeksIgracaNaZauzetomPolju].erase(std::next(figureNaPolju[igra->indeksIgracaNaZauzetomPolju].begin(),igra->indeksZauzetogPolja));
-			kuèice[igra->indeksIgracaNaZauzetomPolju].push_back(poljaKuèice[igra->indeksIgracaNaZauzetomPolju][(kuèice[igra->indeksIgracaNaZauzetomPolju].size())]);
+			if (figureNaPolju[igra->indeksIgracaNaZauzetomPolju].size() > 0) {
+				figureNaPolju[igra->indeksIgracaNaZauzetomPolju].erase(std::next(figureNaPolju[igra->indeksIgracaNaZauzetomPolju].begin(), igra->indeksZauzetogPolja));
+			}
+			else {
+				figureNaPolju[igra->indeksIgracaNaZauzetomPolju].clear();
+			}
+			kuèice[igra->indeksIgracaNaZauzetomPolju].push_back(poljaKuèice[igra->indeksIgracaNaZauzetomPolju].at(kuèice[igra->indeksIgracaNaZauzetomPolju].size()));
 			igra->vratiPromjeneNakonZauzetoPolja();
 		}
 		trenutniIgrac = igra->igraèi[igra->indeksIgraèa];
