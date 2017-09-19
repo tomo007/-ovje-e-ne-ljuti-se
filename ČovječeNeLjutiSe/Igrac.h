@@ -3,28 +3,28 @@
 #include <stdio.h>
 #include <map>
 #include <vector>
-class Igraè
+class Igrac
 {
 private:
 	
-	int vratiPoèetnoPolje(Boja boja);
+	int vratiPocetnoPolje(Boja boja);
 	int vratiZadnjePolje(Boja boja);
 	bool provjeraZaPreskakanjeFigura(int zadanoPolje,Figura f);
 public:
-	std::vector<Figura*> kuæa;
-	int brojFiguraUKuèici;
+	std::vector<Figura*> cilj;
+	int brojFiguraUKucici;
 	int brojFiguraNaPolju;
 	std::vector<Figura> figure;
 	std::vector<Figura> figureNaPolju;
-	byte zadnjeSlobodnoMjestoUKuæi;
+	byte zadnjeSlobodnoMjestoUKuci;
 	int brojFiguraUCilju;
-	Igraè(Boja boja);
-	Igraè();
-	~Igraè();
-	int vratiPoèetnoPolje();
+	Igrac(Boja boja);
+	Igrac();
+	~Igrac();
+	int vratiPocetnoPolje();
 	int vratiZadnjePolje();
 	bool pomakni(Figura* figura,int brojPomaka);
-	bool pomakniUKuæu(Figura* figura, int brojPomaka);
+	bool pomakniUKucu(Figura* figura, int brojPomaka);
 	Boja vratiBoju();
 };
 

@@ -1,25 +1,25 @@
 #include "stdafx.h"
-#include "Ploèa.h"
+#include "Ploca.h"
 
 
-Ploèa::Ploèa()
+Ploca::Ploca()
 {
 	for (int i = 0; i < 40; ++i)
 		polje[i] = nullptr;
 }
 
 
-Ploèa::~Ploèa()
+Ploca::~Ploca()
 {
 	polje.clear();
 }
 
-void Ploèa::zauzmiPolje(Figura* figura, int trenutnoPolje)
+void Ploca::zauzmiPolje(Figura* figura, int trenutnoPolje)
 {
 	polje[trenutnoPolje] = figura;
 }
 
-Figura * Ploèa::provjeraPolja(int trenutnoPolje)
+Figura * Ploca::provjeraPolja(int trenutnoPolje)
 {
 	return polje[trenutnoPolje];
 }

@@ -2,11 +2,11 @@
 #include "Igra.h"
 
 
-Igra::Igra (byte brojIgraèa){
-	for (int i = 0; i < brojIgraèa; ++i) {
-		igraèi.push_back(Igraè(vratiBojuIgraèa(i)));
+Igra::Igra (byte brojIgraca){
+	for (int i = 0; i < brojIgraca; ++i) {
+		igraci.push_back(Igrac(vratiBojuIgraca(i)));
 	}
-	indeksIgraèa = 0;
+	indeksIgraca = 0;
 	indeksZauzetogPolja = -1;
 	indeksIgracaNaZauzetomPolju = -1;
 }
@@ -15,77 +15,77 @@ Igra::Igra (byte brojIgraèa){
 Igra::~Igra()
 {
 }
-std::vector<Igraè> Igra::vratiIgraèe()
+std::vector<Igrac> Igra::vratiIgrace()
 {
-	return igraèi;
+	return igraci;
 }
-int Igra::brojBacanjaKocke(Igraè trenutniIgraè)
+int Igra::brojBacanjaKocke(Igrac trenutniIgrac)
 {
-	if (trenutniIgraè.figureNaPolju.size() == 0)
+	if (trenutniIgrac.figureNaPolju.size() == 0)
 		return 3;
 	return 1;
 }
-bool Igra::pomakniFiguruNaPoèetnoPolje(Igraè* trenutniIgraè)
+bool Igra::pomakniFiguruNaPocetnoPolje(Igrac* trenutniIgrac)
 {
-	if (trenutniIgraè->figure.size() > 0) {
-		Figura f = trenutniIgraè->figure.back();
-		trenutniIgraè->figureNaPolju.push_back(f);
-		if (trenutniIgraè->figure.size() > 1) {
-			trenutniIgraè->figure.pop_back();
+	if (trenutniIgrac->figure.size() > 0) {
+		Figura f = trenutniIgrac->figure.back();
+		trenutniIgrac->figureNaPolju.push_back(f);
+		if (trenutniIgrac->figure.size() > 1) {
+			trenutniIgrac->figure.pop_back();
 		}
 		else {
-			trenutniIgraè->figure.clear();
+			trenutniIgrac->figure.clear();
 		}
-		++trenutniIgraè->brojFiguraNaPolju;
-		--trenutniIgraè->brojFiguraUKuèici;
+		++trenutniIgrac->brojFiguraNaPolju;
+		--trenutniIgrac->brojFiguraUKucici;
 		return true;
 	}
 	else
 		return false;
 }
-Igraè Igra::promjenaIgraèa(Igraè * trenutniIgraè)
+Igrac Igra::promjenaIgraca(Igrac * trenutniIgrac)
 {	
-	Boja bojaTrenutnogIgraèa = trenutniIgraè->vratiBoju();
-	int brojIgraèa = igraèi.size();
-	switch (bojaTrenutnogIgraèa) 
+	Boja bojaTrenutnogIgraca = trenutniIgrac->vratiBoju();
+	int brojIgraca = igraci.size();
+	switch (bojaTrenutnogIgraca) 
 	{
 	case Boja::CRVENA:
-		indeksIgraèa = 1;
-		return igraèi[1];
+		indeksIgraca = 1;
+		return igraci[1];
 	case Boja::PLAVA:
-		if (brojIgraèa <= 2) {
-			indeksIgraèa = 0;
-			return igraèi.front();
+		if (brojIgraca <= 2) {
+			indeksIgraca = 0;
+			return igraci.front();
 		}else {
-			indeksIgraèa = 2;
-			return igraèi[2];
+			indeksIgraca = 2;
+			return igraci[2];
 		}
 	case Boja::ZELENA:
-		if (brojIgraèa <= 3) {
-			indeksIgraèa = 0;
-			return igraèi.front();
+		if (brojIgraca <= 3) {
+			indeksIgraca = 0;
+			return igraci.front();
 		}else
-			indeksIgraèa = 3;
-			return igraèi[3];
+			indeksIgraca = 3;
+			return igraci[3];
 	case Boja::ZUTA:
-		indeksIgraèa = 0;
-		return igraèi.front();
+		indeksIgraca = 0;
+		return igraci.front();
 	}
 	
 }
 
-std::vector<Figura> Igra::izaberiFiguru(Igraè * trenutniIgraè, int dobivenBrojSKocke)
+std::vector<Figura> Igra::izaberiFiguru(Igrac * trenutniIgrac, int dobivenBrojSKocke)
 {
 	if (dobivenBrojSKocke == 6)
-		return trenutniIgraè->figure;
+		return trenutniIgrac->figure;
 	else
-		return trenutniIgraè->figureNaPolju;
+		return trenutniIgrac->figureNaPolju;
 }
 
-bool Igra::pomakniFiguru(Igraè* trenutniIgraè, Figura* figura, int brojPomaka)
+bool Igra::pomakniFiguru(Igrac* trenutniIgrac, Figura* figura, int brojPomaka)
 {
-	int staroPoljeUKuci = figura->poljeUKuæi;
-	if (trenutniIgraè->pomakni(figura, brojPomaka)) {
+	int staroPoljeUKuci = figura->poljeUKuci;
+	if (trenutniIgrac->pomakni(figura, brojPomaka)) {
 		if (figura->vratiTrenutnoPolje() > 6) {
 			oslobodiPolje((figura->vratiTrenutnoPolje() - brojPomaka));
 		}
@@ -116,17 +116,17 @@ bool Igra::pomakniFiguru(Igraè* trenutniIgraè, Figura* figura, int brojPomaka)
 				break;
 			}
 		}
-		if (figura->poljeUKuæi <= -1) {
-			Figura* figuraNaTomPolju = ploèa.provjeraPolja(figura->vratiTrenutnoPolje());
+		if (figura->poljeUKuci <= -1) {
+			Figura* figuraNaTomPolju = ploca.provjeraPolja(figura->vratiTrenutnoPolje());
 			if (figuraNaTomPolju != nullptr) {
 				poljeJeZauzeto = true;
 				oslobodiPolje(figuraNaTomPolju);
-				ploèa.zauzmiPolje(figura, figura->vratiTrenutnoPolje());
+				ploca.zauzmiPolje(figura, figura->vratiTrenutnoPolje());
 			}
-			ploèa.zauzmiPolje(figura, figura->vratiTrenutnoPolje());
+			ploca.zauzmiPolje(figura, figura->vratiTrenutnoPolje());
 			return true;
 		}
-	}if(staroPoljeUKuci!=figura->poljeUKuæi)
+	}if(staroPoljeUKuci!=figura->poljeUKuci)
 		return true;
 	return false;
 	
@@ -134,41 +134,41 @@ bool Igra::pomakniFiguru(Igraè* trenutniIgraè, Figura* figura, int brojPomaka)
 
 void Igra::oslobodiPolje(Figura * figura)
 {
-	namjestiIndeksIgraèaNaZauzetomPolju(figura);
-	std::vector<Figura> v = igraèi[indeksIgracaNaZauzetomPolju].figureNaPolju;
+	namjestiIndeksIgracaNaZauzetomPolju(figura);
+	std::vector<Figura> v = igraci[indeksIgracaNaZauzetomPolju].figureNaPolju;
 	auto it = std::find(v.begin(), v.end(),*figura);
 	indeksZauzetogPolja = std::distance(v.begin(), it);
-	if (igraèi[indeksIgracaNaZauzetomPolju].brojFiguraNaPolju > 1) {
-		igraèi[indeksIgracaNaZauzetomPolju].figureNaPolju.erase(v.begin() + (indeksZauzetogPolja-1));
+	if (igraci[indeksIgracaNaZauzetomPolju].brojFiguraNaPolju > 1) {
+		igraci[indeksIgracaNaZauzetomPolju].figureNaPolju.erase(v.begin() + (indeksZauzetogPolja-1));
 	}
 	else {
-		igraèi[indeksIgracaNaZauzetomPolju].figureNaPolju.clear();
+		igraci[indeksIgracaNaZauzetomPolju].figureNaPolju.clear();
 	}
-	--igraèi[indeksIgracaNaZauzetomPolju].brojFiguraNaPolju;
-	igraèi[indeksIgracaNaZauzetomPolju].figure.push_back(Figura(figura->vratiBoju(),figura->vratiPoèetnuToèku(),figura->vratiZavršnuToèku()));
-	++igraèi[indeksIgracaNaZauzetomPolju].brojFiguraUKuèici;
+	--igraci[indeksIgracaNaZauzetomPolju].brojFiguraNaPolju;
+	igraci[indeksIgracaNaZauzetomPolju].figure.push_back(Figura(figura->vratiBoju(),figura->vratiPocetnuTocku(),figura->vratiZavrsnuTocku()));
+	++igraci[indeksIgracaNaZauzetomPolju].brojFiguraUKucici;
 
 }
 
 void Igra::oslobodiPolje(int polje)
 {
-	ploèa.zauzmiPolje(nullptr, polje);
+	ploca.zauzmiPolje(nullptr, polje);
 }
 
-void Igra::namjestiIndeksIgraèaNaZauzetomPolju(Figura* figura)
+void Igra::namjestiIndeksIgracaNaZauzetomPolju(Figura* figura)
 {
-	for (auto igrac : igraèi)
+	for (auto igrac : igraci)
 	{
 		for (auto f : igrac.figureNaPolju) {
 			if (f == *figura)
-				promjeniIndeksIgraèaNaZauzetomPolju(igrac);
+				promjeniIndeksIgracaNaZauzetomPolju(igrac);
 		}
 	}
 }
 
-Igraè Igra::prviIgraè()
+Igrac Igra::prviIgrac()
 {
-	return igraèi.front();
+	return igraci.front();
 }
 
 void Igra::vratiPromjeneNakonZauzetoPolja()
@@ -178,7 +178,7 @@ void Igra::vratiPromjeneNakonZauzetoPolja()
 	indeksIgracaNaZauzetomPolju = -1;
 }
 
-Boja Igra::vratiBojuIgraèa(int i)
+Boja Igra::vratiBojuIgraca(int i)
 {
 	switch (i) {
 	case 0:
@@ -194,9 +194,9 @@ Boja Igra::vratiBojuIgraèa(int i)
 	}
 }
 
-void Igra::promjeniIndeksIgraèaNaZauzetomPolju(Igraè igraè)
+void Igra::promjeniIndeksIgracaNaZauzetomPolju(Igrac igrac)
 {
-	switch (igraè.vratiBoju()) {
+	switch (igrac.vratiBoju()) {
 	case Boja::CRVENA:
 		indeksIgracaNaZauzetomPolju =0;
 		break;

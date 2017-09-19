@@ -39,12 +39,6 @@
     <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Ploča.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Igrač.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Figura.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -52,6 +46,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Boja.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Igrac.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ploca.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -71,16 +71,16 @@
     <ClCompile Include="ČovječeNeLjutiSeView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Ploča.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Igrač.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Figura.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Igra.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Igrac.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ploca.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

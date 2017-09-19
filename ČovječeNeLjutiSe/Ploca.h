@@ -2,13 +2,13 @@
 #include <stdio.h>
 #include "Figura.h"
 #include <map>
-class Ploèa
+class Ploca
 {
 private:
 	std::map<int, Figura*> polje;
 public:
-	Ploèa();
-	virtual ~Ploèa();
+	Ploca();
+	virtual ~Ploca();
 	void zauzmiPolje(Figura* figura,int trenutnoPolje);
 	Figura* provjeraPolja(int trenutnoPolje);
 };

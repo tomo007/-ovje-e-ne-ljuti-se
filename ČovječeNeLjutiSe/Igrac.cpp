@@ -1,8 +1,8 @@
 #include "stdafx.h"
-#include "Igraè.h"
+#include "Igrac.h"
 
 
-int Igraè::vratiPoèetnoPolje(Boja boja)
+int Igrac::vratiPocetnoPolje(Boja boja)
 {
 	switch (boja) {
 	case Boja::CRVENA:
@@ -18,7 +18,7 @@ int Igraè::vratiPoèetnoPolje(Boja boja)
 	}
 }
 
-int Igraè::vratiZadnjePolje(Boja boja)
+int Igrac::vratiZadnjePolje(Boja boja)
 {
 	switch (boja) {
 	case Boja::CRVENA:
@@ -34,7 +34,7 @@ int Igraè::vratiZadnjePolje(Boja boja)
 	}
 }
 
-bool Igraè::provjeraZaPreskakanjeFigura(int zadanoPolje,Figura f)
+bool Igrac::provjeraZaPreskakanjeFigura(int zadanoPolje,Figura f)
 {
 	int brojFiguraNaPolju = figureNaPolju.size();
 	for (int i = 0; i < brojFiguraNaPolju; ++i) {
@@ -46,48 +46,48 @@ bool Igraè::provjeraZaPreskakanjeFigura(int zadanoPolje,Figura f)
 	return true;
 }
 
-Igraè::Igraè(Boja boja)
+Igrac::Igrac(Boja boja)
 {
 	for (int i = 0; i < 4; ++i) {
-		figure.push_back(Figura(boja, vratiPoèetnoPolje(boja), vratiZadnjePolje(boja)));
-		kuæa.push_back(nullptr);
+		figure.push_back(Figura(boja, vratiPocetnoPolje(boja), vratiZadnjePolje(boja)));
+		cilj.push_back(nullptr);
 	}
-	zadnjeSlobodnoMjestoUKuæi = 4;
-	brojFiguraUKuèici = 4;
+	zadnjeSlobodnoMjestoUKuci = 4;
+	brojFiguraUKucici = 4;
 	brojFiguraNaPolju = 0;
 	brojFiguraUCilju = 0;
 }
 
-Igraè::Igraè()
+Igrac::Igrac()
 {
 }
 
 
 
 
-Igraè::~Igraè()
+Igrac::~Igrac()
 {
-	kuæa.clear();
+	cilj.clear();
 }
 
-int Igraè::vratiPoèetnoPolje()
+int Igrac::vratiPocetnoPolje()
 {
-	return figure[0].vratiPoèetnuToèku();
+	return figure[0].vratiPocetnuTocku();
 }
 
-int Igraè::vratiZadnjePolje()
+int Igrac::vratiZadnjePolje()
 {
-	return figure[0].vratiZavršnuToèku();;
+	return figure[0].vratiZavrsnuTocku();;
 }
 
-bool Igraè::pomakni(Figura * figura, int brojPomaka)
+bool Igrac::pomakni(Figura * figura, int brojPomaka)
 {	
 	int novoPolje = (figura->vratiTrenutnoPolje() + brojPomaka);
-	int zadnjePolje = figura->vratiZavršnuToèku();
-	if (figura->poljeUKuæi > 0)
-		return pomakniUKuæu(figura, brojPomaka);
+	int zadnjePolje = figura->vratiZavrsnuTocku();
+	if (figura->poljeUKuci > 0)
+		return pomakniUKucu(figura, brojPomaka);
 	if(figura->trenutnoPolje.size()<brojPomaka)
-		return pomakniUKuæu(figura, novoPolje - zadnjePolje);
+		return pomakniUKucu(figura, novoPolje - zadnjePolje);
 	else {
 		if (provjeraZaPreskakanjeFigura(novoPolje, *figura)) {
 			for (int i = 0; i < brojPomaka; ++i) {
@@ -101,30 +101,30 @@ bool Igraè::pomakni(Figura * figura, int brojPomaka)
 	return true;
 }
 
-bool Igraè::pomakniUKuæu(Figura * figura, int brojPomaka)
+bool Igrac::pomakniUKucu(Figura * figura, int brojPomaka)
 {
 int brojFiguraNaPolju = figureNaPolju.size();
 	if (brojPomaka <= 4) {
 		for (int i = 0; i < brojFiguraNaPolju; ++i) {
-				if (figureNaPolju[i].poljeUKuæi <= brojPomaka&&figureNaPolju[i].poljeUKuæi >-1)
+				if (figureNaPolju[i].poljeUKuci <= brojPomaka&&figureNaPolju[i].poljeUKuci >-1)
 						return false;
 		}
-		if ((figura->poljeUKuæi + brojPomaka - 1) > zadnjeSlobodnoMjestoUKuæi)
+		if ((figura->poljeUKuci + brojPomaka - 1) > zadnjeSlobodnoMjestoUKuci)
 			return false;
-		kuæa[brojPomaka - 1] = figura;
+		cilj[brojPomaka - 1] = figura;
 		++brojFiguraUCilju;
-		if (figura->poljeUKuæi = -1)
-			figura->poljeUKuæi = brojPomaka -1;
+		if (figura->poljeUKuci = -1)
+			figura->poljeUKuci = brojPomaka -1;
 		else
-		figura->poljeUKuæi += brojPomaka - 1;
-		if(figura->poljeUKuæi == zadnjeSlobodnoMjestoUKuæi)
-			--zadnjeSlobodnoMjestoUKuæi;
+		figura->poljeUKuci += brojPomaka - 1;
+		if(figura->poljeUKuci == zadnjeSlobodnoMjestoUKuci)
+			--zadnjeSlobodnoMjestoUKuci;
 		return true;
 	}
 	return false;
 }
 
-Boja Igraè::vratiBoju()
+Boja Igrac::vratiBoju()
 {
 	return figure[0].vratiBoju();
 }

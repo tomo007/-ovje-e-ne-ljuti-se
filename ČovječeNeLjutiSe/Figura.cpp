@@ -5,7 +5,7 @@
 Figura::Figura(Boja b, byte p, byte c)
 {
 	boja = b;
-	poljeUKuæi = -1;
+	poljeUKuci = -1;
 	poèetak = p;
 	cilj = c;
 	for (int i = poèetak; i != cilj;) {
@@ -33,12 +33,12 @@ byte Figura::vratiTrenutnoPolje()
 	return trenutnoPolje.front();
 }
 
-byte Figura::vratiPoèetnuToèku()
+byte Figura::vratiPocetnuTocku()
 {
 	return poèetak;
 }
 
-byte Figura::vratiZavršnuToèku()
+byte Figura::vratiZavrsnuTocku()
 {
 	return cilj;
 }

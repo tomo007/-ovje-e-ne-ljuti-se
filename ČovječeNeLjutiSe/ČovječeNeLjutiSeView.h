@@ -19,26 +19,26 @@ public:
 
 //članovi igre
 private: Igra* igra;
-		 Igrač trenutniIgrac;
+		 Igrac trenutniIgrac;
 		 Figura* figura;
 		 bool figuraJeOdabrana = false;
 		 int brojSKocke = 0;
 		 int brojBacanjaKocke;
-		 bool kockaSeOkreće = false;
+		 bool kockaSeOkrece = false;
 		 bool bacajKocku;
 private: void igraj();
 //crtanje polja
-private: double duljinaKučice;
-		 double visinaKučice;
-		 double duljinaKučiceUKockici;
-		 double visinaKučiceUKockici;
+private: double duljinaKucice;
+		 double visinaKucice;
+		 double duljinaKuciceUKockici;
+		 double visinaKuciceUKockici;
 		 UINT_PTR timer;
-		 std::vector<std::vector<RECT>> kučice;
-		 std::vector<std::vector<RECT>> poljaKučice;
+		 std::vector<std::vector<RECT>> kucice;
+		 std::vector<std::vector<RECT>> poljaKucice;
 		 std::vector<std::vector<RECT>> figureNaPolju;
 		 std::vector<std::vector<RECT>> poljaCiljeva;
 		 std::vector<std::vector<RECT>> ciljevi;
-		 std::vector<RECT>  ploča;
+		 std::vector<RECT>  ploca;
 //olovke i ispune
 private: int brojRedova = 11;
 		 double cetvrtiStupac;
@@ -56,7 +56,7 @@ private: int brojRedova = 11;
 		 double desetiRed;
 //crtanje polja
 private: void iscrtajPolje(CDC* pDC,double dx, double dy);
-		 void iscrtajKučicu(CDC* pDC, double dx, double dy);
+		 void iscrtajKucicu(CDC* pDC, double dx, double dy);
 		 void iscrtajCijeliRedHorizontalno(CDC* pDC, double dx, double dy);
 		 void iscrtajCijeliRedVertikalno(CDC* pDC, double dx, double dy);
 		 void iscrtajCiljHorizontalno(CDC* pDC, double dx, double dy);
@@ -73,7 +73,7 @@ private: void iscrtajKockuSest(CDC* pDC, double dx, double dy);
 		 void iscrtajKockuJedan(CDC* pDC, double dx, double dy);
 //crtanje pijuna
 private: void iscrtajFiguru(CDC* pDC, double dx, double dy);
-		 CBrush* vratiBrush(Igrač trenutniIgrač);
+		 CBrush* vratiBrush(Igrac trenutniIgrac);
 //popunjavanje polja
 private: void prodiPoljaHorizontalno(double dx, double dy, int brojPoljaZaPoci);
 		 void prodiPoljaVertikalno(double dx, double dy, int brojPoljaZaPoci);
@@ -87,7 +87,7 @@ private: void prodiPoljaHorizontalno(double dx, double dy, int brojPoljaZaPoci);
 //inicijalizacija varijabli
 private: void inicijalizirajVarijableCrtanja();
 		 void inicijalizirajVektorPolja();
-		 void inicijalizirajKučicu(Boja b);
+		 void inicijalizirajKucicu(Boja b);
 		 void inicijalizirajCiljeve(Boja b);
 		 void isprazniKontenjereProsleIgre();
 		 void osvjeziPolje(RECT r,int izbrisi);
@@ -116,9 +116,9 @@ protected:
 public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
-	afx_msg void OnFileNewDvaIgrača();
-	afx_msg void OnFileNewTriIgrača();
-	afx_msg void OnFileNewCetriIgrača();
+	afx_msg void OnFileNewDvaIgraca();
+	afx_msg void OnFileNewTriIgraca();
+	afx_msg void OnFileNewCetriIgraca();
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 };
 

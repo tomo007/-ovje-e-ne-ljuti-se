@@ -1,33 +1,33 @@
 #pragma once
-#include "Ploèa.h"
-#include "Igraè.h"
+#include "Ploca.h"
+#include "Igrac.h"
 #include "Figura.h"
 #include <time.h> 
 #include <vector>
 class Igra
 {
 private:
-	Ploèa ploèa;
-	Boja vratiBojuIgraèa(int i);
-	void promjeniIndeksIgraèaNaZauzetomPolju(Igraè igraè);
+	Ploca ploca;
+	Boja vratiBojuIgraca(int i);
+	void promjeniIndeksIgracaNaZauzetomPolju(Igrac igrac);
 public:
 	bool poljeJeZauzeto = false;
 	int indeksZauzetogPolja;
 	int indeksIgracaNaZauzetomPolju;
-	Igra(byte brojIgraèa);
+	Igra(byte brojIgraca);
 	~Igra();
-	std::vector<Igraè> igraèi;
-	std::vector<Igraè> vratiIgraèe();
-	int brojBacanjaKocke(Igraè trenutniIgraè);
-	int indeksIgraèa;
-	bool pomakniFiguruNaPoèetnoPolje(Igraè* trenutniIgraè);
-	Igraè promjenaIgraèa(Igraè* trenutniIgraè);
-	std::vector<Figura> izaberiFiguru(Igraè* trenutniIgraè, int dobivenBrojSKocke);
-	bool pomakniFiguru(Igraè* trenutniIgraè,Figura* figura, int brojPomaka);
+	std::vector<Igrac> igraci;
+	std::vector<Igrac> vratiIgrace();
+	int brojBacanjaKocke(Igrac trenutniIgrac);
+	int indeksIgraca;
+	bool pomakniFiguruNaPocetnoPolje(Igrac* trenutniIgrac);
+	Igrac promjenaIgraca(Igrac* trenutniIgrac);
+	std::vector<Figura> izaberiFiguru(Igrac* trenutniIgrac, int dobivenBrojSKocke);
+	bool pomakniFiguru(Igrac* trenutniIgrac,Figura* figura, int brojPomaka);
 	void oslobodiPolje(Figura* figura);
 	void oslobodiPolje(int polje);
-	void namjestiIndeksIgraèaNaZauzetomPolju(Figura* figura);
-	Igraè prviIgraè();
+	void namjestiIndeksIgracaNaZauzetomPolju(Figura* figura);
+	Igrac prviIgrac();
 	void vratiPromjeneNakonZauzetoPolja();
 };
 
