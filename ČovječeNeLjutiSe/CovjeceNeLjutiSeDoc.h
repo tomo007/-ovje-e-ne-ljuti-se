@@ -6,11 +6,11 @@
 #pragma once
 
 
-class CÈovjeèeNeLjutiSeDoc : public CDocument
+class CCovjeceNeLjutiSeDoc : public CDocument
 {
 protected: // create from serialization only
-	CÈovjeèeNeLjutiSeDoc();
-	DECLARE_DYNCREATE(CÈovjeèeNeLjutiSeDoc)
+	CCovjeceNeLjutiSeDoc();
+	DECLARE_DYNCREATE(CCovjeceNeLjutiSeDoc)
 
 // Attributes
 public:
@@ -29,7 +29,7 @@ public:
 
 // Implementation
 public:
-	virtual ~CÈovjeèeNeLjutiSeDoc();
+	virtual ~CCovjeceNeLjutiSeDoc();
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;

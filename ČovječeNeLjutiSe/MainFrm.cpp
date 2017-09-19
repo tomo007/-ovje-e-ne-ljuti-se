@@ -3,7 +3,7 @@
 //
 
 #include "stdafx.h"
-#include "ÈovjeèeNeLjutiSe.h"
+#include "CovjeceNeLjutiSe.h"
 
 #include "MainFrm.h"
 

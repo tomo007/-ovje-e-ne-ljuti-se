@@ -194,9 +194,9 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="ČovječeNeLjutiSe.h" />
-    <ClInclude Include="ČovječeNeLjutiSeDoc.h" />
-    <ClInclude Include="ČovječeNeLjutiSeView.h" />
+    <ClInclude Include="CovjeceNeLjutiSe.h" />
+    <ClInclude Include="CovjeceNeLjutiSeDoc.h" />
+    <ClInclude Include="CovjeceNeLjutiSeView.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Figura.cpp" />
@@ -210,9 +210,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="ČovječeNeLjutiSe.cpp" />
-    <ClCompile Include="ČovječeNeLjutiSeDoc.cpp" />
-    <ClCompile Include="ČovječeNeLjutiSeView.cpp" />
+    <ClCompile Include="CovjeceNeLjutiSe.cpp" />
+    <ClCompile Include="CovjeceNeLjutiSeDoc.cpp" />
+    <ClCompile Include="CovjeceNeLjutiSeView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\CovjeceNeLjutiSe.ico" />

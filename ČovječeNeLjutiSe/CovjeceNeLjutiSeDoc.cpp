@@ -6,10 +6,10 @@
 // SHARED_HANDLERS can be defined in an ATL project implementing preview, thumbnail
 // and search filter handlers and allows sharing of document code with that project.
 #ifndef SHARED_HANDLERS
-#include "ÈovjeèeNeLjutiSe.h"
+#include "CovjeceNeLjutiSe.h"
 #endif
 
-#include "ÈovjeèeNeLjutiSeDoc.h"
+#include "CovjeceNeLjutiSeDoc.h"
 
 #include <propkey.h>
 
@@ -19,25 +19,25 @@
 
 // CÈovjeèeNeLjutiSeDoc
 
-IMPLEMENT_DYNCREATE(CÈovjeèeNeLjutiSeDoc, CDocument)
+IMPLEMENT_DYNCREATE(CCovjeceNeLjutiSeDoc, CDocument)
 
-BEGIN_MESSAGE_MAP(CÈovjeèeNeLjutiSeDoc, CDocument)
+BEGIN_MESSAGE_MAP(CCovjeceNeLjutiSeDoc, CDocument)
 END_MESSAGE_MAP()
 
 
 // CÈovjeèeNeLjutiSeDoc construction/destruction
 
-CÈovjeèeNeLjutiSeDoc::CÈovjeèeNeLjutiSeDoc()
+CCovjeceNeLjutiSeDoc::CCovjeceNeLjutiSeDoc()
 {
 	// TODO: add one-time construction code here
 
 }
 
-CÈovjeèeNeLjutiSeDoc::~CÈovjeèeNeLjutiSeDoc()
+CCovjeceNeLjutiSeDoc::~CCovjeceNeLjutiSeDoc()
 {
 }
 
-BOOL CÈovjeèeNeLjutiSeDoc::OnNewDocument()
+BOOL CCovjeceNeLjutiSeDoc::OnNewDocument()
 {
 	if (!CDocument::OnNewDocument())
 		return FALSE;
@@ -53,7 +53,7 @@ BOOL CÈovjeèeNeLjutiSeDoc::OnNewDocument()
 
 // CÈovjeèeNeLjutiSeDoc serialization
 
-void CÈovjeèeNeLjutiSeDoc::Serialize(CArchive& ar)
+void CCovjeceNeLjutiSeDoc::Serialize(CArchive& ar)
 {
 	if (ar.IsStoring())
 	{
@@ -122,12 +122,12 @@ void CÈovjeèeNeLjutiSeDoc::SetSearchContent(const CString& value)
 // CÈovjeèeNeLjutiSeDoc diagnostics
 
 #ifdef _DEBUG
-void CÈovjeèeNeLjutiSeDoc::AssertValid() const
+void CCovjeceNeLjutiSeDoc::AssertValid() const
 {
 	CDocument::AssertValid();
 }
 
-void CÈovjeèeNeLjutiSeDoc::Dump(CDumpContext& dc) const
+void CCovjeceNeLjutiSeDoc::Dump(CDumpContext& dc) const
 {
 	CDocument::Dump(dc);
 }

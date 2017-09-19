@@ -5,11 +5,11 @@
 #include "stdafx.h"
 #include "afxwinappex.h"
 #include "afxdialogex.h"
-#include "ÈovjeèeNeLjutiSe.h"
+#include "CovjeceNeLjutiSe.h"
 #include "MainFrm.h"
 
-#include "ÈovjeèeNeLjutiSeDoc.h"
-#include "ÈovjeèeNeLjutiSeView.h"
+#include "CovjeceNeLjutiSeDoc.h"
+#include "CovjeceNeLjutiSeView.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -18,8 +18,8 @@
 
 // CÈovjeèeNeLjutiSeApp
 
-BEGIN_MESSAGE_MAP(CÈovjeèeNeLjutiSeApp, CWinApp)
-	ON_COMMAND(ID_APP_ABOUT, &CÈovjeèeNeLjutiSeApp::OnAppAbout)
+BEGIN_MESSAGE_MAP(CCovjeceNeLjutiSeApp, CWinApp)
+	ON_COMMAND(ID_APP_ABOUT, &CCovjeceNeLjutiSeApp::OnAppAbout)
 	// Standard file based document commands
 	ON_COMMAND(ID_FILE_NEW, &CWinApp::OnFileNew)
 	ON_COMMAND(ID_FILE_OPEN, &CWinApp::OnFileOpen)
@@ -28,7 +28,7 @@ END_MESSAGE_MAP()
 
 // CÈovjeèeNeLjutiSeApp construction
 
-CÈovjeèeNeLjutiSeApp::CÈovjeèeNeLjutiSeApp()
+CCovjeceNeLjutiSeApp::CCovjeceNeLjutiSeApp()
 {
 	// TODO: replace application ID string below with unique ID string; recommended
 	// format for string is CompanyName.ProductName.SubProduct.VersionInformation
@@ -40,12 +40,12 @@ CÈovjeèeNeLjutiSeApp::CÈovjeèeNeLjutiSeApp()
 
 // The one and only CÈovjeèeNeLjutiSeApp object
 
-CÈovjeèeNeLjutiSeApp theApp;
+CCovjeceNeLjutiSeApp theApp;
 
 
 // CÈovjeèeNeLjutiSeApp initialization
 
-BOOL CÈovjeèeNeLjutiSeApp::InitInstance()
+BOOL CCovjeceNeLjutiSeApp::InitInstance()
 {
 	// InitCommonControlsEx() is required on Windows XP if an application
 	// manifest specifies use of ComCtl32.dll version 6 or later to enable
@@ -81,9 +81,9 @@ BOOL CÈovjeèeNeLjutiSeApp::InitInstance()
 	CSingleDocTemplate* pDocTemplate;
 	pDocTemplate = new CSingleDocTemplate(
 		IDR_MAINFRAME,
-		RUNTIME_CLASS(CÈovjeèeNeLjutiSeDoc),
+		RUNTIME_CLASS(CCovjeceNeLjutiSeDoc),
 		RUNTIME_CLASS(CMainFrame),       // main SDI frame window
-		RUNTIME_CLASS(CÈovjeèeNeLjutiSeView));
+		RUNTIME_CLASS(CCovjeCeNeLjutiSeView));
 	if (!pDocTemplate)
 		return FALSE;
 	AddDocTemplate(pDocTemplate);
@@ -142,7 +142,7 @@ BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
 END_MESSAGE_MAP()
 
 // App command to run the dialog
-void CÈovjeèeNeLjutiSeApp::OnAppAbout()
+void CCovjeceNeLjutiSeApp::OnAppAbout()
 {
 	CAboutDlg aboutDlg;
 	aboutDlg.DoModal();

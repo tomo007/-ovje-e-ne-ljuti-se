@@ -7,15 +7,15 @@
 #include "Igra.h"
 
 
-class CČovječeNeLjutiSeView : public CView
+class CCovjeCeNeLjutiSeView : public CView
 {
 protected: // create from serialization only
-	CČovječeNeLjutiSeView();
-	DECLARE_DYNCREATE(CČovječeNeLjutiSeView)
+	CCovjeCeNeLjutiSeView();
+	DECLARE_DYNCREATE(CCovjeCeNeLjutiSeView)
 
 // Attributes
 public:
-	CČovječeNeLjutiSeDoc* GetDocument() const;
+	CCovjeceNeLjutiSeDoc* GetDocument() const;
 
 //članovi igre
 private: Igra* igra;
@@ -102,7 +102,7 @@ protected:
 
 // Implementation
 public:
-	virtual ~CČovječeNeLjutiSeView();
+	virtual ~CCovjeCeNeLjutiSeView();
 
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;

@@ -14,10 +14,10 @@
 // See ÈovjeèeNeLjutiSe.cpp for the implementation of this class
 //
 
-class CÈovjeèeNeLjutiSeApp : public CWinApp
+class CCovjeceNeLjutiSeApp : public CWinApp
 {
 public:
-	CÈovjeèeNeLjutiSeApp();
+	CCovjeceNeLjutiSeApp();
 
 
 // Overrides
@@ -29,4 +29,4 @@ public:
 	DECLARE_MESSAGE_MAP()
 };
 
-extern CÈovjeèeNeLjutiSeApp theApp;
+extern CCovjeceNeLjutiSeApp theApp;
